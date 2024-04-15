@@ -13,6 +13,30 @@
 		FA25AEB62BC6D43700B08AF4 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = FA25AEB52BC6D43700B08AF4 /* Base */; };
 		FA25AEB82BC6D43800B08AF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA25AEB72BC6D43800B08AF4 /* Assets.xcassets */; };
 		FA25AEBB2BC6D43800B08AF4 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = FA25AEBA2BC6D43800B08AF4 /* Base */; };
+		FA25AEC72BC8A2E100B08AF4 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = FA25AEC62BC8A2E100B08AF4 /* SnapKit */; };
+		FA25AECA2BC8A2E600B08AF4 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = FA25AEC92BC8A2E600B08AF4 /* Alamofire */; };
+		FA25AECC2BC8A2E600B08AF4 /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = FA25AECB2BC8A2E600B08AF4 /* AlamofireDynamic */; };
+		FA25AECF2BC8A2EB00B08AF4 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = FA25AECE2BC8A2EB00B08AF4 /* Kingfisher */; };
+		FA25AED22BC8A2F700B08AF4 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = FA25AED12BC8A2F700B08AF4 /* RxCocoa */; };
+		FA25AED42BC8A2F700B08AF4 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FA25AED32BC8A2F700B08AF4 /* RxSwift */; };
+		FA25AED72BC8A2FD00B08AF4 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = FA25AED62BC8A2FD00B08AF4 /* Toast */; };
+		FA25AEDF2BC8A32700B08AF4 /* HTTPHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AED92BC8A32700B08AF4 /* HTTPHeader.swift */; };
+		FA25AEE02BC8A32700B08AF4 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AEDA2BC8A32700B08AF4 /* APIKey.swift */; };
+		FA25AEE12BC8A32700B08AF4 /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AEDB2BC8A32700B08AF4 /* TargetType.swift */; };
+		FA25AEE22BC8A32700B08AF4 /* LoginQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AEDC2BC8A32700B08AF4 /* LoginQuery.swift */; };
+		FA25AEE32BC8A32700B08AF4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AEDD2BC8A32700B08AF4 /* NetworkManager.swift */; };
+		FA25AEE42BC8A32700B08AF4 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AEDE2BC8A32700B08AF4 /* Router.swift */; };
+		FA25AEEA2BC8A3D000B08AF4 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AEE92BC8A3D000B08AF4 /* LoginViewModel.swift */; };
+		FA25AEED2BC8A3E900B08AF4 /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AEEC2BC8A3E900B08AF4 /* ViewModelType.swift */; };
+		FA25AEEF2BC8A45000B08AF4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AEEE2BC8A45000B08AF4 /* LoginViewController.swift */; };
+		FA25AEF42BC8A48E00B08AF4 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AEF22BC8A48E00B08AF4 /* BaseViewController.swift */; };
+		FA25AEF62BC8A4A100B08AF4 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AEF52BC8A4A100B08AF4 /* LoginView.swift */; };
+		FA25AEF92BC8A65500B08AF4 /* SignTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AEF82BC8A65500B08AF4 /* SignTextField.swift */; };
+		FA25AEFC2BC8A68900B08AF4 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AEFB2BC8A68900B08AF4 /* Color.swift */; };
+		FA25AF002BC8A80200B08AF4 /* FilledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AEFF2BC8A80200B08AF4 /* FilledButton.swift */; };
+		FA25AF252BCD860C00B08AF4 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AF242BCD860C00B08AF4 /* SignUpViewController.swift */; };
+		FA25AF272BCD8A6900B08AF4 /* NumberTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AF262BCD8A6900B08AF4 /* NumberTextField.swift */; };
+		FA25AF292BCD8AEB00B08AF4 /* BirthdayDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AF282BCD8AEB00B08AF4 /* BirthdayDatePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +48,23 @@
 		FA25AEB72BC6D43800B08AF4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA25AEBA2BC6D43800B08AF4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FA25AEBC2BC6D43800B08AF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA25AED92BC8A32700B08AF4 /* HTTPHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPHeader.swift; sourceTree = "<group>"; };
+		FA25AEDA2BC8A32700B08AF4 /* APIKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		FA25AEDB2BC8A32700B08AF4 /* TargetType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
+		FA25AEDC2BC8A32700B08AF4 /* LoginQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginQuery.swift; sourceTree = "<group>"; };
+		FA25AEDD2BC8A32700B08AF4 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		FA25AEDE2BC8A32700B08AF4 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		FA25AEE92BC8A3D000B08AF4 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		FA25AEEC2BC8A3E900B08AF4 /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
+		FA25AEEE2BC8A45000B08AF4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		FA25AEF22BC8A48E00B08AF4 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		FA25AEF52BC8A4A100B08AF4 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		FA25AEF82BC8A65500B08AF4 /* SignTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignTextField.swift; sourceTree = "<group>"; };
+		FA25AEFB2BC8A68900B08AF4 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		FA25AEFF2BC8A80200B08AF4 /* FilledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledButton.swift; sourceTree = "<group>"; };
+		FA25AF242BCD860C00B08AF4 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		FA25AF262BCD8A6900B08AF4 /* NumberTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberTextField.swift; sourceTree = "<group>"; };
+		FA25AF282BCD8AEB00B08AF4 /* BirthdayDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayDatePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +72,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA25AED42BC8A2F700B08AF4 /* RxSwift in Frameworks */,
+				FA25AECF2BC8A2EB00B08AF4 /* Kingfisher in Frameworks */,
+				FA25AEC72BC8A2E100B08AF4 /* SnapKit in Frameworks */,
+				FA25AED22BC8A2F700B08AF4 /* RxCocoa in Frameworks */,
+				FA25AECC2BC8A2E600B08AF4 /* AlamofireDynamic in Frameworks */,
+				FA25AED72BC8A2FD00B08AF4 /* Toast in Frameworks */,
+				FA25AECA2BC8A2E600B08AF4 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,6 +104,12 @@
 		FA25AEAD2BC6D43700B08AF4 /* AdVoyager */ = {
 			isa = PBXGroup;
 			children = (
+				FA25AEF02BC8A48800B08AF4 /* Base */,
+				FA25AEEB2BC8A3E300B08AF4 /* Protocol */,
+				FA25AED82BC8A31E00B08AF4 /* Network */,
+				FA25AEE52BC8A3A800B08AF4 /* Present */,
+				FA25AEFA2BC8A67A00B08AF4 /* Resource */,
+				FA25AEF72BC8A64700B08AF4 /* CustomView */,
 				FA25AEAE2BC6D43700B08AF4 /* AppDelegate.swift */,
 				FA25AEB02BC6D43700B08AF4 /* SceneDelegate.swift */,
 				FA25AEB22BC6D43700B08AF4 /* ViewController.swift */,
@@ -65,6 +119,113 @@
 				FA25AEBC2BC6D43800B08AF4 /* Info.plist */,
 			);
 			path = AdVoyager;
+			sourceTree = "<group>";
+		};
+		FA25AED82BC8A31E00B08AF4 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				FA25AEDA2BC8A32700B08AF4 /* APIKey.swift */,
+				FA25AED92BC8A32700B08AF4 /* HTTPHeader.swift */,
+				FA25AEDC2BC8A32700B08AF4 /* LoginQuery.swift */,
+				FA25AEDD2BC8A32700B08AF4 /* NetworkManager.swift */,
+				FA25AEDE2BC8A32700B08AF4 /* Router.swift */,
+				FA25AEDB2BC8A32700B08AF4 /* TargetType.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		FA25AEE52BC8A3A800B08AF4 /* Present */ = {
+			isa = PBXGroup;
+			children = (
+				FA25AEE62BC8A3B100B08AF4 /* Login */,
+				FA25AF212BCD85E700B08AF4 /* SignUp */,
+			);
+			path = Present;
+			sourceTree = "<group>";
+		};
+		FA25AEE62BC8A3B100B08AF4 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				FA25AEE82BC8A3C800B08AF4 /* ViewModel */,
+				FA25AEE72BC8A3BE00B08AF4 /* View */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		FA25AEE72BC8A3BE00B08AF4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FA25AEEE2BC8A45000B08AF4 /* LoginViewController.swift */,
+				FA25AEF52BC8A4A100B08AF4 /* LoginView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FA25AEE82BC8A3C800B08AF4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FA25AEE92BC8A3D000B08AF4 /* LoginViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FA25AEEB2BC8A3E300B08AF4 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				FA25AEEC2BC8A3E900B08AF4 /* ViewModelType.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		FA25AEF02BC8A48800B08AF4 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				FA25AEF22BC8A48E00B08AF4 /* BaseViewController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		FA25AEF72BC8A64700B08AF4 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				FA25AEF82BC8A65500B08AF4 /* SignTextField.swift */,
+				FA25AEFF2BC8A80200B08AF4 /* FilledButton.swift */,
+				FA25AF262BCD8A6900B08AF4 /* NumberTextField.swift */,
+				FA25AF282BCD8AEB00B08AF4 /* BirthdayDatePicker.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		FA25AEFA2BC8A67A00B08AF4 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				FA25AEFB2BC8A68900B08AF4 /* Color.swift */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		FA25AF212BCD85E700B08AF4 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				FA25AF232BCD860000B08AF4 /* ViewModel */,
+				FA25AF222BCD85FC00B08AF4 /* View */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		FA25AF222BCD85FC00B08AF4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FA25AF242BCD860C00B08AF4 /* SignUpViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FA25AF232BCD860000B08AF4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +244,15 @@
 			dependencies = (
 			);
 			name = AdVoyager;
+			packageProductDependencies = (
+				FA25AEC62BC8A2E100B08AF4 /* SnapKit */,
+				FA25AEC92BC8A2E600B08AF4 /* Alamofire */,
+				FA25AECB2BC8A2E600B08AF4 /* AlamofireDynamic */,
+				FA25AECE2BC8A2EB00B08AF4 /* Kingfisher */,
+				FA25AED12BC8A2F700B08AF4 /* RxCocoa */,
+				FA25AED32BC8A2F700B08AF4 /* RxSwift */,
+				FA25AED62BC8A2FD00B08AF4 /* Toast */,
+			);
 			productName = AdVoyager;
 			productReference = FA25AEAB2BC6D43700B08AF4 /* AdVoyager.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +281,13 @@
 				Base,
 			);
 			mainGroup = FA25AEA22BC6D43700B08AF4;
+			packageReferences = (
+				FA25AEC52BC8A2E100B08AF4 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				FA25AEC82BC8A2E600B08AF4 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				FA25AECD2BC8A2EB00B08AF4 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				FA25AED02BC8A2F700B08AF4 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				FA25AED52BC8A2FD00B08AF4 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+			);
 			productRefGroup = FA25AEAC2BC6D43700B08AF4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -138,9 +315,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA25AEEF2BC8A45000B08AF4 /* LoginViewController.swift in Sources */,
+				FA25AEF92BC8A65500B08AF4 /* SignTextField.swift in Sources */,
+				FA25AEED2BC8A3E900B08AF4 /* ViewModelType.swift in Sources */,
+				FA25AF002BC8A80200B08AF4 /* FilledButton.swift in Sources */,
+				FA25AEF62BC8A4A100B08AF4 /* LoginView.swift in Sources */,
+				FA25AEE12BC8A32700B08AF4 /* TargetType.swift in Sources */,
+				FA25AF252BCD860C00B08AF4 /* SignUpViewController.swift in Sources */,
+				FA25AEFC2BC8A68900B08AF4 /* Color.swift in Sources */,
+				FA25AEDF2BC8A32700B08AF4 /* HTTPHeader.swift in Sources */,
+				FA25AEF42BC8A48E00B08AF4 /* BaseViewController.swift in Sources */,
+				FA25AF292BCD8AEB00B08AF4 /* BirthdayDatePicker.swift in Sources */,
 				FA25AEB32BC6D43700B08AF4 /* ViewController.swift in Sources */,
+				FA25AF272BCD8A6900B08AF4 /* NumberTextField.swift in Sources */,
 				FA25AEAF2BC6D43700B08AF4 /* AppDelegate.swift in Sources */,
+				FA25AEE42BC8A32700B08AF4 /* Router.swift in Sources */,
+				FA25AEE32BC8A32700B08AF4 /* NetworkManager.swift in Sources */,
+				FA25AEE22BC8A32700B08AF4 /* LoginQuery.swift in Sources */,
 				FA25AEB12BC6D43700B08AF4 /* SceneDelegate.swift in Sources */,
+				FA25AEEA2BC8A3D000B08AF4 /* LoginViewModel.swift in Sources */,
+				FA25AEE02BC8A32700B08AF4 /* APIKey.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,6 +567,87 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FA25AEC52BC8A2E100B08AF4 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		FA25AEC82BC8A2E600B08AF4 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
+		FA25AECD2BC8A2EB00B08AF4 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.11.0;
+			};
+		};
+		FA25AED02BC8A2F700B08AF4 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.6.0;
+			};
+		};
+		FA25AED52BC8A2FD00B08AF4 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FA25AEC62BC8A2E100B08AF4 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA25AEC52BC8A2E100B08AF4 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		FA25AEC92BC8A2E600B08AF4 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA25AEC82BC8A2E600B08AF4 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		FA25AECB2BC8A2E600B08AF4 /* AlamofireDynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA25AEC82BC8A2E600B08AF4 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = AlamofireDynamic;
+		};
+		FA25AECE2BC8A2EB00B08AF4 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA25AECD2BC8A2EB00B08AF4 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		FA25AED12BC8A2F700B08AF4 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA25AED02BC8A2F700B08AF4 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		FA25AED32BC8A2F700B08AF4 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA25AED02BC8A2F700B08AF4 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		FA25AED62BC8A2FD00B08AF4 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA25AED52BC8A2FD00B08AF4 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FA25AEA32BC6D43700B08AF4 /* Project object */;
 }
