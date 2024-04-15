@@ -15,6 +15,12 @@ struct LoginModel: Decodable {
     let refreshToken: String
 }
 
+struct SignUpModel: Decodable {
+    let user_id: String
+    let email: String
+    let nick: String
+}
+
 struct NetworkManager {
     
     static func createLogin(query: LoginQuery) -> Single<LoginModel> {
@@ -29,6 +35,31 @@ struct NetworkManager {
                         switch response.result {
                         case .success(let loginModel):
                             single(.success(loginModel))
+                        case .failure(let error):
+                            single(.failure(error))
+                        }
+                    }
+            } catch {
+                single(.failure(error))
+            }
+            
+            return Disposables.create()
+        }
+    }
+    
+    static func createSignUp(query: SignUpQuery) -> Single<SignUpModel> {
+        return Single<SignUpModel>.create { single in
+            do {
+                let urlRequest = try Router.signUp(query: query).asURLRequest()
+                                
+                print("쿼리 내용: \(query)")
+                
+                AF.request(urlRequest)
+                    .validate(statusCode: 200..<300)
+                    .responseDecodable(of: SignUpModel.self) { response in
+                        switch response.result {
+                        case .success(let signUpModel):
+                            single(.success(signUpModel))
                         case .failure(let error):
                             single(.failure(error))
                         }

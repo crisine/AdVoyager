@@ -42,7 +42,7 @@ final class LoginViewModel: ViewModelType {
         
         loginObservable
             .bind(with: self) { owner, login in
-                if login.email.contains("@") && login.password.count > 3 {
+                if login.email.contains("@") && login.password.count > 8 {
                     loginValid.accept(true)
                 } else {
                     loginValid.accept(false)

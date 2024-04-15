@@ -22,6 +22,10 @@ class BirthdayDatePicker: UIDatePicker {
         
         minimumDate = dateFormatter.date(from: dateString)
         maximumDate = Date.now
+        datePickerMode = .date
+        timeZone = .current
+        
+        let picker = UIDatePicker()
     }
     
     @available(*, unavailable)

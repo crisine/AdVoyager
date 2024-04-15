@@ -30,10 +30,31 @@ final class SignUpViewController: BaseViewController  {
         return view
     }()
     
-    private let birthDayDatePicker: BirthdayDatePicker = {
+    private let birthdayDatePickerTitle: UILabel = {
+        let view = UILabel()
+        view.text = "생년월일 입력"
+        view.font = .boldSystemFont(ofSize: 32)
+        return view
+    }()
+    
+    private let birthdayDatePicker: BirthdayDatePicker = {
         let view = BirthdayDatePicker()
         return view
     }()
+    
+    private let stackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.distribution = .fillProportionally
+        return view
+    }()
+    
+    private let signUpButton: FilledButton = {
+        let view = FilledButton(title: "회원가입", fillColor: .systemBlue)
+        return view
+    }()
+    
+    private let viewModel = SignUpViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,12 +62,37 @@ final class SignUpViewController: BaseViewController  {
     }
     
     override func bind() {
-        [emailTextField, passwordTextField, nicknameTextField, phoneNumTextField, birthDayDatePicker].forEach {
+        let input = SignUpViewModel.Input(emailText: emailTextField.rx.text.orEmpty.asObservable(),
+                                          passwordText: passwordTextField.rx.text.orEmpty.asObservable(),
+                                          nicknameText: nicknameTextField.rx.text.orEmpty.asObservable(),
+                                          phoneNumberText: phoneNumTextField.rx.text.orEmpty.asObservable(),
+                                          birthdayDate: birthdayDatePicker.rx.date.asObservable(), signUpButtonTapped: signUpButton.rx.tap.asObservable())
+        
+        let output = viewModel.transform(input: input)
+        
+        output.signUpValidation
+            .drive(with: self) { owner, valid in
+                owner.signUpButton.isEnabled = valid
+            }
+            .disposed(by: disposeBag)
+        
+        output.signUpSuccessTrigger
+            .drive(with: self) { owner, _ in
+                owner.navigationController?.popViewController(animated: true)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    override func configureHierarchy() {
+        stackView.addArrangedSubview(birthdayDatePickerTitle)
+        stackView.addArrangedSubview(birthdayDatePicker)
+        
+        [emailTextField, passwordTextField, nicknameTextField, phoneNumTextField, stackView, signUpButton].forEach {
             view.addSubview($0)
         }
     }
     
-    override func configureHierarchy() {
+    override func configureConstraints() {
         emailTextField.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(60)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
@@ -71,15 +117,17 @@ final class SignUpViewController: BaseViewController  {
             make.height.equalTo(emailTextField)
         }
         
-        birthDayDatePicker.snp.makeConstraints { make in
+        stackView.snp.makeConstraints { make in
             make.top.equalTo(phoneNumTextField.snp.bottom).offset(16)
             make.horizontalEdges.equalTo(emailTextField.snp.horizontalEdges)
-            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
+            make.height.equalTo(emailTextField)
         }
-    }
-    
-    override func configureConstraints() {
-       
+        
+        signUpButton.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-60)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.height.equalTo(48)
+        }
     }
     
     override func configureView() {
