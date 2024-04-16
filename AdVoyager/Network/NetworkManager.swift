@@ -21,6 +21,22 @@ struct SignUpModel: Decodable {
     let nick: String
 }
 
+struct ProfileModel: Decodable {
+    let user_id: String
+    let email: String
+    let nick: String
+    let phoneNum: String?
+    let birthDay: String?
+    let profileImage: String?
+    let followers: [Follower]
+}
+
+struct Follower: Decodable {
+    let user_id: String
+    let nick: String
+    let profileImage: String
+}
+
 struct NetworkManager {
     
     static func createLogin(query: LoginQuery) -> Single<LoginModel> {
@@ -60,6 +76,29 @@ struct NetworkManager {
                         switch response.result {
                         case .success(let signUpModel):
                             single(.success(signUpModel))
+                        case .failure(let error):
+                            single(.failure(error))
+                        }
+                    }
+            } catch {
+                single(.failure(error))
+            }
+            
+            return Disposables.create()
+        }
+    }
+    
+    static func fetchProfile() -> Single<ProfileModel> {
+        return Single<ProfileModel>.create { single in
+            do {
+                let urlRequest = try Router.profile.asURLRequest()
+                
+                AF.request(urlRequest)
+                    .validate(statusCode: 200..<300)
+                    .responseDecodable(of: ProfileModel.self) { response in
+                        switch response.result {
+                        case .success(let profileModel):
+                            single(.success(profileModel))
                         case .failure(let error):
                             single(.failure(error))
                         }

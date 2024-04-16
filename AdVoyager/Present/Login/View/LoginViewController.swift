@@ -56,8 +56,8 @@ final class LoginViewController: BaseViewController {
         
         output.loginSuccessTrigger
             .drive(with: self) { owner, _ in
-                // ChangeViewController -> MainView
-                print("로그인 성공, 화면 전환 요함.")
+                let vc = MainTabBarViewController()
+                owner.view.window?.rootViewController = vc
             }
             .disposed(by: disposeBag)
         

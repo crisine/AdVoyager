@@ -40,6 +40,10 @@
 		FA25AF2D2BCD990700B08AF4 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AF2C2BCD990700B08AF4 /* SignUpViewModel.swift */; };
 		FA25AF312BCD9BA300B08AF4 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AF302BCD9BA300B08AF4 /* Date+Extension.swift */; };
 		FA25AF332BCD9C5800B08AF4 /* SignUpQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AF322BCD9C5700B08AF4 /* SignUpQuery.swift */; };
+		FA25AF382BCDD0BA00B08AF4 /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AF372BCDD0BA00B08AF4 /* OverviewViewController.swift */; };
+		FA25AF3D2BCDD15D00B08AF4 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AF3C2BCDD15D00B08AF4 /* ProfileViewController.swift */; };
+		FA25AF422BCDD52900B08AF4 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AF412BCDD52900B08AF4 /* MainTabBarViewController.swift */; };
+		FAE788952BCF0DC300623467 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE788942BCF0DC300623467 /* ProfileViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +75,10 @@
 		FA25AF2C2BCD990700B08AF4 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		FA25AF302BCD9BA300B08AF4 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		FA25AF322BCD9C5700B08AF4 /* SignUpQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpQuery.swift; sourceTree = "<group>"; };
+		FA25AF372BCDD0BA00B08AF4 /* OverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
+		FA25AF3C2BCDD15D00B08AF4 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		FA25AF412BCDD52900B08AF4 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
+		FAE788942BCF0DC300623467 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,8 +153,12 @@
 		FA25AEE52BC8A3A800B08AF4 /* Present */ = {
 			isa = PBXGroup;
 			children = (
+				FA25AF3E2BCDD1A000B08AF4 /* TabBar */,
 				FA25AEE62BC8A3B100B08AF4 /* Login */,
 				FA25AF212BCD85E700B08AF4 /* SignUp */,
+				FA25AF342BCDD08E00B08AF4 /* OverView */,
+				FA25AF392BCDD13700B08AF4 /* Profile */,
+				FAE788992BCF210900623467 /* EditProfile */,
 			);
 			path = Present;
 			sourceTree = "<group>";
@@ -245,6 +257,102 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		FA25AF342BCDD08E00B08AF4 /* OverView */ = {
+			isa = PBXGroup;
+			children = (
+				FA25AF362BCDD0AB00B08AF4 /* ViewModel */,
+				FA25AF352BCDD0A600B08AF4 /* View */,
+			);
+			path = OverView;
+			sourceTree = "<group>";
+		};
+		FA25AF352BCDD0A600B08AF4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FA25AF372BCDD0BA00B08AF4 /* OverviewViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FA25AF362BCDD0AB00B08AF4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FA25AF392BCDD13700B08AF4 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				FA25AF3B2BCDD15300B08AF4 /* ViewModel */,
+				FA25AF3A2BCDD14F00B08AF4 /* View */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		FA25AF3A2BCDD14F00B08AF4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FA25AF3C2BCDD15D00B08AF4 /* ProfileViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FA25AF3B2BCDD15300B08AF4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FAE788942BCF0DC300623467 /* ProfileViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FA25AF3E2BCDD1A000B08AF4 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				FA25AF402BCDD4F200B08AF4 /* ViewModel */,
+				FA25AF3F2BCDD4EB00B08AF4 /* View */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		FA25AF3F2BCDD4EB00B08AF4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FA25AF412BCDD52900B08AF4 /* MainTabBarViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FA25AF402BCDD4F200B08AF4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FAE788992BCF210900623467 /* EditProfile */ = {
+			isa = PBXGroup;
+			children = (
+				FAE7889B2BCF213D00623467 /* ViewModel */,
+				FAE7889A2BCF213900623467 /* View */,
+			);
+			path = EditProfile;
+			sourceTree = "<group>";
+		};
+		FAE7889A2BCF213900623467 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FAE7889B2BCF213D00623467 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -335,9 +443,12 @@
 				FA25AEEF2BC8A45000B08AF4 /* LoginViewController.swift in Sources */,
 				FA25AF312BCD9BA300B08AF4 /* Date+Extension.swift in Sources */,
 				FA25AEF92BC8A65500B08AF4 /* SignTextField.swift in Sources */,
+				FAE788952BCF0DC300623467 /* ProfileViewModel.swift in Sources */,
 				FA25AEED2BC8A3E900B08AF4 /* ViewModelType.swift in Sources */,
 				FA25AF002BC8A80200B08AF4 /* FilledButton.swift in Sources */,
+				FA25AF382BCDD0BA00B08AF4 /* OverviewViewController.swift in Sources */,
 				FA25AEF62BC8A4A100B08AF4 /* LoginView.swift in Sources */,
+				FA25AF422BCDD52900B08AF4 /* MainTabBarViewController.swift in Sources */,
 				FA25AEE12BC8A32700B08AF4 /* TargetType.swift in Sources */,
 				FA25AF332BCD9C5800B08AF4 /* SignUpQuery.swift in Sources */,
 				FA25AF252BCD860C00B08AF4 /* SignUpViewController.swift in Sources */,
@@ -353,6 +464,7 @@
 				FA25AEE32BC8A32700B08AF4 /* NetworkManager.swift in Sources */,
 				FA25AEE22BC8A32700B08AF4 /* LoginQuery.swift in Sources */,
 				FA25AEB12BC6D43700B08AF4 /* SceneDelegate.swift in Sources */,
+				FA25AF3D2BCDD15D00B08AF4 /* ProfileViewController.swift in Sources */,
 				FA25AEEA2BC8A3D000B08AF4 /* LoginViewModel.swift in Sources */,
 				FA25AEE02BC8A32700B08AF4 /* APIKey.swift in Sources */,
 			);
