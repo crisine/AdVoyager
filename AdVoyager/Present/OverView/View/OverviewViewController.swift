@@ -10,36 +10,64 @@ import SnapKit
 
 final class OverviewViewController: BaseViewController {
     
-    let tempLabel: UILabel = {
-        let view = UILabel()
-        view.text = "Overview"
-        view.font = .boldSystemFont(ofSize: 32)
+    private lazy var mainPostCollectionView: UICollectionView = {
+        let view = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+        view.register(PostCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        return view
+    }()
+    private let addDummyDataButton: FilledButton = {
+        let view = FilledButton(title: "추가", fillColor: .systemBlue)
+        view.layer.cornerRadius = 32
         return view
     }()
     
+    private let viewModel = OverviewViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print(#function)
     }
     
     override func bind() {
+        print(#function)
+        let input = OverviewViewModel.Input(addDummyDataButtonTap: addDummyDataButton.rx.tap.asObservable())
         
+        let output = viewModel.transform(input: input)
+        
+        output.dataSource
+            .drive(mainPostCollectionView.rx.items(cellIdentifier: "cell", cellType: PostCollectionViewCell.self)) { row, element, cell in
+                print("설정이 되고있긴 하세요?")
+                cell.titleLabel.rx.text.onNext(element)
+            }
+            .disposed(by: disposeBag)
     }
     
     override func configureHierarchy() {
-        view.addSubview(tempLabel)
+        view.addSubview(mainPostCollectionView)
+        view.addSubview(addDummyDataButton)
     }
     
     override func configureConstraints() {
-        tempLabel.snp.makeConstraints { make in
-            make.center.equalTo(view)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
-            make.height.equalTo(36)
+        mainPostCollectionView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        addDummyDataButton.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-32)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(32)
+            make.size.equalTo(64)
         }
     }
     
     override func configureView() {
-        
+        mainPostCollectionView.backgroundColor = .systemGray5
     }
     
+    private func createLayout() -> UICollectionViewLayout {
+        let layout = UICollectionViewFlowLayout()
+        
+        layout.scrollDirection = .vertical
+        
+        return layout
+    }
 }

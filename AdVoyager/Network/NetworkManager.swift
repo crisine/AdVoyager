@@ -9,6 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 import Alamofire
+import Kingfisher
 
 struct LoginModel: Decodable {
     let accessToken: String
@@ -38,6 +39,15 @@ struct Follower: Decodable {
 }
 
 struct NetworkManager {
+    
+    static let kingfisherImageRequest = AnyModifier { request in
+        var requestBody = request
+        
+        requestBody.setValue(UserDefaults.standard.string(forKey: "accessToken"), forHTTPHeaderField: HTTPHeader.authorization.rawValue)
+        requestBody.setValue(APIKey.sesacKey.rawValue, forHTTPHeaderField: HTTPHeader.sesacKey.rawValue)
+        
+        return requestBody
+    }
     
     static func createLogin(query: LoginQuery) -> Single<LoginModel> {
         return Single<LoginModel>.create { single in
@@ -104,6 +114,31 @@ struct NetworkManager {
                         }
                     }
             } catch {
+                single(.failure(error))
+            }
+            
+            return Disposables.create()
+        }
+    }
+    
+    static func editProfile(query: EditProfileQuery) -> Single<ProfileModel> {
+        return Single<ProfileModel>.create { single in
+            do {
+                let urlRequest = try Router.editProfile(query: query).asURLRequest()
+                
+                AF.upload(multipartFormData: Router.editProfile(query: query).multipart, with: urlRequest)
+                .validate(statusCode: 200..<300)
+                .responseDecodable(of: ProfileModel.self) { response in
+                    switch response.result {
+                    case .success(let profileModel):
+                        single(.success(profileModel))
+                    case .failure(let error):
+                        single(.failure(error))
+                    }
+                }
+                
+            } catch {
+                print("프로필 수정 과정에서 에러 발생: ",error, error.localizedDescription)
                 single(.failure(error))
             }
             

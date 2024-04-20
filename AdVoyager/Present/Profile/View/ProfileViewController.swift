@@ -55,7 +55,12 @@ final class ProfileViewController: BaseViewController {
             .asObservable()
             .subscribe(with: self) { owner, profile in
                 guard let profile else { return }
-                owner.profileImageView.kf.setImage(with: URL(string: profile.profileImage ?? ""), placeholder: UIImage(systemName: "person"))
+                
+                let imageURL = APIKey.baseURL.rawValue + "/" + profile.profileImage!
+                
+                print("프로필 이미지 url: \(imageURL)")
+                
+                owner.profileImageView.kf.setImage(with: URL(string: imageURL), placeholder: UIImage(systemName: "person"), options: [.requestModifier(NetworkManager.kingfisherImageRequest)])
                 owner.nickNameLabel.text = profile.nick
                 owner.emailLabel.text = profile.email
             }
@@ -63,7 +68,8 @@ final class ProfileViewController: BaseViewController {
         
         output.editProfileTrigger.asObservable()
             .subscribe(with: self) { owner, _ in
-                let vc = 
+                let vc = EditProfileViewController()
+                owner.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: disposeBag)
     }

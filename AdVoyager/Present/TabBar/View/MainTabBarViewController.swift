@@ -12,8 +12,8 @@ class MainTabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let overviewVC = OverviewViewController()
-        let profileVC = ProfileViewController()
+        let overviewVC = UINavigationController(rootViewController: OverviewViewController())
+        let profileVC = UINavigationController(rootViewController: ProfileViewController())
         
         overviewVC.title = "메인"
         overviewVC.tabBarItem.image = UIImage(systemName: "airplane.circle")

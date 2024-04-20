@@ -19,6 +19,7 @@ enum Router {
     case login(query: LoginQuery)
     case signUp(query: SignUpQuery)
     case profile
+    case editProfile(query: EditProfileQuery)
 //    case withdraw
 //    case fetchPost
 //    case uploadPost
@@ -35,6 +36,7 @@ extension Router: TargetType {
         case .login: .post
         case .signUp: .post
         case .profile: .get
+        case .editProfile: .put
         }
     }
     
@@ -43,6 +45,7 @@ extension Router: TargetType {
         case .login: "/users/login"
         case .signUp: "/users/join"
         case .profile: "/users/me/profile"
+        case .editProfile: "/users/me/profile"
         }
     }
     
@@ -58,6 +61,10 @@ extension Router: TargetType {
             [HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
              HTTPHeader.authorization.rawValue: UserDefaults.standard.string(forKey: "accessToken") ?? "",
              HTTPHeader.sesacKey.rawValue: APIKey.sesacKey.rawValue]
+        case .editProfile:
+            [HTTPHeader.authorization.rawValue: UserDefaults.standard.string(forKey: "accessToken") ?? "",
+             HTTPHeader.contentType.rawValue: HTTPHeader.multipart.rawValue,
+             HTTPHeader.sesacKey.rawValue: APIKey.sesacKey.rawValue]
         }
     }
     
@@ -70,17 +77,45 @@ extension Router: TargetType {
     }
     
     var body: Data? {
+        let encoder = JSONEncoder()
         switch self {
         case .login(let query):
-            let encoder = JSONEncoder()
             encoder.keyEncodingStrategy = .convertToSnakeCase
             return try? encoder.encode(query)
         case .signUp(let query):
-            let encoder = JSONEncoder()
             encoder.keyEncodingStrategy = .convertToSnakeCase
             return try? encoder.encode(query)
         case .profile:
             return nil
+        case .editProfile:
+            return nil
+        }
+    }
+    
+    var multipart: MultipartFormData {
+        let multipart = MultipartFormData()
+        
+        switch self {
+        case .login:
+            return multipart
+        case .signUp:
+            return multipart
+        case .profile:
+            return multipart
+        case .editProfile(let query):
+            let multipart = MultipartFormData()
+            
+            let birthDay = query.birthDay.data(using: .utf8) ?? Data()
+            let nick = query.nick.data(using: .utf8) ?? Data()
+            let phoneNum = query.phoneNum.data(using: .utf8) ?? Data()
+            let profile = query.profile
+            
+            multipart.append(birthDay, withName: "birthDay")
+            multipart.append(nick, withName: "nick")
+            multipart.append(phoneNum, withName: "phoneNum")
+            multipart.append(profile, withName: "profile", fileName: "profileImage.jpeg", mimeType: "image/jpeg")
+            
+            return multipart
         }
     }
 }
