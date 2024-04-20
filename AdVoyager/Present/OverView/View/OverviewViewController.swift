@@ -67,6 +67,9 @@ final class OverviewViewController: BaseViewController {
         let layout = UICollectionViewFlowLayout()
         
         layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 0
+        layout.sectionInset = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 120)
         
         return layout
     }

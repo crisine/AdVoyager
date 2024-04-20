@@ -26,15 +26,15 @@ final class OverviewViewModel: ViewModelType {
         print(#function)
         
         let dataSource = PublishSubject<[String]>()
-        dataSource.onNext(dummyDataArray)
         
         input.addDummyDataButtonTap
             .subscribe(with: self) { owner, _ in
                 print("added new data")
                 owner.dummyDataArray.append(String(Int.random(in: 1...100)))
+                dataSource.onNext(owner.dummyDataArray)
             }
             .disposed(by: disposeBag)
-        
+
         return Output(dataSource: dataSource.asDriver(onErrorJustReturn: []))
     }
     

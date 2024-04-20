@@ -13,12 +13,16 @@ class PostCollectionViewCell: UICollectionViewCell {
         let view = UILabel()
         view.font = .boldSystemFont(ofSize: 24)
         view.textAlignment = .center
+        view.text = "Sample Text"
         return view
     }()
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
         
+        configureHierarchy()
+        configureConstraints()
+        configureView()
     }
     
     func configureHierarchy() {
@@ -27,13 +31,12 @@ class PostCollectionViewCell: UICollectionViewCell {
     
     func configureConstraints() {
         titleLabel.snp.makeConstraints { make in
-            make.edges.equalTo(contentView.safeAreaLayoutGuide)
-            make.height.equalTo(32)
+            make.edges.equalToSuperview()
         }
     }
     
     func configureView() {
-        contentView.backgroundColor = .red
+        
     }
     
     required init?(coder: NSCoder) {
