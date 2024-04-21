@@ -20,6 +20,7 @@ enum Router {
     case signUp(query: SignUpQuery)
     case profile
     case editProfile(query: EditProfileQuery)
+    case fetchPost(query: PostQuery)
 //    case withdraw
 //    case fetchPost
 //    case uploadPost
@@ -37,6 +38,7 @@ extension Router: TargetType {
         case .signUp: .post
         case .profile: .get
         case .editProfile: .put
+        case .fetchPost: .get
         }
     }
     
@@ -46,6 +48,7 @@ extension Router: TargetType {
         case .signUp: "/users/join"
         case .profile: "/users/me/profile"
         case .editProfile: "/users/me/profile"
+        case .fetchPost: "/posts"
         }
     }
     
@@ -64,6 +67,9 @@ extension Router: TargetType {
         case .editProfile:
             [HTTPHeader.authorization.rawValue: UserDefaults.standard.string(forKey: "accessToken") ?? "",
              HTTPHeader.contentType.rawValue: HTTPHeader.multipart.rawValue,
+             HTTPHeader.sesacKey.rawValue: APIKey.sesacKey.rawValue]
+        case .fetchPost:
+            [HTTPHeader.authorization.rawValue: UserDefaults.standard.string(forKey: "accessToken") ?? "",
              HTTPHeader.sesacKey.rawValue: APIKey.sesacKey.rawValue]
         }
     }
@@ -88,6 +94,8 @@ extension Router: TargetType {
         case .profile:
             return nil
         case .editProfile:
+            return nil
+        case .fetchPost(let query):
             return nil
         }
     }
@@ -115,6 +123,8 @@ extension Router: TargetType {
             multipart.append(phoneNum, withName: "phoneNum")
             multipart.append(profile, withName: "profile", fileName: "profileImage.jpeg", mimeType: "image/jpeg")
             
+            return multipart
+        case .fetchPost(let query):
             return multipart
         }
     }

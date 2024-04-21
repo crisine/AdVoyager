@@ -36,8 +36,7 @@ final class OverviewViewController: BaseViewController {
         
         output.dataSource
             .drive(mainPostCollectionView.rx.items(cellIdentifier: "cell", cellType: PostCollectionViewCell.self)) { row, element, cell in
-                print("설정이 되고있긴 하세요?")
-                cell.titleLabel.rx.text.onNext(element)
+                cell.titleLabel.rx.text.onNext(element.content)
             }
             .disposed(by: disposeBag)
     }

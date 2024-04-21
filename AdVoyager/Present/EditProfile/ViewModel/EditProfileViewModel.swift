@@ -77,6 +77,7 @@ final class EditProfileViewModel: ViewModelType {
                 return NetworkManager.editProfile(query: editProfileQuery)
             }
             .subscribe(with: self) { owner, profileModel in
+                // MARK: 결과로 넘어온 profileModel 어떻게 사용할것인지
                 print("프로필 수정 성공")
                 editProfileSuccessTrigger.accept(())
             } onError: { owner, error in

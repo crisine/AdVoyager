@@ -38,6 +38,47 @@ struct Follower: Decodable {
     let profileImage: String
 }
 
+struct PostModel: Decodable {
+    let data: [Post]
+}
+
+struct Post: Decodable {
+    let post_id: String
+    let product_id: String
+    let title: String
+    let content: String
+    let content1: String
+    let content2: String
+    let content3: String
+    let content4: String
+    let content5: String
+    let createdAt: Date
+    let creator: Creator
+    let files: [File]
+    let likes: [String]
+    let likes2: [String]
+    let hashTags: [String]
+    let comments: [Comment]
+}
+
+struct Creator: Decodable {
+    let user_id: String
+    let nick: String
+    let profileImage: String
+}
+
+struct File: Decodable {
+    let fileName: String
+}
+
+struct Comment: Decodable {
+    let comment_id: String
+    let content: String
+    let createdAt: Date
+    let creator: Creator
+}
+
+
 struct NetworkManager {
     
     static let kingfisherImageRequest = AnyModifier { request in
@@ -146,4 +187,28 @@ struct NetworkManager {
         }
     }
     
+    static func fetchPost(query: PostQuery) -> Single<PostModel> {
+        return Single<PostModel>.create { single in
+            do {
+                let urlRequest = try Router.fetchPost(query: query).asURLRequest()
+                
+                AF.request(urlRequest)
+                    .validate(statusCode: 200..<300)
+                    .responseDecodable(of: PostModel.self) { response in
+                        switch response.result {
+                        case .success(let postModel):
+                            print("post 조회 성공")
+                            single(.success(postModel))
+                        case .failure(let error):
+                            print("post 조회 실패: \(error)")
+                            single(.failure(error))
+                        }
+                    }
+            } catch {
+                single(.failure(error))
+            }
+            
+            return Disposables.create()
+        }
+    }
 }

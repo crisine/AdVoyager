@@ -19,23 +19,25 @@ final class OverviewViewModel: ViewModelType {
     }
     
     struct Output {
-        let dataSource: Driver<[String]>
+        let dataSource: Driver<[Post]>
     }
     
     func transform(input: Input) -> Output {
         print(#function)
         
-        let dataSource = PublishSubject<[String]>()
+        let dataSource = BehaviorRelay<[Post]>(value: [])
         
-        input.addDummyDataButtonTap
-            .subscribe(with: self) { owner, _ in
-                print("added new data")
-                owner.dummyDataArray.append(String(Int.random(in: 1...100)))
-                dataSource.onNext(owner.dummyDataArray)
+        let tempPostQuery = PostQuery(next: "", limit: "10", product_id: "")
+        let postModel = NetworkManager.fetchPost(query: tempPostQuery)
+        
+        postModel.asObservable()
+            .subscribe(with: self) { owner, postModel in
+                dataSource.accept(postModel.data)
+                print(postModel.data)
             }
             .disposed(by: disposeBag)
 
-        return Output(dataSource: dataSource.asDriver(onErrorJustReturn: []))
+        return Output(dataSource: dataSource.asDriver())
     }
     
 }
