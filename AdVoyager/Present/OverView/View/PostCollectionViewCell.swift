@@ -16,6 +16,12 @@ class PostCollectionViewCell: UICollectionViewCell {
         view.text = "Sample Text"
         return view
     }()
+    let contentLabel: UILabel = {
+        let view = UILabel()
+        view.font = .boldSystemFont(ofSize: 16)
+        view.textAlignment = .center
+        return view
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -27,11 +33,19 @@ class PostCollectionViewCell: UICollectionViewCell {
     
     func configureHierarchy() {
         contentView.addSubview(titleLabel)
+        contentView.addSubview(contentLabel)
     }
     
     func configureConstraints() {
         titleLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.equalTo(contentView.safeAreaLayoutGuide).offset(4)
+            make.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide).inset(16)
+        }
+        
+        contentLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(4)
+            make.horizontalEdges.equalTo(titleLabel.snp.horizontalEdges)
+            make.bottom.equalTo(contentView.safeAreaLayoutGuide).offset(-4)
         }
     }
     

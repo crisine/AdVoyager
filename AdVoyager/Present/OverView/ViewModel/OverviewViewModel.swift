@@ -33,7 +33,7 @@ final class OverviewViewModel: ViewModelType {
         postModel.asObservable()
             .subscribe(with: self) { owner, postModel in
                 dataSource.accept(postModel.data)
-                print(postModel.data)
+                print("가져온 포스트 개수 : \(postModel.data.count)")
             }
             .disposed(by: disposeBag)
 

@@ -20,7 +20,7 @@ enum Router {
     case signUp(query: SignUpQuery)
     case profile
     case editProfile(query: EditProfileQuery)
-    case fetchPost(query: PostQuery)
+    case fetchPost(queryString: PostQuery)
 //    case withdraw
 //    case fetchPost
 //    case uploadPost
@@ -79,7 +79,16 @@ extension Router: TargetType {
     }
     
     var queryItems: [URLQueryItem]? {
-        return nil
+        switch self {
+        case .fetchPost(let query):
+            return [
+                URLQueryItem(name: "limit", value: query.limit),
+                URLQueryItem(name: "next", value: query.next),
+                URLQueryItem(name: "product_id", value: query.product_id)
+            ]
+        default:
+            return nil
+        }
     }
     
     var body: Data? {
@@ -91,11 +100,7 @@ extension Router: TargetType {
         case .signUp(let query):
             encoder.keyEncodingStrategy = .convertToSnakeCase
             return try? encoder.encode(query)
-        case .profile:
-            return nil
-        case .editProfile:
-            return nil
-        case .fetchPost(let query):
+        default:
             return nil
         }
     }
@@ -104,12 +109,6 @@ extension Router: TargetType {
         let multipart = MultipartFormData()
         
         switch self {
-        case .login:
-            return multipart
-        case .signUp:
-            return multipart
-        case .profile:
-            return multipart
         case .editProfile(let query):
             let multipart = MultipartFormData()
             
@@ -124,7 +123,7 @@ extension Router: TargetType {
             multipart.append(profile, withName: "profile", fileName: "profileImage.jpeg", mimeType: "image/jpeg")
             
             return multipart
-        case .fetchPost(let query):
+        default:
             return multipart
         }
     }

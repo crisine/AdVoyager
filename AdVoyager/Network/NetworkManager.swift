@@ -186,7 +186,9 @@ struct NetworkManager {
     static func fetchPost(query: PostQuery) -> Single<PostModel> {
         return Single<PostModel>.create { single in
             do {
-                let urlRequest = try Router.fetchPost(query: query).asURLRequest()
+                let urlRequest = try Router.fetchPost(queryString: query).asURLRequest()
+                
+                print("요청 URL 정보: \(urlRequest.url)")
                 
                 AF.request(urlRequest)
                     .validate(statusCode: 200..<300)

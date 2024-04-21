@@ -23,8 +23,13 @@ protocol TargetType: URLRequestConvertible {
 extension TargetType {
     
     func asURLRequest() throws -> URLRequest {
-        let url = try baseURL.asURL()
-        var urlRequest = try URLRequest(url: url.appendingPathComponent(path), method: method)
+        
+        // Router의 QueryItems를 사용하기 위해 url body에 queryItem 추가
+        var components = URLComponents(string: baseURL.appending(path))
+        components?.queryItems = queryItems
+        
+        guard let componentsURL = components?.url else { throw URLError(.badURL) }
+        var urlRequest = try URLRequest(url: componentsURL, method: method)
         urlRequest.allHTTPHeaderFields = header
         urlRequest.httpBody = parameters?.data(using: .utf8)
         urlRequest.httpBody = body
