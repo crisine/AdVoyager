@@ -12,14 +12,14 @@ import RxCocoa
 final class OverviewViewModel: ViewModelType {
     
     var disposeBag = DisposeBag()
-    var dummyDataArray = ["1", "2", "3"]
     
     struct Input {
-        let addDummyDataButtonTap: Observable<Void>
+        let addNewPostButtonTap: Observable<Void>
     }
     
     struct Output {
         let dataSource: Driver<[Post]>
+        let addNewPostTrigger: Driver<Void>
     }
     
     func transform(input: Input) -> Output {
@@ -30,14 +30,23 @@ final class OverviewViewModel: ViewModelType {
         let tempPostQuery = PostQuery(next: "", limit: "10", product_id: "")
         let postModel = NetworkManager.fetchPost(query: tempPostQuery)
         
+        let addNewPostTrigger = PublishRelay<Void>()
+        
         postModel.asObservable()
             .subscribe(with: self) { owner, postModel in
                 dataSource.accept(postModel.data)
                 print("가져온 포스트 개수 : \(postModel.data.count)")
             }
             .disposed(by: disposeBag)
+        
+        input.addNewPostButtonTap
+            .subscribe(with: self) { owner, _ in
+                addNewPostTrigger.accept(())
+            }
+            .disposed(by: disposeBag)
 
-        return Output(dataSource: dataSource.asDriver())
+        return Output(dataSource: dataSource.asDriver(),
+                      addNewPostTrigger: addNewPostTrigger.asDriver(onErrorJustReturn: ()))
     }
     
 }

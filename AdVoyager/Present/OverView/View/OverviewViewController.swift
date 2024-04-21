@@ -30,7 +30,7 @@ final class OverviewViewController: BaseViewController {
     
     override func bind() {
         print(#function)
-        let input = OverviewViewModel.Input(addDummyDataButtonTap: addDummyDataButton.rx.tap.asObservable())
+        let input = OverviewViewModel.Input(addNewPostButtonTap: addDummyDataButton.rx.tap.asObservable())
         
         let output = viewModel.transform(input: input)
         
@@ -38,6 +38,13 @@ final class OverviewViewController: BaseViewController {
             .drive(mainPostCollectionView.rx.items(cellIdentifier: "cell", cellType: PostCollectionViewCell.self)) { row, element, cell in
                 cell.titleLabel.rx.text.onNext(element.content)
                 cell.contentLabel.rx.text.onNext(element.content1)
+            }
+            .disposed(by: disposeBag)
+        
+        output.addNewPostTrigger
+            .drive(with: self) { owner, _ in
+                let nav = UINavigationController(rootViewController: AddPostViewController())
+                owner.present(nav, animated: true)
             }
             .disposed(by: disposeBag)
     }
