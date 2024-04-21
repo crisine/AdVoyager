@@ -36,8 +36,8 @@ final class OverviewViewController: BaseViewController {
         
         output.dataSource
             .drive(mainPostCollectionView.rx.items(cellIdentifier: "cell", cellType: PostCollectionViewCell.self)) { row, element, cell in
-                cell.titleLabel.rx.text.onNext(element.content)
-                cell.contentLabel.rx.text.onNext(element.content1)
+                cell.titleLabel.rx.text.onNext(element.title)
+                cell.contentLabel.rx.text.onNext(element.content)
             }
             .disposed(by: disposeBag)
         

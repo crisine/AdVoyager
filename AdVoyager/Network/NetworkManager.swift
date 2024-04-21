@@ -44,7 +44,7 @@ struct PostModel: Decodable {
 
 struct Post: Decodable {
     let post_id: String
-    let product_id: String
+    let product_id: String?
     let title: String?
     let content: String?
     let content1: String?
@@ -188,8 +188,6 @@ struct NetworkManager {
             do {
                 let urlRequest = try Router.fetchPost(queryString: query).asURLRequest()
                 
-                print("요청 URL 정보: \(urlRequest.url)")
-                
                 AF.request(urlRequest)
                     .validate(statusCode: 200..<300)
                     .responseDecodable(of: PostModel.self) { response in
@@ -199,6 +197,30 @@ struct NetworkManager {
                             single(.success(postModel))
                         case .failure(let error):
                             print("post 조회 실패: \(error)")
+                            single(.failure(error))
+                        }
+                    }
+            } catch {
+                single(.failure(error))
+            }
+            
+            return Disposables.create()
+        }
+    }
+    
+    static func createPost(query: UploadPostQuery) -> Single<PostModel> {
+        return Single<PostModel>.create { single in
+            do {
+                let urlRequest = try Router.uploadPost(query: query).asURLRequest()
+                
+                AF.request(urlRequest)
+                    .responseDecodable(of: PostModel.self) { response in
+                        switch response.result {
+                        case .success(let postModel):
+                            print("포스트 업로드 성공")
+                            single(.success(postModel))
+                        case .failure(let error):
+                            dump("포스트 업로드 실패: \(error)")
                             single(.failure(error))
                         }
                     }

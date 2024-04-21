@@ -21,6 +21,7 @@ enum Router {
     case profile
     case editProfile(query: EditProfileQuery)
     case fetchPost(queryString: PostQuery)
+    case uploadPost(query: UploadPostQuery)
 //    case withdraw
 //    case fetchPost
 //    case uploadPost
@@ -39,6 +40,7 @@ extension Router: TargetType {
         case .profile: .get
         case .editProfile: .put
         case .fetchPost: .get
+        case .uploadPost: .post
         }
     }
     
@@ -49,6 +51,7 @@ extension Router: TargetType {
         case .profile: "/users/me/profile"
         case .editProfile: "/users/me/profile"
         case .fetchPost: "/posts"
+        case .uploadPost: "/posts"
         }
     }
     
@@ -70,6 +73,10 @@ extension Router: TargetType {
              HTTPHeader.sesacKey.rawValue: APIKey.sesacKey.rawValue]
         case .fetchPost:
             [HTTPHeader.authorization.rawValue: UserDefaults.standard.string(forKey: "accessToken") ?? "",
+             HTTPHeader.sesacKey.rawValue: APIKey.sesacKey.rawValue]
+        case .uploadPost:
+            [HTTPHeader.authorization.rawValue: UserDefaults.standard.string(forKey: "accessToken") ?? "",
+             HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
              HTTPHeader.sesacKey.rawValue: APIKey.sesacKey.rawValue]
         }
     }
@@ -98,6 +105,9 @@ extension Router: TargetType {
             encoder.keyEncodingStrategy = .convertToSnakeCase
             return try? encoder.encode(query)
         case .signUp(let query):
+            encoder.keyEncodingStrategy = .convertToSnakeCase
+            return try? encoder.encode(query)
+        case .uploadPost(let query):
             encoder.keyEncodingStrategy = .convertToSnakeCase
             return try? encoder.encode(query)
         default:

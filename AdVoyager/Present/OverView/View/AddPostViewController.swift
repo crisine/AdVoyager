@@ -18,7 +18,7 @@ final class AddPostViewController: BaseViewController {
         view.leftViewMode = .always
         return view
     }()
-    private let contentTitleTextField: ContentTextView = {
+    private let contentTextView: ContentTextView = {
         let view = ContentTextView(placeholderText: "내용 입력...")
         return view
     }()
@@ -32,6 +32,8 @@ final class AddPostViewController: BaseViewController {
         return item
     }()
     
+    private let viewModel = AddPostViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,23 +41,38 @@ final class AddPostViewController: BaseViewController {
     
     override func bind() {
         
-        cancelPostBarButtonItem.rx.tap
+        let input = AddPostViewModel.Input(titleText: postTitleTextField.rx.text.orEmpty.asObservable(),
+                                           contentText: contentTextView.rx.text.orEmpty.asObservable(),
+                                           addPostButtonTapTrigger: addPostBarButtonItem.rx.tap.asObservable(),
+                                           cancelPostButtonTapTrigger: cancelPostBarButtonItem.rx.tap.asObservable())
+        
+        let output = viewModel.transform(input: input)
+        
+        output.canelPostUploadTrigger
             .asObservable()
             .subscribe(with: self) { owner, _ in
-                print("cancelPostButton 눌림")
+                owner.dismiss(animated: true)
             }
             .disposed(by: disposeBag)
         
-        addPostBarButtonItem.rx.tap
+        output.postValidation
+            .asObservable()
+            .bind(with: self) { owner, isEnabled in
+                owner.addPostBarButtonItem.isEnabled = isEnabled
+            }
+            .disposed(by: disposeBag)
+        
+        output.postUploadSuccessTrigger
             .asObservable()
             .subscribe(with: self) { owner, _ in
-                print("addPostButton 눌림")
+                // dismiss + 성공 trigger를 completeHandler로 다른 view로 전송
+                owner.dismiss(animated: true)
             }
             .disposed(by: disposeBag)
     }
     
     override func configureHierarchy() {
-        [postTitleTextField, contentTitleTextField].forEach {
+        [postTitleTextField, contentTextView].forEach {
             view.addSubview($0)
         }
     }
@@ -67,7 +84,7 @@ final class AddPostViewController: BaseViewController {
             make.height.equalTo(32)
         }
         
-        contentTitleTextField.snp.makeConstraints { make in
+        contentTextView.snp.makeConstraints { make in
             make.top.equalTo(postTitleTextField.snp.bottom).offset(8)
             make.horizontalEdges.equalTo(postTitleTextField.snp.horizontalEdges)
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-8)
