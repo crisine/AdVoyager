@@ -10,6 +10,14 @@ import SnapKit
 
 final class OverviewViewController: BaseViewController {
     
+    private let profileImageView: UIImageView = {
+        let view = UIImageView(image: UIImage(systemName: "person.circle"))
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 16
+        view.contentMode = .scaleAspectFit
+        return view
+    }()
+    
     private lazy var mainPostCollectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         view.register(PostCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
@@ -37,7 +45,7 @@ final class OverviewViewController: BaseViewController {
         output.dataSource
             .drive(mainPostCollectionView.rx.items(cellIdentifier: "cell", cellType: PostCollectionViewCell.self)) { row, element, cell in
                 cell.titleLabel.rx.text.onNext(element.title)
-                cell.contentLabel.rx.text.onNext(element.content)
+                cell.addressLabel.rx.text.onNext(element.content)
             }
             .disposed(by: disposeBag)
         
@@ -50,13 +58,22 @@ final class OverviewViewController: BaseViewController {
     }
     
     override func configureHierarchy() {
+        view.addSubview(profileImageView)
         view.addSubview(mainPostCollectionView)
         view.addSubview(addDummyDataButton)
     }
     
     override func configureConstraints() {
+        profileImageView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(4)
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(8)
+            make.size.equalTo(32)
+        }
+        
         mainPostCollectionView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(profileImageView.snp.bottom).offset(16)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
         }
         
         addDummyDataButton.snp.makeConstraints { make in
@@ -67,7 +84,7 @@ final class OverviewViewController: BaseViewController {
     }
     
     override func configureView() {
-        mainPostCollectionView.backgroundColor = .systemGray5
+        
     }
     
     private func createLayout() -> UICollectionViewLayout {
@@ -75,8 +92,8 @@ final class OverviewViewController: BaseViewController {
         
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 0
-        layout.sectionInset = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 120)
+        layout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2)
         
         return layout
     }

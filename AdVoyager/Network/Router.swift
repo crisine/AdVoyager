@@ -22,6 +22,7 @@ enum Router {
     case editProfile(query: EditProfileQuery)
     case fetchPost(queryString: PostQuery)
     case uploadPost(query: UploadPostQuery)
+    case refresh
 //    case withdraw
 //    case fetchPost
 //    case uploadPost
@@ -41,6 +42,7 @@ extension Router: TargetType {
         case .editProfile: .put
         case .fetchPost: .get
         case .uploadPost: .post
+        case .refresh: .get
         }
     }
     
@@ -52,6 +54,7 @@ extension Router: TargetType {
         case .editProfile: "/users/me/profile"
         case .fetchPost: "/posts"
         case .uploadPost: "/posts"
+        case .refresh: "/auth/refresh"
         }
     }
     
@@ -78,6 +81,10 @@ extension Router: TargetType {
             [HTTPHeader.authorization.rawValue: UserDefaults.standard.string(forKey: "accessToken") ?? "",
              HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
              HTTPHeader.sesacKey.rawValue: APIKey.sesacKey.rawValue]
+        case .refresh:
+            [HTTPHeader.authorization.rawValue: UserDefaults.standard.string(forKey: "accessToken") ?? "",
+             HTTPHeader.sesacKey.rawValue: APIKey.sesacKey.rawValue,
+             HTTPHeader.refresh.rawValue: UserDefaults.standard.string(forKey: "refreshToken") ?? ""]
         }
     }
     

@@ -9,6 +9,19 @@ import UIKit
 
 class PostCollectionViewCell: UICollectionViewCell {
     
+    let backView: NeuView = {
+        let view = NeuView()
+//        view.clipsToBounds = true
+//        view.layer.cornerRadius = 16
+        return view
+    }()
+    let titleImageView: UIImageView = {
+        let view = UIImageView()
+        view.contentMode = .scaleAspectFill
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 16
+        return view
+    }()
     let titleLabel: UILabel = {
         let view = UILabel()
         view.font = .boldSystemFont(ofSize: 24)
@@ -16,7 +29,16 @@ class PostCollectionViewCell: UICollectionViewCell {
         view.text = "Sample Text"
         return view
     }()
-    let contentLabel: UILabel = {
+    let likeImage: UIImage = {
+        let view = UIImage(systemName: "heart.fill")!
+        return view.withTintColor(.systemPink)
+    }()
+    let likeLabel: UILabel = {
+        let view = UILabel()
+        
+        return view
+    }()
+    let addressLabel: UILabel = {
         let view = UILabel()
         view.font = .boldSystemFont(ofSize: 16)
         view.textAlignment = .center
@@ -32,20 +54,33 @@ class PostCollectionViewCell: UICollectionViewCell {
     }
     
     func configureHierarchy() {
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(contentLabel)
+        contentView.addSubview(backView)
+        
+        [titleImageView, titleLabel, addressLabel].forEach {
+            backView.addSubview($0)
+        }
     }
     
     func configureConstraints() {
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(contentView.safeAreaLayoutGuide).offset(4)
-            make.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide).inset(16)
+        
+        backView.snp.makeConstraints { make in
+            make.edges.equalTo(contentView.safeAreaLayoutGuide).inset(16)
         }
         
-        contentLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(4)
-            make.horizontalEdges.equalTo(titleLabel.snp.horizontalEdges)
-            make.bottom.equalTo(contentView.safeAreaLayoutGuide).offset(-4)
+        titleImageView.snp.makeConstraints { make in
+            make.top.equalTo(backView.snp.top).offset(8)
+            make.horizontalEdges.equalTo(backView).inset(16)
+        }
+        
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleImageView.snp.bottom).offset(8)
+            make.horizontalEdges.equalTo(titleImageView)
+        }
+        
+        addressLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(8)
+            make.horizontalEdges.equalTo(titleImageView)
+            make.bottom.equalTo(backView).offset(-8)
         }
     }
     

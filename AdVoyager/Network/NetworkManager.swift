@@ -74,6 +74,10 @@ struct Comment: Decodable {
     let creator: Creator
 }
 
+struct AccessToken: Decodable {
+    let accessToken: String
+}
+
 
 struct NetworkManager {
     
@@ -85,6 +89,8 @@ struct NetworkManager {
         
         return requestBody
     }
+    
+    // TODO: Generic Type 으로 메서드 합칠 것
     
     static func createLogin(query: LoginQuery) -> Single<LoginModel> {
         return Single<LoginModel>.create { single in
@@ -208,19 +214,45 @@ struct NetworkManager {
         }
     }
     
-    static func createPost(query: UploadPostQuery) -> Single<PostModel> {
-        return Single<PostModel>.create { single in
+    static func createPost(query: UploadPostQuery) -> Single<Post> {
+        return Single<Post>.create { single in
             do {
                 let urlRequest = try Router.uploadPost(query: query).asURLRequest()
                 
                 AF.request(urlRequest)
-                    .responseDecodable(of: PostModel.self) { response in
+                    .responseDecodable(of: Post.self) { response in
                         switch response.result {
                         case .success(let postModel):
                             print("포스트 업로드 성공")
                             single(.success(postModel))
                         case .failure(let error):
                             dump("포스트 업로드 실패: \(error)")
+                            single(.failure(error))
+                        }
+                    }
+            } catch {
+                single(.failure(error))
+            }
+            
+            return Disposables.create()
+        }
+    }
+    
+    static func refreshToken() -> Single<String> {
+        return Single<String>.create { single in
+            do {
+                print("토큰 리프레시 요청중...")
+                let urlRequest = try Router.refresh.asURLRequest()
+                
+                AF.request(urlRequest)
+                    .validate(statusCode: 200..<300)
+                    .responseDecodable(of: AccessToken.self) { response in
+                        switch response.result {
+                        case .success(let accessToken):
+                            print("액세스 토큰 갱신 성공")
+                            single(.success(accessToken.accessToken))
+                        case .failure(let error):
+                            print("인증할 수 없는 토큰이거나, 토큰이 만료되어 에러 발생")
                             single(.failure(error))
                         }
                     }
