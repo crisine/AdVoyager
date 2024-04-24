@@ -29,6 +29,7 @@ final class EditProfileViewController: BaseViewController {
     private let emailTextField: SignTextField = {
         let view = SignTextField(placeholderText: "")
         view.isEnabled = false
+        view.backgroundColor = .systemGray4
         return view
     }()
     private let nickTextField: SignTextField = {
@@ -61,7 +62,6 @@ final class EditProfileViewController: BaseViewController {
     override func bind() {
         print(#function)
 
-        
         let input = EditProfileViewModel.Input(profileImage: profileImageView.rx.observe(UIImage.self, "image"),
                                                nick: nickTextField.rx.text
             .orEmpty.asObservable(), 

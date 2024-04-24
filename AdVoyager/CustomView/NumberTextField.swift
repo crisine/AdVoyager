@@ -17,10 +17,8 @@ class NumberTextField: UITextField {
         textAlignment = .center
         borderStyle = .none
         layer.cornerRadius = 16
-        layer.borderWidth = 1
-        layer.borderColor = UIColor.systemGray3.cgColor
         keyboardType = .numberPad
-        
+        backgroundColor = .systemGray6
     }
     
     @available(*, unavailable)
