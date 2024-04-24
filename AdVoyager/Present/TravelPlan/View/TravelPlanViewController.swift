@@ -61,5 +61,6 @@ final class TravelPlanViewController: BaseViewController {
     
     override func configureView() {
         navigationItem.title = "여행 일정"
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 }

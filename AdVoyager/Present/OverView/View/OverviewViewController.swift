@@ -46,6 +46,14 @@ final class OverviewViewController: BaseViewController {
             .drive(mainPostCollectionView.rx.items(cellIdentifier: "cell", cellType: PostCollectionViewCell.self)) { row, element, cell in
                 cell.titleLabel.rx.text.onNext(element.title)
                 cell.addressLabel.rx.text.onNext(element.content)
+                
+                guard let thumbnailImageString = element.files.first else {
+                    return
+                }
+                
+                let imageURL = APIKey.baseURL.rawValue + "/" + thumbnailImageString
+                
+                cell.titleImageView.kf.setImage(with: URL(string: imageURL), options: [.requestModifier(NetworkManager.kingfisherImageRequest)])
             }
             .disposed(by: disposeBag)
         

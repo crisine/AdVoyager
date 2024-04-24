@@ -26,7 +26,7 @@ class PostCollectionViewCell: UICollectionViewCell {
         let view = UILabel()
         view.font = .boldSystemFont(ofSize: 24)
         view.textAlignment = .center
-        view.text = "Sample Text"
+        view.text = "제목"
         return view
     }()
     let likeImage: UIImage = {
@@ -68,7 +68,7 @@ class PostCollectionViewCell: UICollectionViewCell {
         }
         
         titleImageView.snp.makeConstraints { make in
-            make.top.equalTo(backView.snp.top).offset(8)
+            make.top.equalTo(backView.snp.top).offset(16)
             make.horizontalEdges.equalTo(backView).inset(16)
         }
         
@@ -80,8 +80,14 @@ class PostCollectionViewCell: UICollectionViewCell {
         addressLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(8)
             make.horizontalEdges.equalTo(titleImageView)
-            make.bottom.equalTo(backView).offset(-8)
+            make.bottom.equalTo(backView).offset(-16)
         }
+    }
+    
+    override func prepareForReuse() {
+        titleImageView.image = nil
+        titleLabel.text = ""
+        addressLabel.text = ""
     }
     
     func configureView() {

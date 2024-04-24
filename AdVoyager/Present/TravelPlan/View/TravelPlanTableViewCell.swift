@@ -21,7 +21,6 @@ final class TravelPlanTableViewCell: UITableViewCell {
         view.contentMode = .scaleAspectFit
         view.clipsToBounds = true
         view.layer.cornerRadius = 12
-        view.backgroundColor = .white
         return view
     }()
     private let titleLabel: UILabel = {
@@ -32,7 +31,7 @@ final class TravelPlanTableViewCell: UITableViewCell {
     private let descriptionLabel: UILabel = {
         let view = UILabel()
         view.font = .systemFont(ofSize: 13)
-        view.textColor = .systemGray4
+        view.textColor = .darkGray
         view.numberOfLines = 0
         return view
     }()
