@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA08160F2BDBEF0000F69CBF /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = FA08160E2BDBEF0000F69CBF /* Alamofire */; };
+		FA0816112BDC01E900F69CBF /* AddNewTravelPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0816102BDC01E900F69CBF /* AddNewTravelPlanViewController.swift */; };
+		FA0816132BDC06F900F69CBF /* AddNewTravelPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0816122BDC06F900F69CBF /* AddNewTravelPlanViewModel.swift */; };
+		FA0816152BDC0EC600F69CBF /* CommonTextComponentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0816142BDC0EC600F69CBF /* CommonTextComponentType.swift */; };
 		FA0D4F602BD1370B00400D74 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0D4F5F2BD1370B00400D74 /* EditProfileViewController.swift */; };
 		FA0D4F622BD138F000400D74 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0D4F612BD138F000400D74 /* EditProfileViewModel.swift */; };
 		FA1F68C52BD54D3E00644C5A /* PostQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1F68C42BD54D3E00644C5A /* PostQuery.swift */; };
@@ -20,8 +24,6 @@
 		FA25AEB82BC6D43800B08AF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA25AEB72BC6D43800B08AF4 /* Assets.xcassets */; };
 		FA25AEBB2BC6D43800B08AF4 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = FA25AEBA2BC6D43800B08AF4 /* Base */; };
 		FA25AEC72BC8A2E100B08AF4 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = FA25AEC62BC8A2E100B08AF4 /* SnapKit */; };
-		FA25AECA2BC8A2E600B08AF4 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = FA25AEC92BC8A2E600B08AF4 /* Alamofire */; };
-		FA25AECC2BC8A2E600B08AF4 /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = FA25AECB2BC8A2E600B08AF4 /* AlamofireDynamic */; };
 		FA25AECF2BC8A2EB00B08AF4 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = FA25AECE2BC8A2EB00B08AF4 /* Kingfisher */; };
 		FA25AED22BC8A2F700B08AF4 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = FA25AED12BC8A2F700B08AF4 /* RxCocoa */; };
 		FA25AED42BC8A2F700B08AF4 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FA25AED32BC8A2F700B08AF4 /* RxSwift */; };
@@ -64,6 +66,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FA0816102BDC01E900F69CBF /* AddNewTravelPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTravelPlanViewController.swift; sourceTree = "<group>"; };
+		FA0816122BDC06F900F69CBF /* AddNewTravelPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTravelPlanViewModel.swift; sourceTree = "<group>"; };
+		FA0816142BDC0EC600F69CBF /* CommonTextComponentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonTextComponentType.swift; sourceTree = "<group>"; };
 		FA0D4F5F2BD1370B00400D74 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		FA0D4F612BD138F000400D74 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
 		FA1F68C42BD54D3E00644C5A /* PostQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostQuery.swift; sourceTree = "<group>"; };
@@ -120,13 +125,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA25AED42BC8A2F700B08AF4 /* RxSwift in Frameworks */,
+				FA08160F2BDBEF0000F69CBF /* Alamofire in Frameworks */,
 				FA25AECF2BC8A2EB00B08AF4 /* Kingfisher in Frameworks */,
 				FADC9CA02BD2511E00973357 /* RxGesture in Frameworks */,
 				FA25AEC72BC8A2E100B08AF4 /* SnapKit in Frameworks */,
 				FA25AED22BC8A2F700B08AF4 /* RxCocoa in Frameworks */,
-				FA25AECC2BC8A2E600B08AF4 /* AlamofireDynamic in Frameworks */,
 				FA25AED72BC8A2FD00B08AF4 /* Toast in Frameworks */,
-				FA25AECA2BC8A2E600B08AF4 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,6 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				FA25AEEC2BC8A3E900B08AF4 /* ViewModelType.swift */,
+				FA0816142BDC0EC600F69CBF /* CommonTextComponentType.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -414,6 +419,7 @@
 			children = (
 				FA90C2192BD939A7002EDDEC /* TravelPlanViewController.swift */,
 				FA90C2222BD94213002EDDEC /* TravelPlanTableViewCell.swift */,
+				FA0816102BDC01E900F69CBF /* AddNewTravelPlanViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -422,6 +428,7 @@
 			isa = PBXGroup;
 			children = (
 				FA90C21B2BD93A2B002EDDEC /* TravelPlanViewModel.swift */,
+				FA0816122BDC06F900F69CBF /* AddNewTravelPlanViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -477,13 +484,12 @@
 			name = AdVoyager;
 			packageProductDependencies = (
 				FA25AEC62BC8A2E100B08AF4 /* SnapKit */,
-				FA25AEC92BC8A2E600B08AF4 /* Alamofire */,
-				FA25AECB2BC8A2E600B08AF4 /* AlamofireDynamic */,
 				FA25AECE2BC8A2EB00B08AF4 /* Kingfisher */,
 				FA25AED12BC8A2F700B08AF4 /* RxCocoa */,
 				FA25AED32BC8A2F700B08AF4 /* RxSwift */,
 				FA25AED62BC8A2FD00B08AF4 /* Toast */,
 				FADC9C9F2BD2511E00973357 /* RxGesture */,
+				FA08160E2BDBEF0000F69CBF /* Alamofire */,
 			);
 			productName = AdVoyager;
 			productReference = FA25AEAB2BC6D43700B08AF4 /* AdVoyager.app */;
@@ -515,11 +521,11 @@
 			mainGroup = FA25AEA22BC6D43700B08AF4;
 			packageReferences = (
 				FA25AEC52BC8A2E100B08AF4 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				FA25AEC82BC8A2E600B08AF4 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				FA25AECD2BC8A2EB00B08AF4 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				FA25AED02BC8A2F700B08AF4 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				FA25AED52BC8A2FD00B08AF4 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 				FADC9C9E2BD2511E00973357 /* XCRemoteSwiftPackageReference "RxGesture" */,
+				FA08160D2BDBEF0000F69CBF /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = FA25AEAC2BC6D43700B08AF4 /* Products */;
 			projectDirPath = "";
@@ -558,6 +564,7 @@
 				FADC9CA22BD25EF400973357 /* ProfileQuery.swift in Sources */,
 				FA25AEED2BC8A3E900B08AF4 /* ViewModelType.swift in Sources */,
 				FAF1C1092BD3F8C000E56291 /* OverviewViewModel.swift in Sources */,
+				FA0816112BDC01E900F69CBF /* AddNewTravelPlanViewController.swift in Sources */,
 				FA90C21F2BD93B56002EDDEC /* TravelPlanModel.swift in Sources */,
 				FA0D4F622BD138F000400D74 /* EditProfileViewModel.swift in Sources */,
 				FA25AF002BC8A80200B08AF4 /* FilledButton.swift in Sources */,
@@ -570,6 +577,7 @@
 				FA25AEE12BC8A32700B08AF4 /* TargetType.swift in Sources */,
 				FA1F68CC2BD57F3C00644C5A /* AddPostViewModel.swift in Sources */,
 				FA25AF332BCD9C5800B08AF4 /* SignUpQuery.swift in Sources */,
+				FA0816132BDC06F900F69CBF /* AddNewTravelPlanViewModel.swift in Sources */,
 				FA25AF252BCD860C00B08AF4 /* SignUpViewController.swift in Sources */,
 				FA25AEFC2BC8A68900B08AF4 /* Color.swift in Sources */,
 				FA25AEDF2BC8A32700B08AF4 /* HTTPHeader.swift in Sources */,
@@ -587,6 +595,7 @@
 				FA90C2152BD7BEA7002EDDEC /* LaunchViewModel.swift in Sources */,
 				FA25AEE32BC8A32700B08AF4 /* NetworkManager.swift in Sources */,
 				FA25AEE22BC8A32700B08AF4 /* LoginQuery.swift in Sources */,
+				FA0816152BDC0EC600F69CBF /* CommonTextComponentType.swift in Sources */,
 				FA25AEB12BC6D43700B08AF4 /* SceneDelegate.swift in Sources */,
 				FA25AF3D2BCDD15D00B08AF4 /* ProfileViewController.swift in Sources */,
 				FA25AEEA2BC8A3D000B08AF4 /* LoginViewModel.swift in Sources */,
@@ -825,20 +834,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		FA08160D2BDBEF0000F69CBF /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
 		FA25AEC52BC8A2E100B08AF4 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.7.1;
-			};
-		};
-		FA25AEC82BC8A2E600B08AF4 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.9.1;
 			};
 		};
 		FA25AECD2BC8A2EB00B08AF4 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
@@ -876,20 +885,15 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		FA08160E2BDBEF0000F69CBF /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA08160D2BDBEF0000F69CBF /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
 		FA25AEC62BC8A2E100B08AF4 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FA25AEC52BC8A2E100B08AF4 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		FA25AEC92BC8A2E600B08AF4 /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FA25AEC82BC8A2E600B08AF4 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
-		FA25AECB2BC8A2E600B08AF4 /* AlamofireDynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FA25AEC82BC8A2E600B08AF4 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = AlamofireDynamic;
 		};
 		FA25AECE2BC8A2EB00B08AF4 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;

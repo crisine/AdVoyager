@@ -20,10 +20,10 @@ class ContentTextView: UITextView {
             textColor = .black
         }
         layer.cornerRadius = 16
-        layer.borderWidth = 1
-        layer.borderColor = UIColor.systemGray3.cgColor
         textContainer.lineFragmentPadding = 0
         textContainerInset = .init(top: 8, left: 8, bottom: 8, right: 8)
+        
+        backgroundColor = .systemGray6
     }
     
     

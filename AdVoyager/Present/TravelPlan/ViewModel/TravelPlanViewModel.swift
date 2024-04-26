@@ -16,14 +16,22 @@ final class TravelPlanViewModel: ViewModelType {
     private var dataSource: [TravelPlanModel] = []
     
     struct Input {
-        
+        let travelPlanItem: Observable<TravelPlanModel>
+        let tableViewIndexPath: Observable<IndexPath>
+        let addTravelPlanButtonTap: Observable<Void>
     }
     
     struct Output {
         let dataSource: Driver<[TravelPlanModel]>
+        let indexPath: Driver<IndexPath?>
+        let addTravelPlanTrigger: Driver<Void>
     }
     
     func transform(input: Input) -> Output {
+        
+        let selectedTableViewItem = BehaviorSubject<TravelPlanModel?>(value: nil)
+        let selectedIndexPath = PublishRelay<IndexPath?>()
+        let addTravelPlanTrigger = PublishRelay<Void>()
         
         // 먼저 더미데이터부터 표현하고 저장해보자
         self.dataSource = [TravelPlanModel(post_id: "1", id: UUID(), order: 1, date: Date(), placeTitle: "기상 & 식사", description: "밤에 사온 로손 편의점 도시락 데워먹고 오후에 조이폴리스 갈거니까 짐 줄여두기", latitude: "111.111", longitude: "111.111"),
@@ -32,6 +40,25 @@ final class TravelPlanViewModel: ViewModelType {
         
         let dataSource = BehaviorRelay<[TravelPlanModel]>(value: dataSource)
         
-        return Output(dataSource: dataSource.asDriver())
+        input.travelPlanItem
+            .subscribe(with: self) { owner, item in
+                selectedTableViewItem.onNext(item)
+            }
+            .disposed(by: disposeBag)
+        
+        input.tableViewIndexPath
+            .subscribe(with: self) { owner, indexPath in
+                selectedIndexPath.accept(indexPath)
+            }
+            .disposed(by: disposeBag)
+        
+        input.addTravelPlanButtonTap
+            .bind(onNext: addTravelPlanTrigger.accept(_:))
+            .disposed(by: disposeBag)
+            
+        
+        return Output(dataSource: dataSource.asDriver(),
+                      indexPath: selectedIndexPath.asDriver(onErrorJustReturn: nil),
+                      addTravelPlanTrigger: addTravelPlanTrigger.asDriver(onErrorJustReturn: ()))
     }
 }
