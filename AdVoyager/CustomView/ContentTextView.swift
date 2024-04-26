@@ -6,8 +6,13 @@
 //
 
 import UIKit
+import RxSwift
 
-class ContentTextView: UITextView {
+final class ContentTextView: UITextView {
+    
+    let disposeBag = DisposeBag()
+    
+    private var isEdited = false
 
     init(placeholderText: String?) {
         super.init(frame: .zero, textContainer: .none)
@@ -24,6 +29,35 @@ class ContentTextView: UITextView {
         textContainerInset = .init(top: 8, left: 8, bottom: 8, right: 8)
         
         backgroundColor = .systemGray6
+        
+        rx.didBeginEditing
+            .subscribe(with: self) { owner, _ in
+                UIView.animate(withDuration: 0.3) {
+                    owner.layer.borderWidth = 1.5
+                    owner.layer.borderColor = UIColor.systemBlue.cgColor
+                }
+                
+                if owner.isEdited == false {
+                    owner.isEdited.toggle()
+                    owner.text = ""
+                    owner.textColor = .black
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        rx.didEndEditing
+            .subscribe(with: self) { owner, _ in
+                UIView.animate(withDuration: 0.3) {
+                    owner.layer.borderWidth = 0
+                }
+                
+                if owner.isEdited == true && owner.text == "" {
+                    owner.isEdited.toggle()
+                    owner.text = placeholderText
+                    owner.textColor = .lightGray
+                }
+            }
+            .disposed(by: disposeBag)
     }
     
     

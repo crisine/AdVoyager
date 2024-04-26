@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
-class SignTextField: UITextField {
+final class SignTextField: UITextField {
+    
+    let disposeBag = DisposeBag()
     
     init(placeholderText: String, isSecured: Bool = false) {
         super.init(frame: .zero)
@@ -19,6 +23,31 @@ class SignTextField: UITextField {
         borderStyle = .none
         layer.cornerRadius = 16
         backgroundColor = .systemGray6
+        
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 8, height: 0))
+        
+        leftView = paddingView
+        leftViewMode = .always
+        
+        rightView = paddingView
+        rightViewMode = .always
+        
+        rx.editingDidBegin
+            .subscribe(with: self) { owner, _ in
+                UIView.animate(withDuration: 0.3) {
+                    owner.layer.borderWidth = 1.5
+                    owner.layer.borderColor = UIColor.systemBlue.cgColor
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        rx.editingDidEnd
+            .subscribe(with: self) { owner, _ in
+                UIView.animate(withDuration: 0.3) {
+                    owner.layer.borderWidth = 0
+                }
+            }
+            .disposed(by: disposeBag)
     }
     
     @available(*, unavailable)

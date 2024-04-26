@@ -19,6 +19,7 @@ final class AddNewTravelPlanViewController: BaseViewController {
     
     private let planTitleTextField: SignTextField = {
         let view = SignTextField(placeholderText: "제목 입력...")
+        view.textAlignment = .left
         return view
     }()
     
