@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		FA08160F2BDBEF0000F69CBF /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = FA08160E2BDBEF0000F69CBF /* Alamofire */; };
-		FA0816112BDC01E900F69CBF /* AddNewTravelPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0816102BDC01E900F69CBF /* AddNewTravelPlanViewController.swift */; };
-		FA0816132BDC06F900F69CBF /* AddNewTravelPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0816122BDC06F900F69CBF /* AddNewTravelPlanViewModel.swift */; };
+		FA0816112BDC01E900F69CBF /* AddNewTravelScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0816102BDC01E900F69CBF /* AddNewTravelScheduleViewController.swift */; };
+		FA0816132BDC06F900F69CBF /* AddNewTravelScheduleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0816122BDC06F900F69CBF /* AddNewTravelScheduleViewModel.swift */; };
 		FA0816152BDC0EC600F69CBF /* CommonTextComponentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0816142BDC0EC600F69CBF /* CommonTextComponentType.swift */; };
 		FA0816172BDC151D00F69CBF /* Reactive+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0816162BDC151D00F69CBF /* Reactive+Extension.swift */; };
 		FA0D4F602BD1370B00400D74 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0D4F5F2BD1370B00400D74 /* EditProfileViewController.swift */; };
@@ -52,13 +52,19 @@
 		FA25AF382BCDD0BA00B08AF4 /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AF372BCDD0BA00B08AF4 /* OverviewViewController.swift */; };
 		FA25AF3D2BCDD15D00B08AF4 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AF3C2BCDD15D00B08AF4 /* ProfileViewController.swift */; };
 		FA25AF422BCDD52900B08AF4 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AF412BCDD52900B08AF4 /* MainTabBarViewController.swift */; };
+		FA3F0EE72BDD25CA0034C6D4 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = FA3F0EE62BDD25CA0034C6D4 /* Tabman */; };
+		FA3F0EEC2BDD28DD0034C6D4 /* TravelPlanOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F0EEB2BDD28DD0034C6D4 /* TravelPlanOverviewViewController.swift */; };
+		FA3F0EEE2BDD32430034C6D4 /* TravelPlanOverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F0EED2BDD32430034C6D4 /* TravelPlanOverviewViewModel.swift */; };
+		FA3F0EF12BDD39BE0034C6D4 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = FA3F0EF02BDD39BE0034C6D4 /* Realm */; };
+		FA3F0EF32BDD39BE0034C6D4 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FA3F0EF22BDD39BE0034C6D4 /* RealmSwift */; };
+		FA3F0EF62BDD39F20034C6D4 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F0EF52BDD39F20034C6D4 /* Repository.swift */; };
+		FA3F0EF82BDD45AD0034C6D4 /* TravelScheduleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F0EF72BDD45AD0034C6D4 /* TravelScheduleViewModel.swift */; };
+		FA3F0EFA2BDD46600034C6D4 /* TravelScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F0EF92BDD46600034C6D4 /* TravelScheduleTableViewCell.swift */; };
 		FA90C1EA2BD69438002EDDEC /* NeuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90C1E92BD69438002EDDEC /* NeuView.swift */; };
 		FA90C2132BD7BEA1002EDDEC /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90C2122BD7BEA1002EDDEC /* LaunchViewController.swift */; };
 		FA90C2152BD7BEA7002EDDEC /* LaunchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90C2142BD7BEA7002EDDEC /* LaunchViewModel.swift */; };
-		FA90C21A2BD939A7002EDDEC /* TravelPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90C2192BD939A7002EDDEC /* TravelPlanViewController.swift */; };
-		FA90C21C2BD93A2B002EDDEC /* TravelPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90C21B2BD93A2B002EDDEC /* TravelPlanViewModel.swift */; };
-		FA90C21F2BD93B56002EDDEC /* TravelPlanModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90C21E2BD93B56002EDDEC /* TravelPlanModel.swift */; };
-		FA90C2232BD94213002EDDEC /* TravelPlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90C2222BD94213002EDDEC /* TravelPlanTableViewCell.swift */; };
+		FA90C21A2BD939A7002EDDEC /* TravelScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90C2192BD939A7002EDDEC /* TravelScheduleViewController.swift */; };
+		FA90C21F2BD93B56002EDDEC /* TravelScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90C21E2BD93B56002EDDEC /* TravelScheduleModel.swift */; };
 		FADC9CA02BD2511E00973357 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = FADC9C9F2BD2511E00973357 /* RxGesture */; };
 		FADC9CA22BD25EF400973357 /* ProfileQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADC9CA12BD25EF400973357 /* ProfileQuery.swift */; };
 		FAE788952BCF0DC300623467 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE788942BCF0DC300623467 /* ProfileViewModel.swift */; };
@@ -67,8 +73,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		FA0816102BDC01E900F69CBF /* AddNewTravelPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTravelPlanViewController.swift; sourceTree = "<group>"; };
-		FA0816122BDC06F900F69CBF /* AddNewTravelPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTravelPlanViewModel.swift; sourceTree = "<group>"; };
+		FA0816102BDC01E900F69CBF /* AddNewTravelScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTravelScheduleViewController.swift; sourceTree = "<group>"; };
+		FA0816122BDC06F900F69CBF /* AddNewTravelScheduleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTravelScheduleViewModel.swift; sourceTree = "<group>"; };
 		FA0816142BDC0EC600F69CBF /* CommonTextComponentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonTextComponentType.swift; sourceTree = "<group>"; };
 		FA0816162BDC151D00F69CBF /* Reactive+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reactive+Extension.swift"; sourceTree = "<group>"; };
 		FA0D4F5F2BD1370B00400D74 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
@@ -108,13 +114,16 @@
 		FA25AF372BCDD0BA00B08AF4 /* OverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
 		FA25AF3C2BCDD15D00B08AF4 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		FA25AF412BCDD52900B08AF4 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
+		FA3F0EEB2BDD28DD0034C6D4 /* TravelPlanOverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPlanOverviewViewController.swift; sourceTree = "<group>"; };
+		FA3F0EED2BDD32430034C6D4 /* TravelPlanOverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPlanOverviewViewModel.swift; sourceTree = "<group>"; };
+		FA3F0EF52BDD39F20034C6D4 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		FA3F0EF72BDD45AD0034C6D4 /* TravelScheduleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelScheduleViewModel.swift; sourceTree = "<group>"; };
+		FA3F0EF92BDD46600034C6D4 /* TravelScheduleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravelScheduleTableViewCell.swift; sourceTree = "<group>"; };
 		FA90C1E92BD69438002EDDEC /* NeuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuView.swift; sourceTree = "<group>"; };
 		FA90C2122BD7BEA1002EDDEC /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		FA90C2142BD7BEA7002EDDEC /* LaunchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewModel.swift; sourceTree = "<group>"; };
-		FA90C2192BD939A7002EDDEC /* TravelPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPlanViewController.swift; sourceTree = "<group>"; };
-		FA90C21B2BD93A2B002EDDEC /* TravelPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPlanViewModel.swift; sourceTree = "<group>"; };
-		FA90C21E2BD93B56002EDDEC /* TravelPlanModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPlanModel.swift; sourceTree = "<group>"; };
-		FA90C2222BD94213002EDDEC /* TravelPlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPlanTableViewCell.swift; sourceTree = "<group>"; };
+		FA90C2192BD939A7002EDDEC /* TravelScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelScheduleViewController.swift; sourceTree = "<group>"; };
+		FA90C21E2BD93B56002EDDEC /* TravelScheduleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelScheduleModel.swift; sourceTree = "<group>"; };
 		FADC9CA12BD25EF400973357 /* ProfileQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileQuery.swift; sourceTree = "<group>"; };
 		FAE788942BCF0DC300623467 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		FAF1C1082BD3F8C000E56291 /* OverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewModel.swift; sourceTree = "<group>"; };
@@ -127,11 +136,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA25AED42BC8A2F700B08AF4 /* RxSwift in Frameworks */,
+				FA3F0EE72BDD25CA0034C6D4 /* Tabman in Frameworks */,
 				FA08160F2BDBEF0000F69CBF /* Alamofire in Frameworks */,
 				FA25AECF2BC8A2EB00B08AF4 /* Kingfisher in Frameworks */,
 				FADC9CA02BD2511E00973357 /* RxGesture in Frameworks */,
 				FA25AEC72BC8A2E100B08AF4 /* SnapKit in Frameworks */,
+				FA3F0EF12BDD39BE0034C6D4 /* Realm in Frameworks */,
 				FA25AED22BC8A2F700B08AF4 /* RxCocoa in Frameworks */,
+				FA3F0EF32BDD39BE0034C6D4 /* RealmSwift in Frameworks */,
 				FA25AED72BC8A2FD00B08AF4 /* Toast in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -163,6 +175,7 @@
 				FA25AEF02BC8A48800B08AF4 /* Base */,
 				FA25AEEB2BC8A3E300B08AF4 /* Protocol */,
 				FA25AED82BC8A31E00B08AF4 /* Network */,
+				FA3F0EF42BDD39DE0034C6D4 /* Repository */,
 				FA25AEE52BC8A3A800B08AF4 /* Present */,
 				FA25AEFA2BC8A67A00B08AF4 /* Resource */,
 				FA25AEF72BC8A64700B08AF4 /* CustomView */,
@@ -196,12 +209,13 @@
 		FA25AEE52BC8A3A800B08AF4 /* Present */ = {
 			isa = PBXGroup;
 			children = (
-				FA90C2162BD9396F002EDDEC /* TravelPlan */,
+				FA3F0EE82BDD285E0034C6D4 /* TravelPlanOverview */,
+				FA90C2162BD9396F002EDDEC /* TravelSchedule */,
 				FA90C20F2BD7BE8A002EDDEC /* Launch */,
 				FA25AF3E2BCDD1A000B08AF4 /* TabBar */,
 				FA25AEE62BC8A3B100B08AF4 /* Login */,
 				FA25AF212BCD85E700B08AF4 /* SignUp */,
-				FA25AF342BCDD08E00B08AF4 /* OverView */,
+				FA25AF342BCDD08E00B08AF4 /* Overview */,
 				FA25AF392BCDD13700B08AF4 /* Profile */,
 				FAE788992BCF210900623467 /* EditProfile */,
 			);
@@ -306,13 +320,13 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		FA25AF342BCDD08E00B08AF4 /* OverView */ = {
+		FA25AF342BCDD08E00B08AF4 /* Overview */ = {
 			isa = PBXGroup;
 			children = (
 				FA25AF362BCDD0AB00B08AF4 /* ViewModel */,
 				FA25AF352BCDD0A600B08AF4 /* View */,
 			);
-			path = OverView;
+			path = Overview;
 			sourceTree = "<group>";
 		};
 		FA25AF352BCDD0A600B08AF4 /* View */ = {
@@ -383,6 +397,39 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		FA3F0EE82BDD285E0034C6D4 /* TravelPlanOverview */ = {
+			isa = PBXGroup;
+			children = (
+				FA3F0EEA2BDD28C40034C6D4 /* ViewModel */,
+				FA3F0EE92BDD28BE0034C6D4 /* View */,
+			);
+			path = TravelPlanOverview;
+			sourceTree = "<group>";
+		};
+		FA3F0EE92BDD28BE0034C6D4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FA3F0EEB2BDD28DD0034C6D4 /* TravelPlanOverviewViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FA3F0EEA2BDD28C40034C6D4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FA3F0EED2BDD32430034C6D4 /* TravelPlanOverviewViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FA3F0EF42BDD39DE0034C6D4 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				FA3F0EF52BDD39F20034C6D4 /* Repository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
 		FA90C20F2BD7BE8A002EDDEC /* Launch */ = {
 			isa = PBXGroup;
 			children = (
@@ -408,21 +455,21 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		FA90C2162BD9396F002EDDEC /* TravelPlan */ = {
+		FA90C2162BD9396F002EDDEC /* TravelSchedule */ = {
 			isa = PBXGroup;
 			children = (
 				FA90C2182BD9399E002EDDEC /* ViewModel */,
 				FA90C2172BD9399B002EDDEC /* View */,
 			);
-			path = TravelPlan;
+			path = TravelSchedule;
 			sourceTree = "<group>";
 		};
 		FA90C2172BD9399B002EDDEC /* View */ = {
 			isa = PBXGroup;
 			children = (
-				FA90C2192BD939A7002EDDEC /* TravelPlanViewController.swift */,
-				FA90C2222BD94213002EDDEC /* TravelPlanTableViewCell.swift */,
-				FA0816102BDC01E900F69CBF /* AddNewTravelPlanViewController.swift */,
+				FA0816102BDC01E900F69CBF /* AddNewTravelScheduleViewController.swift */,
+				FA3F0EF92BDD46600034C6D4 /* TravelScheduleTableViewCell.swift */,
+				FA90C2192BD939A7002EDDEC /* TravelScheduleViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -430,8 +477,8 @@
 		FA90C2182BD9399E002EDDEC /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				FA90C21B2BD93A2B002EDDEC /* TravelPlanViewModel.swift */,
-				FA0816122BDC06F900F69CBF /* AddNewTravelPlanViewModel.swift */,
+				FA0816122BDC06F900F69CBF /* AddNewTravelScheduleViewModel.swift */,
+				FA3F0EF72BDD45AD0034C6D4 /* TravelScheduleViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -439,7 +486,7 @@
 		FA90C21D2BD93B22002EDDEC /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				FA90C21E2BD93B56002EDDEC /* TravelPlanModel.swift */,
+				FA90C21E2BD93B56002EDDEC /* TravelScheduleModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -493,6 +540,9 @@
 				FA25AED62BC8A2FD00B08AF4 /* Toast */,
 				FADC9C9F2BD2511E00973357 /* RxGesture */,
 				FA08160E2BDBEF0000F69CBF /* Alamofire */,
+				FA3F0EE62BDD25CA0034C6D4 /* Tabman */,
+				FA3F0EF02BDD39BE0034C6D4 /* Realm */,
+				FA3F0EF22BDD39BE0034C6D4 /* RealmSwift */,
 			);
 			productName = AdVoyager;
 			productReference = FA25AEAB2BC6D43700B08AF4 /* AdVoyager.app */;
@@ -529,6 +579,8 @@
 				FA25AED52BC8A2FD00B08AF4 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 				FADC9C9E2BD2511E00973357 /* XCRemoteSwiftPackageReference "RxGesture" */,
 				FA08160D2BDBEF0000F69CBF /* XCRemoteSwiftPackageReference "Alamofire" */,
+				FA3F0EE52BDD25CA0034C6D4 /* XCRemoteSwiftPackageReference "Tabman" */,
+				FA3F0EEF2BDD39BE0034C6D4 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = FA25AEAC2BC6D43700B08AF4 /* Products */;
 			projectDirPath = "";
@@ -558,30 +610,34 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA25AEEF2BC8A45000B08AF4 /* LoginViewController.swift in Sources */,
-				FA90C21A2BD939A7002EDDEC /* TravelPlanViewController.swift in Sources */,
+				FA90C21A2BD939A7002EDDEC /* TravelScheduleViewController.swift in Sources */,
 				FA25AF312BCD9BA300B08AF4 /* Date+Extension.swift in Sources */,
 				FA1F68C82BD5685D00644C5A /* AddPostViewController.swift in Sources */,
+				FA3F0EEE2BDD32430034C6D4 /* TravelPlanOverviewViewModel.swift in Sources */,
 				FA25AEF92BC8A65500B08AF4 /* SignTextField.swift in Sources */,
 				FAE788952BCF0DC300623467 /* ProfileViewModel.swift in Sources */,
+				FA3F0EF62BDD39F20034C6D4 /* Repository.swift in Sources */,
+				FA3F0EFA2BDD46600034C6D4 /* TravelScheduleTableViewCell.swift in Sources */,
 				FAF1C10B2BD3FBD400E56291 /* PostCollectionViewCell.swift in Sources */,
+				FA3F0EF82BDD45AD0034C6D4 /* TravelScheduleViewModel.swift in Sources */,
 				FADC9CA22BD25EF400973357 /* ProfileQuery.swift in Sources */,
 				FA25AEED2BC8A3E900B08AF4 /* ViewModelType.swift in Sources */,
 				FAF1C1092BD3F8C000E56291 /* OverviewViewModel.swift in Sources */,
-				FA0816112BDC01E900F69CBF /* AddNewTravelPlanViewController.swift in Sources */,
-				FA90C21F2BD93B56002EDDEC /* TravelPlanModel.swift in Sources */,
+				FA0816112BDC01E900F69CBF /* AddNewTravelScheduleViewController.swift in Sources */,
+				FA90C21F2BD93B56002EDDEC /* TravelScheduleModel.swift in Sources */,
 				FA0D4F622BD138F000400D74 /* EditProfileViewModel.swift in Sources */,
 				FA25AF002BC8A80200B08AF4 /* FilledButton.swift in Sources */,
 				FA25AF382BCDD0BA00B08AF4 /* OverviewViewController.swift in Sources */,
 				FA25AEF62BC8A4A100B08AF4 /* LoginView.swift in Sources */,
+				FA3F0EEC2BDD28DD0034C6D4 /* TravelPlanOverviewViewController.swift in Sources */,
 				FA90C2132BD7BEA1002EDDEC /* LaunchViewController.swift in Sources */,
 				FA25AF422BCDD52900B08AF4 /* MainTabBarViewController.swift in Sources */,
-				FA90C21C2BD93A2B002EDDEC /* TravelPlanViewModel.swift in Sources */,
 				FA0816172BDC151D00F69CBF /* Reactive+Extension.swift in Sources */,
 				FA1F68C52BD54D3E00644C5A /* PostQuery.swift in Sources */,
 				FA25AEE12BC8A32700B08AF4 /* TargetType.swift in Sources */,
 				FA1F68CC2BD57F3C00644C5A /* AddPostViewModel.swift in Sources */,
 				FA25AF332BCD9C5800B08AF4 /* SignUpQuery.swift in Sources */,
-				FA0816132BDC06F900F69CBF /* AddNewTravelPlanViewModel.swift in Sources */,
+				FA0816132BDC06F900F69CBF /* AddNewTravelScheduleViewModel.swift in Sources */,
 				FA25AF252BCD860C00B08AF4 /* SignUpViewController.swift in Sources */,
 				FA25AEFC2BC8A68900B08AF4 /* Color.swift in Sources */,
 				FA25AEDF2BC8A32700B08AF4 /* HTTPHeader.swift in Sources */,
@@ -594,7 +650,6 @@
 				FA25AEAF2BC6D43700B08AF4 /* AppDelegate.swift in Sources */,
 				FA0D4F602BD1370B00400D74 /* EditProfileViewController.swift in Sources */,
 				FA25AEE42BC8A32700B08AF4 /* Router.swift in Sources */,
-				FA90C2232BD94213002EDDEC /* TravelPlanTableViewCell.swift in Sources */,
 				FA1F68CA2BD5699E00644C5A /* ContentTextView.swift in Sources */,
 				FA90C2152BD7BEA7002EDDEC /* LaunchViewModel.swift in Sources */,
 				FA25AEE32BC8A32700B08AF4 /* NetworkManager.swift in Sources */,
@@ -878,6 +933,22 @@
 				minimumVersion = 5.1.1;
 			};
 		};
+		FA3F0EE52BDD25CA0034C6D4 /* XCRemoteSwiftPackageReference "Tabman" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/uias/Tabman.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.2.0;
+			};
+		};
+		FA3F0EEF2BDD39BE0034C6D4 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 10.49.2;
+			};
+		};
 		FADC9C9E2BD2511E00973357 /* XCRemoteSwiftPackageReference "RxGesture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RxSwiftCommunity/RxGesture.git";
@@ -918,6 +989,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FA25AED52BC8A2FD00B08AF4 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
 			productName = Toast;
+		};
+		FA3F0EE62BDD25CA0034C6D4 /* Tabman */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA3F0EE52BDD25CA0034C6D4 /* XCRemoteSwiftPackageReference "Tabman" */;
+			productName = Tabman;
+		};
+		FA3F0EF02BDD39BE0034C6D4 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA3F0EEF2BDD39BE0034C6D4 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		FA3F0EF22BDD39BE0034C6D4 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA3F0EEF2BDD39BE0034C6D4 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 		FADC9C9F2BD2511E00973357 /* RxGesture */ = {
 			isa = XCSwiftPackageProductDependency;

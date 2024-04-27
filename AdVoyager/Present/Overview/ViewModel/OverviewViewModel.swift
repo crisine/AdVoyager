@@ -27,7 +27,7 @@ final class OverviewViewModel: ViewModelType {
         
         let dataSource = BehaviorRelay<[Post]>(value: [])
         
-        let tempPostQuery = PostQuery(next: "", limit: "10", product_id: "buyOrNot")
+        let tempPostQuery = PostQuery(next: "", limit: "10", product_id: "")
         let postModel = NetworkManager.fetchPost(query: tempPostQuery)
         
         let addNewPostTrigger = PublishRelay<Void>()

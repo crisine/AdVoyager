@@ -1,5 +1,5 @@
 //
-//  TravelPlanTableViewCell.swift
+//  TravelScheduleTableViewCell.swift
 //  AdVoyager
 //
 //  Created by Minho on 4/24/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TravelPlanTableViewCell: UITableViewCell {
+final class TravelScheduleTableViewCell: UITableViewCell {
     
     private let dateLabel: UILabel = {
         let view = UILabel()
@@ -109,7 +109,7 @@ final class TravelPlanTableViewCell: UITableViewCell {
         }
     }
     
-    func updateCell(data: TravelPlanModel, isLastCell: Bool) {
+    func updateCell(data: TravelScheduleModel, isLastCell: Bool) {
         dateLabel.text = data.date.toString(format: "hh:mm")
         // iconImageView.image = UIImage(systemName: "circle")
         titleLabel.text = data.placeTitle
