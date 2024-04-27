@@ -53,8 +53,8 @@
 		FA25AF3D2BCDD15D00B08AF4 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AF3C2BCDD15D00B08AF4 /* ProfileViewController.swift */; };
 		FA25AF422BCDD52900B08AF4 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AF412BCDD52900B08AF4 /* MainTabBarViewController.swift */; };
 		FA3F0EE72BDD25CA0034C6D4 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = FA3F0EE62BDD25CA0034C6D4 /* Tabman */; };
-		FA3F0EEC2BDD28DD0034C6D4 /* TravelPlanOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F0EEB2BDD28DD0034C6D4 /* TravelPlanOverviewViewController.swift */; };
-		FA3F0EEE2BDD32430034C6D4 /* TravelPlanOverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F0EED2BDD32430034C6D4 /* TravelPlanOverviewViewModel.swift */; };
+		FA3F0EEC2BDD28DD0034C6D4 /* TravelPlanDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F0EEB2BDD28DD0034C6D4 /* TravelPlanDetailViewController.swift */; };
+		FA3F0EEE2BDD32430034C6D4 /* TravelPlanDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F0EED2BDD32430034C6D4 /* TravelPlanDetailViewModel.swift */; };
 		FA3F0EF12BDD39BE0034C6D4 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = FA3F0EF02BDD39BE0034C6D4 /* Realm */; };
 		FA3F0EF32BDD39BE0034C6D4 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FA3F0EF22BDD39BE0034C6D4 /* RealmSwift */; };
 		FA3F0EF62BDD39F20034C6D4 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F0EF52BDD39F20034C6D4 /* Repository.swift */; };
@@ -114,8 +114,8 @@
 		FA25AF372BCDD0BA00B08AF4 /* OverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
 		FA25AF3C2BCDD15D00B08AF4 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		FA25AF412BCDD52900B08AF4 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
-		FA3F0EEB2BDD28DD0034C6D4 /* TravelPlanOverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPlanOverviewViewController.swift; sourceTree = "<group>"; };
-		FA3F0EED2BDD32430034C6D4 /* TravelPlanOverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPlanOverviewViewModel.swift; sourceTree = "<group>"; };
+		FA3F0EEB2BDD28DD0034C6D4 /* TravelPlanDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPlanDetailViewController.swift; sourceTree = "<group>"; };
+		FA3F0EED2BDD32430034C6D4 /* TravelPlanDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPlanDetailViewModel.swift; sourceTree = "<group>"; };
 		FA3F0EF52BDD39F20034C6D4 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		FA3F0EF72BDD45AD0034C6D4 /* TravelScheduleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelScheduleViewModel.swift; sourceTree = "<group>"; };
 		FA3F0EF92BDD46600034C6D4 /* TravelScheduleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravelScheduleTableViewCell.swift; sourceTree = "<group>"; };
@@ -409,7 +409,7 @@
 		FA3F0EE92BDD28BE0034C6D4 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				FA3F0EEB2BDD28DD0034C6D4 /* TravelPlanOverviewViewController.swift */,
+				FA3F0EEB2BDD28DD0034C6D4 /* TravelPlanDetailViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -417,7 +417,7 @@
 		FA3F0EEA2BDD28C40034C6D4 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				FA3F0EED2BDD32430034C6D4 /* TravelPlanOverviewViewModel.swift */,
+				FA3F0EED2BDD32430034C6D4 /* TravelPlanDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -613,7 +613,7 @@
 				FA90C21A2BD939A7002EDDEC /* TravelScheduleViewController.swift in Sources */,
 				FA25AF312BCD9BA300B08AF4 /* Date+Extension.swift in Sources */,
 				FA1F68C82BD5685D00644C5A /* AddPostViewController.swift in Sources */,
-				FA3F0EEE2BDD32430034C6D4 /* TravelPlanOverviewViewModel.swift in Sources */,
+				FA3F0EEE2BDD32430034C6D4 /* TravelPlanDetailViewModel.swift in Sources */,
 				FA25AEF92BC8A65500B08AF4 /* SignTextField.swift in Sources */,
 				FAE788952BCF0DC300623467 /* ProfileViewModel.swift in Sources */,
 				FA3F0EF62BDD39F20034C6D4 /* Repository.swift in Sources */,
@@ -629,7 +629,7 @@
 				FA25AF002BC8A80200B08AF4 /* FilledButton.swift in Sources */,
 				FA25AF382BCDD0BA00B08AF4 /* OverviewViewController.swift in Sources */,
 				FA25AEF62BC8A4A100B08AF4 /* LoginView.swift in Sources */,
-				FA3F0EEC2BDD28DD0034C6D4 /* TravelPlanOverviewViewController.swift in Sources */,
+				FA3F0EEC2BDD28DD0034C6D4 /* TravelPlanDetailViewController.swift in Sources */,
 				FA90C2132BD7BEA1002EDDEC /* LaunchViewController.swift in Sources */,
 				FA25AF422BCDD52900B08AF4 /* MainTabBarViewController.swift in Sources */,
 				FA0816172BDC151D00F69CBF /* Reactive+Extension.swift in Sources */,

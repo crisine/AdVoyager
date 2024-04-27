@@ -50,7 +50,6 @@ final class AddNewTravelScheduleViewController: BaseViewController {
     }()
     
     private let viewModel = AddNewTravelScheduleViewModel()
-    let travelScheduleObservable = PublishSubject<TravelScheduleModel>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,14 +72,13 @@ final class AddNewTravelScheduleViewController: BaseViewController {
         
         output.closeTrigger
             .drive(with: self) { owner, _ in
+                // TODO: 텍스트필드에 수정 사항이 있었을 경우 닫기 전에 한번 Alert로 물어봐야 함.
                 owner.dismiss(animated: true)
             }
             .disposed(by: disposeBag)
         
         output.successTrigger
             .drive(with: self) { owner, schedule in
-                guard let schedule else { return owner.showToast(message: "추가 실패") }
-                owner.travelScheduleObservable.onNext(schedule)
                 owner.dismiss(animated: true)
             }
             .disposed(by: disposeBag)

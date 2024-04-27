@@ -112,8 +112,8 @@ final class TravelScheduleTableViewCell: UITableViewCell {
     func updateCell(data: TravelScheduleModel, isLastCell: Bool) {
         dateLabel.text = data.date.toString(format: "hh:mm")
         // iconImageView.image = UIImage(systemName: "circle")
-        titleLabel.text = data.placeTitle
-        descriptionLabel.text = data.description
+        titleLabel.text = data.scheduleTitle
+        descriptionLabel.text = data.scheduleDescription
         
         if data.order == 1 {
             nextStepLine.isHidden = false

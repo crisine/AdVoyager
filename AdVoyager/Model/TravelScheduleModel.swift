@@ -6,15 +6,43 @@
 //
 
 import Foundation
+import RealmSwift
 
-// MARK: 각 일정 데이터마다 post_id를 들고 있는 것이 맞을까? 부모 오브젝트가 있는게 좋지 않을까..?
+final class TravelSchedule: Object, Identifiable {
+    @Persisted var planId: ObjectId
+    @Persisted var id: ObjectId
+    @Persisted var order: Int
+    @Persisted var date: Date
+    @Persisted var scheduleTitle: String
+    @Persisted var scheduleDescription: String?
+    @Persisted var latitude: String?
+    @Persisted var longitude: String?
+    
+    convenience init(planId: ObjectId,
+                     order: Int,
+                     date: Date,
+                     scheduleTitle: String,
+                     scheduleDescription: String? = nil,
+                     latitude: String? = nil,
+                     longitude: String? = nil) {
+        self.init()
+        self.planId = planId
+        self.order = order
+        self.date = date
+        self.scheduleTitle = scheduleTitle
+        self.scheduleDescription = scheduleDescription
+        self.latitude = latitude
+        self.longitude = longitude
+    }
+}
+
 struct TravelScheduleModel: Codable {
-    let post_id: String
-    let id: UUID
+    let planId: ObjectId
+    let id: ObjectId
     let order: Int
     let date: Date
-    let placeTitle: String
-    let description: String
+    let scheduleTitle: String
+    let scheduleDescription: String
     let latitude: String?
     let longitude: String?
 }

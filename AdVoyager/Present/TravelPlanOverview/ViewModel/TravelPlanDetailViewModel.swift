@@ -1,5 +1,5 @@
 //
-//  TravelPlanOverviewViewModel.swift
+//  TravelPlanDetailViewModel.swift
 //  AdVoyager
 //
 //  Created by Minho on 4/27/24.
@@ -8,7 +8,7 @@
 import RxSwift
 import RxCocoa
 
-final class TravelPlanOverviewViewModel: ViewModelType {
+final class TravelPlanDetailViewModel: ViewModelType {
     
     var disposeBag = DisposeBag()
     

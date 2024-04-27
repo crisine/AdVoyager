@@ -1,5 +1,5 @@
 //
-//  TravelPlanOverviewViewController.swift
+//  TravelPlanDetailViewController.swift
 //  AdVoyager
 //
 //  Created by Minho on 4/27/24.
@@ -12,18 +12,19 @@ import RxCocoa
 import Tabman
 import Pageboy
 
-final class TravelPlanOverviewViewController: TabmanViewController {
+final class TravelPlanDetailViewController: TabmanViewController {
     
     private var viewControllers: Array<UINavigationController> = []
     
     private let addTravelPlanButton: FilledButton = {
         let plusImage = UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 32))
         let view = FilledButton(image: plusImage)
+        view.backgroundColor = .systemPurple
         return view
     }()
     
     private let disposeBag = DisposeBag()
-    private let viewModel = TravelPlanOverviewViewModel()
+    private let viewModel = TravelPlanDetailViewModel()
     
     private var newTravelPlan = PublishSubject<TravelScheduleModel>()
     
@@ -38,21 +39,15 @@ final class TravelPlanOverviewViewController: TabmanViewController {
     
     private func bind() {
         
-        let input = TravelPlanOverviewViewModel.Input(addTravelPlanButtonTap: addTravelPlanButton.rx.tap.asObservable(),
+        let input = TravelPlanDetailViewModel.Input(addTravelPlanButtonTap: addTravelPlanButton.rx.tap.asObservable(),
         newTravelPlan: newTravelPlan.asObservable())
         
         let output = viewModel.transform(input: input)
         
         output.addTravelPlanTrigger
             .drive(with: self) { owner, _ in
-                let vc = AddNewTravelScheduleViewController()
-                let nav = UINavigationController(rootViewController: vc)
+                let nav = UINavigationController(rootViewController: AddNewTravelScheduleViewController())
                 nav.modalPresentationStyle = .fullScreen
-                
-                vc.travelScheduleObservable.subscribe(with: self) { owner, travelPlan in
-                    owner.newTravelPlan.onNext(travelPlan)
-                }
-                .disposed(by: vc.disposeBag)
                 
                 owner.present(nav, animated: true)
             }
@@ -84,13 +79,13 @@ final class TravelPlanOverviewViewController: TabmanViewController {
         
         let bar = TMBar.ButtonBar()
         bar.layout.transitionStyle = .snap
-        bar.tintColor = .black
+        bar.tintColor = .systemPurple
         
         bar.layout.alignment = .centerDistributed
         
         bar.buttons.customize { button in
             button.tintColor = .lightGray
-            button.selectedTintColor = .systemBlue
+            button.selectedTintColor = .systemPurple
         }
         
         self.dataSource = self
@@ -100,7 +95,7 @@ final class TravelPlanOverviewViewController: TabmanViewController {
     }
 }
 
-extension TravelPlanOverviewViewController: PageboyViewControllerDataSource, TMBarDataSource {
+extension TravelPlanDetailViewController: PageboyViewControllerDataSource, TMBarDataSource {
     func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
         let item = TMBarItem(title: "")
         item.title = "\(index + 1)일차"

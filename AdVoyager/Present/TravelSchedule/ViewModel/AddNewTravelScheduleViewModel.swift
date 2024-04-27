@@ -13,6 +13,8 @@ final class AddNewTravelScheduleViewModel: ViewModelType {
     
     var disposeBag = DisposeBag()
     
+    private let repository = Repository()
+    
     struct Input {
         let closeButtonTap: Observable<Void>
         let addScheduleButtonTap: Observable<Void>
@@ -23,35 +25,36 @@ final class AddNewTravelScheduleViewModel: ViewModelType {
     
     struct Output {
         let closeTrigger: Driver<Void>
-        let successTrigger: Driver<TravelScheduleModel?>
+        let successTrigger: Driver<Void>
     }
     
     func transform(input: Input) -> Output {
         
         let closeTrigger = PublishRelay<Void>()
-        let successTrigger = PublishSubject<TravelScheduleModel?>()
+        let successTrigger = PublishRelay<Void>()
         
         input.closeButtonTap
             .bind(onNext: closeTrigger.accept(_:))
             .disposed(by: disposeBag)
         
-        let travelPlanObservable = Observable.combineLatest(
+        let travelScheduleObservable = Observable.combineLatest(
             input.scheduleDate,
             input.scheduleTitle,
             input.scheduleDescription
-        ).map { date, title, description in
-            // TODO: Order 부분을 어떻게 해야될거같은데, 고민해볼 것 (예를 들면 이 뷰 진입 시 마지막 일정의 order를 갖고 들어온다던지 (그러면 생기는 문제는 새로 추가하는 일정이 가장 마지막 일정이 아닐 경우에 문제가 됨)
-            return TravelScheduleModel(post_id: "", id: UUID(), order: 999, date: date, placeTitle: title, description: description, latitude: nil, longitude: nil)
-        }
+        )
         
+        // TODO: 여기에 planId를 넣으려면 Plan 을 선택한 후 이 화면에 진입해야 함
         input.addScheduleButtonTap
-            .withLatestFrom(travelPlanObservable)
-            .subscribe(with: self) { owner, travelPlan in
-                successTrigger.onNext(travelPlan)
+            .withLatestFrom(travelScheduleObservable)
+            .subscribe(with: self) { owner, schedule in
+//                let newSchedule = TravelSchedule(planId: <#ObjectId#>, order: 0, date: schedule.0, scheduleTitle: schedule.1, scheduleDescription: schedule.2)
+//                owner.repository.addSchedule(newSchedule)
+//                
+//                successTrigger.accept(())
             }
             .disposed(by: disposeBag)
         
         return Output(closeTrigger: closeTrigger.asDriver(onErrorJustReturn: ()),
-                      successTrigger: successTrigger.asDriver(onErrorJustReturn: nil))
+                      successTrigger: successTrigger.asDriver(onErrorJustReturn: ()))
     }
 }
