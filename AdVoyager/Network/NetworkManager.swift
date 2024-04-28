@@ -103,12 +103,15 @@ struct NetworkManager {
                     .responseDecodable(of: LoginModel.self) { response in
                         switch response.result {
                         case .success(let loginModel):
+                            print("로그인 성공: \(loginModel)")
                             single(.success(loginModel))
                         case .failure(let error):
+                            print("로그인 실패: \(error)")
                             single(.failure(error))
                         }
                     }
             } catch {
+                print("로그인 요청 실패: \(error)")
                 single(.failure(error))
             }
             

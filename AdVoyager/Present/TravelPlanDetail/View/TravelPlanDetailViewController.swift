@@ -16,7 +16,7 @@ final class TravelPlanDetailViewController: TabmanViewController {
     
     private var viewControllers: Array<UINavigationController> = []
     
-    private let addTravelPlanButton: FilledButton = {
+    private let addTravelScheduleButton: FilledButton = {
         let plusImage = UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 32))
         let view = FilledButton(image: plusImage)
         view.backgroundColor = .systemPurple
@@ -26,7 +26,7 @@ final class TravelPlanDetailViewController: TabmanViewController {
     private let disposeBag = DisposeBag()
     private let viewModel = TravelPlanDetailViewModel()
     
-    private var newTravelPlan = PublishSubject<TravelScheduleModel>()
+    private var newTravelSchedule = PublishSubject<TravelScheduleModel>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,12 +39,12 @@ final class TravelPlanDetailViewController: TabmanViewController {
     
     private func bind() {
         
-        let input = TravelPlanDetailViewModel.Input(addTravelPlanButtonTap: addTravelPlanButton.rx.tap.asObservable(),
-        newTravelPlan: newTravelPlan.asObservable())
+        let input = TravelPlanDetailViewModel.Input(addTravelScheduleButtonTap: addTravelScheduleButton.rx.tap.asObservable(),
+        newTravelPlan: newTravelSchedule.asObservable())
         
         let output = viewModel.transform(input: input)
         
-        output.addTravelPlanTrigger
+        output.addTravelScheduleTrigger
             .drive(with: self) { owner, _ in
                 let nav = UINavigationController(rootViewController: AddNewTravelScheduleViewController())
                 nav.modalPresentationStyle = .fullScreen
@@ -55,13 +55,13 @@ final class TravelPlanDetailViewController: TabmanViewController {
     }
     
     private func configureHierarchy() {
-        [addTravelPlanButton].forEach {
+        [addTravelScheduleButton].forEach {
             view.addSubview($0)
         }
     }
     
     private func configureConstraints() {
-        addTravelPlanButton.snp.makeConstraints { make in
+        addTravelScheduleButton.snp.makeConstraints { make in
             make.trailing.equalTo(view.safeAreaLayoutGuide).inset(32)
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-64)
             make.size.equalTo(64)
@@ -69,8 +69,8 @@ final class TravelPlanDetailViewController: TabmanViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        print(addTravelPlanButton.frame.height)
-        addTravelPlanButton.circle()
+        print(addTravelScheduleButton.frame.height)
+        addTravelScheduleButton.circle()
     }
     
     func configureView() {

@@ -34,8 +34,7 @@ final class ProfileViewController: BaseViewController {
         return view
     }()
     private let editProfileButton: FilledButton = {
-        let view = FilledButton(title: "프로필 수정", fillColor: .systemBlue)
-        view.layer.cornerRadius = 24
+        let view = FilledButton(title: "프로필 수정")
         return view
     }()
     
@@ -69,6 +68,7 @@ final class ProfileViewController: BaseViewController {
         output.editProfileTrigger.asObservable()
             .subscribe(with: self) { owner, _ in
                 let vc = EditProfileViewController()
+                vc.hidesBottomBarWhenPushed = true
                 owner.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: disposeBag)
@@ -105,7 +105,8 @@ final class ProfileViewController: BaseViewController {
     }
     
     override func configureView() {
-        
+        navigationItem.title = "나의 프로필"
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
 }

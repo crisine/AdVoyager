@@ -154,7 +154,8 @@ final class EditProfileViewController: BaseViewController {
     }
     
     override func configureView() {
-        
+        navigationItem.title = "프로필 수정"
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 }
 

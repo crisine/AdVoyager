@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TravelScheduleTableViewCell: UITableViewCell {
+final class TravelScheduleTableViewCell: BaseTableViewCell {
     
     private let dateLabel: UILabel = {
         let view = UILabel()
@@ -57,14 +57,7 @@ final class TravelScheduleTableViewCell: UITableViewCell {
         return view
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-    
-        configureHierarchy()
-        configureConstraints()
-    }
-    
-    func configureHierarchy() {
+    override func configureHierarchy() {
         [dateLabel, iconImageView, previousStepLine, nextStepLine, contentStackView].forEach {
             contentView.addSubview($0)
         }
@@ -74,7 +67,7 @@ final class TravelScheduleTableViewCell: UITableViewCell {
         }
     }
     
-    func configureConstraints() {
+    override func configureConstraints() {
         dateLabel.snp.makeConstraints { make in
             make.leading.equalTo(contentView.safeAreaLayoutGuide).offset(16)
             make.top.equalTo(contentView.safeAreaLayoutGuide).offset(8)

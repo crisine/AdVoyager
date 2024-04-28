@@ -10,7 +10,7 @@ import RealmSwift
 
 final class TravelSchedule: Object, Identifiable {
     @Persisted var planId: ObjectId
-    @Persisted var id: ObjectId
+    @Persisted(primaryKey: true) var id: ObjectId
     @Persisted var order: Int
     @Persisted var date: Date
     @Persisted var scheduleTitle: String

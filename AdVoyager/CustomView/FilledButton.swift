@@ -9,7 +9,7 @@ import UIKit
 
 final class FilledButton: UIButton {
     
-    init(title: String? = nil, image: UIImage? = nil, fillColor: UIColor? = .systemBlue) {
+    init(title: String? = nil, image: UIImage? = nil, fillColor: UIColor? = .lightpurple) {
         super.init(frame: .zero)
         
         print("버튼 초기화됐다~")
@@ -22,6 +22,19 @@ final class FilledButton: UIButton {
         backgroundColor = fillColor
         clipsToBounds = true
         layer.cornerRadius = 16
+        
+        addTarget(self, action: #selector(touchDown(_:)), for: .touchDown)
+            addTarget(self, action: #selector(touchUpInside(_:)), for: .touchUpInside)
+    }
+    
+    @objc private func touchDown(_ sender: UIButton) {
+        // 눌렸을때
+        backgroundColor = .darkPurple
+    }
+
+    @objc private func touchUpInside(_ sender: UIButton) {
+        // 뗐을 때
+        backgroundColor = .lightpurple
     }
     
     func circle() {

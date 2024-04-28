@@ -41,12 +41,16 @@ final class LaunchViewController: BaseViewController {
         output.loginSuccessTrigger
             .asObservable()
             .subscribe(with: self) { owner, isTokenRefreshed in
+                print("로그인 이벤트 구독")
+                
                 switch isTokenRefreshed {
                 case true:
+                    print("메인 화면으로 이동합니다.")
                     let vc = MainTabBarViewController()
                     vc.modalPresentationStyle = .fullScreen
                     owner.present(vc, animated: true)
                 case false:
+                    print("로그인 화면으로 이동합니다.")
                     let vc = LoginViewController()
                     vc.modalPresentationStyle = .fullScreen
                     owner.present(vc, animated: true)

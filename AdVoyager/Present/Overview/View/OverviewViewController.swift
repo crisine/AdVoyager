@@ -23,8 +23,9 @@ final class OverviewViewController: BaseViewController {
         view.register(PostCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         return view
     }()
-    private let addDummyDataButton: FilledButton = {
-        let view = FilledButton(title: "추가", fillColor: .systemBlue)
+    private let addPostButton: FilledButton = {
+        let pencilImage = UIImage(systemName: "pencil", withConfiguration: UIImage.SymbolConfiguration(pointSize: 32))
+        let view = FilledButton(image: pencilImage)
         view.layer.cornerRadius = 32
         return view
     }()
@@ -38,7 +39,7 @@ final class OverviewViewController: BaseViewController {
     
     override func bind() {
         print(#function)
-        let input = OverviewViewModel.Input(addNewPostButtonTap: addDummyDataButton.rx.tap.asObservable())
+        let input = OverviewViewModel.Input(addNewPostButtonTap: addPostButton.rx.tap.asObservable())
         
         let output = viewModel.transform(input: input)
         
@@ -60,7 +61,7 @@ final class OverviewViewController: BaseViewController {
     override func configureHierarchy() {
         view.addSubview(profileImageView)
         view.addSubview(mainPostCollectionView)
-        view.addSubview(addDummyDataButton)
+        view.addSubview(addPostButton)
     }
     
     override func configureConstraints() {
@@ -76,15 +77,16 @@ final class OverviewViewController: BaseViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
         }
         
-        addDummyDataButton.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-32)
+        addPostButton.snp.makeConstraints { make in
             make.trailing.equalTo(view.safeAreaLayoutGuide).inset(32)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-64)
             make.size.equalTo(64)
         }
     }
     
     override func configureView() {
-        
+        navigationItem.title = "둘러보기"
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     private func createLayout() -> UICollectionViewLayout {

@@ -60,6 +60,16 @@
 		FA3F0EF62BDD39F20034C6D4 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F0EF52BDD39F20034C6D4 /* Repository.swift */; };
 		FA3F0EF82BDD45AD0034C6D4 /* TravelScheduleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F0EF72BDD45AD0034C6D4 /* TravelScheduleViewModel.swift */; };
 		FA3F0EFA2BDD46600034C6D4 /* TravelScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F0EF92BDD46600034C6D4 /* TravelScheduleTableViewCell.swift */; };
+		FA3F0EFF2BDD566D0034C6D4 /* TravelPlanOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F0EFE2BDD566D0034C6D4 /* TravelPlanOverviewViewController.swift */; };
+		FA3F0F012BDD57A80034C6D4 /* TravelPlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F0F002BDD57A80034C6D4 /* TravelPlanTableViewCell.swift */; };
+		FA3F0F032BDD580A0034C6D4 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F0F022BDD580A0034C6D4 /* BaseTableViewCell.swift */; };
+		FA3F0F052BDD58D70034C6D4 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F0F042BDD58D70034C6D4 /* Reusable.swift */; };
+		FA3F0F072BDD65080034C6D4 /* TravelPlanOverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F0F062BDD65080034C6D4 /* TravelPlanOverviewViewModel.swift */; };
+		FA3F0F0C2BDD6C0C0034C6D4 /* AddTravelPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F0F0B2BDD6C0C0034C6D4 /* AddTravelPlanViewController.swift */; };
+		FA3F0F0E2BDD6C3A0034C6D4 /* AddTravelPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F0F0D2BDD6C3A0034C6D4 /* AddTravelPlanViewModel.swift */; };
+		FA8A75F22BDE9055001942CD /* TravelPlanModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A75F12BDE9055001942CD /* TravelPlanModel.swift */; };
+		FA9032E52BDD74D9002008D9 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9032E42BDD74D9002008D9 /* UIColor+Extension.swift */; };
+		FA9032F32BDE8197002008D9 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = FA9032F22BDE8197002008D9 /* FSCalendar */; };
 		FA90C1EA2BD69438002EDDEC /* NeuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90C1E92BD69438002EDDEC /* NeuView.swift */; };
 		FA90C2132BD7BEA1002EDDEC /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90C2122BD7BEA1002EDDEC /* LaunchViewController.swift */; };
 		FA90C2152BD7BEA7002EDDEC /* LaunchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90C2142BD7BEA7002EDDEC /* LaunchViewModel.swift */; };
@@ -119,6 +129,15 @@
 		FA3F0EF52BDD39F20034C6D4 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		FA3F0EF72BDD45AD0034C6D4 /* TravelScheduleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelScheduleViewModel.swift; sourceTree = "<group>"; };
 		FA3F0EF92BDD46600034C6D4 /* TravelScheduleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravelScheduleTableViewCell.swift; sourceTree = "<group>"; };
+		FA3F0EFE2BDD566D0034C6D4 /* TravelPlanOverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPlanOverviewViewController.swift; sourceTree = "<group>"; };
+		FA3F0F002BDD57A80034C6D4 /* TravelPlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPlanTableViewCell.swift; sourceTree = "<group>"; };
+		FA3F0F022BDD580A0034C6D4 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		FA3F0F042BDD58D70034C6D4 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
+		FA3F0F062BDD65080034C6D4 /* TravelPlanOverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPlanOverviewViewModel.swift; sourceTree = "<group>"; };
+		FA3F0F0B2BDD6C0C0034C6D4 /* AddTravelPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTravelPlanViewController.swift; sourceTree = "<group>"; };
+		FA3F0F0D2BDD6C3A0034C6D4 /* AddTravelPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTravelPlanViewModel.swift; sourceTree = "<group>"; };
+		FA8A75F12BDE9055001942CD /* TravelPlanModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPlanModel.swift; sourceTree = "<group>"; };
+		FA9032E42BDD74D9002008D9 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		FA90C1E92BD69438002EDDEC /* NeuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuView.swift; sourceTree = "<group>"; };
 		FA90C2122BD7BEA1002EDDEC /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		FA90C2142BD7BEA7002EDDEC /* LaunchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewModel.swift; sourceTree = "<group>"; };
@@ -145,6 +164,7 @@
 				FA25AED22BC8A2F700B08AF4 /* RxCocoa in Frameworks */,
 				FA3F0EF32BDD39BE0034C6D4 /* RealmSwift in Frameworks */,
 				FA25AED72BC8A2FD00B08AF4 /* Toast in Frameworks */,
+				FA9032F32BDE8197002008D9 /* FSCalendar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,7 +229,9 @@
 		FA25AEE52BC8A3A800B08AF4 /* Present */ = {
 			isa = PBXGroup;
 			children = (
-				FA3F0EE82BDD285E0034C6D4 /* TravelPlanOverview */,
+				FA3F0F082BDD6BF50034C6D4 /* AddTravelPlan */,
+				FA3F0EFB2BDD564C0034C6D4 /* TravelPlanOverview */,
+				FA3F0EE82BDD285E0034C6D4 /* TravelPlanDetail */,
 				FA90C2162BD9396F002EDDEC /* TravelSchedule */,
 				FA90C20F2BD7BE8A002EDDEC /* Launch */,
 				FA25AF3E2BCDD1A000B08AF4 /* TabBar */,
@@ -253,6 +275,7 @@
 			children = (
 				FA25AEEC2BC8A3E900B08AF4 /* ViewModelType.swift */,
 				FA0816142BDC0EC600F69CBF /* CommonTextComponentType.swift */,
+				FA3F0F042BDD58D70034C6D4 /* Reusable.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -261,6 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				FA25AEF22BC8A48E00B08AF4 /* BaseViewController.swift */,
+				FA3F0F022BDD580A0034C6D4 /* BaseTableViewCell.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -316,6 +340,7 @@
 			children = (
 				FA25AF302BCD9BA300B08AF4 /* Date+Extension.swift */,
 				FA0816162BDC151D00F69CBF /* Reactive+Extension.swift */,
+				FA9032E42BDD74D9002008D9 /* UIColor+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -397,13 +422,13 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		FA3F0EE82BDD285E0034C6D4 /* TravelPlanOverview */ = {
+		FA3F0EE82BDD285E0034C6D4 /* TravelPlanDetail */ = {
 			isa = PBXGroup;
 			children = (
 				FA3F0EEA2BDD28C40034C6D4 /* ViewModel */,
 				FA3F0EE92BDD28BE0034C6D4 /* View */,
 			);
-			path = TravelPlanOverview;
+			path = TravelPlanDetail;
 			sourceTree = "<group>";
 		};
 		FA3F0EE92BDD28BE0034C6D4 /* View */ = {
@@ -428,6 +453,57 @@
 				FA3F0EF52BDD39F20034C6D4 /* Repository.swift */,
 			);
 			path = Repository;
+			sourceTree = "<group>";
+		};
+		FA3F0EFB2BDD564C0034C6D4 /* TravelPlanOverview */ = {
+			isa = PBXGroup;
+			children = (
+				FA3F0EFD2BDD565C0034C6D4 /* ViewModel */,
+				FA3F0EFC2BDD56560034C6D4 /* View */,
+			);
+			path = TravelPlanOverview;
+			sourceTree = "<group>";
+		};
+		FA3F0EFC2BDD56560034C6D4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FA3F0EFE2BDD566D0034C6D4 /* TravelPlanOverviewViewController.swift */,
+				FA3F0F002BDD57A80034C6D4 /* TravelPlanTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FA3F0EFD2BDD565C0034C6D4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FA3F0F062BDD65080034C6D4 /* TravelPlanOverviewViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FA3F0F082BDD6BF50034C6D4 /* AddTravelPlan */ = {
+			isa = PBXGroup;
+			children = (
+				FA3F0F0A2BDD6C000034C6D4 /* ViewModel */,
+				FA3F0F092BDD6BFC0034C6D4 /* View */,
+			);
+			path = AddTravelPlan;
+			sourceTree = "<group>";
+		};
+		FA3F0F092BDD6BFC0034C6D4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FA3F0F0B2BDD6C0C0034C6D4 /* AddTravelPlanViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FA3F0F0A2BDD6C000034C6D4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FA3F0F0D2BDD6C3A0034C6D4 /* AddTravelPlanViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		FA90C20F2BD7BE8A002EDDEC /* Launch */ = {
@@ -487,6 +563,7 @@
 			isa = PBXGroup;
 			children = (
 				FA90C21E2BD93B56002EDDEC /* TravelScheduleModel.swift */,
+				FA8A75F12BDE9055001942CD /* TravelPlanModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -543,6 +620,7 @@
 				FA3F0EE62BDD25CA0034C6D4 /* Tabman */,
 				FA3F0EF02BDD39BE0034C6D4 /* Realm */,
 				FA3F0EF22BDD39BE0034C6D4 /* RealmSwift */,
+				FA9032F22BDE8197002008D9 /* FSCalendar */,
 			);
 			productName = AdVoyager;
 			productReference = FA25AEAB2BC6D43700B08AF4 /* AdVoyager.app */;
@@ -581,6 +659,7 @@
 				FA08160D2BDBEF0000F69CBF /* XCRemoteSwiftPackageReference "Alamofire" */,
 				FA3F0EE52BDD25CA0034C6D4 /* XCRemoteSwiftPackageReference "Tabman" */,
 				FA3F0EEF2BDD39BE0034C6D4 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				FA9032F12BDE8197002008D9 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = FA25AEAC2BC6D43700B08AF4 /* Products */;
 			projectDirPath = "";
@@ -613,10 +692,13 @@
 				FA90C21A2BD939A7002EDDEC /* TravelScheduleViewController.swift in Sources */,
 				FA25AF312BCD9BA300B08AF4 /* Date+Extension.swift in Sources */,
 				FA1F68C82BD5685D00644C5A /* AddPostViewController.swift in Sources */,
+				FA3F0EFF2BDD566D0034C6D4 /* TravelPlanOverviewViewController.swift in Sources */,
 				FA3F0EEE2BDD32430034C6D4 /* TravelPlanDetailViewModel.swift in Sources */,
 				FA25AEF92BC8A65500B08AF4 /* SignTextField.swift in Sources */,
+				FA3F0F0C2BDD6C0C0034C6D4 /* AddTravelPlanViewController.swift in Sources */,
 				FAE788952BCF0DC300623467 /* ProfileViewModel.swift in Sources */,
 				FA3F0EF62BDD39F20034C6D4 /* Repository.swift in Sources */,
+				FA8A75F22BDE9055001942CD /* TravelPlanModel.swift in Sources */,
 				FA3F0EFA2BDD46600034C6D4 /* TravelScheduleTableViewCell.swift in Sources */,
 				FAF1C10B2BD3FBD400E56291 /* PostCollectionViewCell.swift in Sources */,
 				FA3F0EF82BDD45AD0034C6D4 /* TravelScheduleViewModel.swift in Sources */,
@@ -626,8 +708,10 @@
 				FA0816112BDC01E900F69CBF /* AddNewTravelScheduleViewController.swift in Sources */,
 				FA90C21F2BD93B56002EDDEC /* TravelScheduleModel.swift in Sources */,
 				FA0D4F622BD138F000400D74 /* EditProfileViewModel.swift in Sources */,
+				FA9032E52BDD74D9002008D9 /* UIColor+Extension.swift in Sources */,
 				FA25AF002BC8A80200B08AF4 /* FilledButton.swift in Sources */,
 				FA25AF382BCDD0BA00B08AF4 /* OverviewViewController.swift in Sources */,
+				FA3F0F032BDD580A0034C6D4 /* BaseTableViewCell.swift in Sources */,
 				FA25AEF62BC8A4A100B08AF4 /* LoginView.swift in Sources */,
 				FA3F0EEC2BDD28DD0034C6D4 /* TravelPlanDetailViewController.swift in Sources */,
 				FA90C2132BD7BEA1002EDDEC /* LaunchViewController.swift in Sources */,
@@ -647,16 +731,20 @@
 				FA90C1EA2BD69438002EDDEC /* NeuView.swift in Sources */,
 				FA25AF272BCD8A6900B08AF4 /* NumberTextField.swift in Sources */,
 				FA25AF2D2BCD990700B08AF4 /* SignUpViewModel.swift in Sources */,
+				FA3F0F0E2BDD6C3A0034C6D4 /* AddTravelPlanViewModel.swift in Sources */,
 				FA25AEAF2BC6D43700B08AF4 /* AppDelegate.swift in Sources */,
 				FA0D4F602BD1370B00400D74 /* EditProfileViewController.swift in Sources */,
 				FA25AEE42BC8A32700B08AF4 /* Router.swift in Sources */,
 				FA1F68CA2BD5699E00644C5A /* ContentTextView.swift in Sources */,
 				FA90C2152BD7BEA7002EDDEC /* LaunchViewModel.swift in Sources */,
+				FA3F0F012BDD57A80034C6D4 /* TravelPlanTableViewCell.swift in Sources */,
 				FA25AEE32BC8A32700B08AF4 /* NetworkManager.swift in Sources */,
 				FA25AEE22BC8A32700B08AF4 /* LoginQuery.swift in Sources */,
 				FA0816152BDC0EC600F69CBF /* CommonTextComponentType.swift in Sources */,
+				FA3F0F052BDD58D70034C6D4 /* Reusable.swift in Sources */,
 				FA25AEB12BC6D43700B08AF4 /* SceneDelegate.swift in Sources */,
 				FA25AF3D2BCDD15D00B08AF4 /* ProfileViewController.swift in Sources */,
+				FA3F0F072BDD65080034C6D4 /* TravelPlanOverviewViewModel.swift in Sources */,
 				FA25AEEA2BC8A3D000B08AF4 /* LoginViewModel.swift in Sources */,
 				FA25AEE02BC8A32700B08AF4 /* APIKey.swift in Sources */,
 			);
@@ -949,6 +1037,14 @@
 				version = 10.49.2;
 			};
 		};
+		FA9032F12BDE8197002008D9 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.8.4;
+			};
+		};
 		FADC9C9E2BD2511E00973357 /* XCRemoteSwiftPackageReference "RxGesture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RxSwiftCommunity/RxGesture.git";
@@ -1004,6 +1100,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FA3F0EEF2BDD39BE0034C6D4 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		FA9032F22BDE8197002008D9 /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA9032F12BDE8197002008D9 /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
 		};
 		FADC9C9F2BD2511E00973357 /* RxGesture */ = {
 			isa = XCSwiftPackageProductDependency;

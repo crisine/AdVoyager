@@ -22,7 +22,7 @@ final class LoginViewController: BaseViewController {
         return view
     }()
     private let loginButton: FilledButton = {
-        let view = FilledButton(title: "로그인", fillColor: .systemBlue)
+        let view = FilledButton(title: "로그인")
         return view
     }()
     private let signupButton: UIButton = {

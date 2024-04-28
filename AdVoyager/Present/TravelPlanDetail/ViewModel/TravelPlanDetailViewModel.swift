@@ -13,20 +13,20 @@ final class TravelPlanDetailViewModel: ViewModelType {
     var disposeBag = DisposeBag()
     
     struct Input {
-        let addTravelPlanButtonTap: Observable<Void>
+        let addTravelScheduleButtonTap: Observable<Void>
         let newTravelPlan: Observable<TravelScheduleModel>
     }
     
     struct Output {
-        let addTravelPlanTrigger: Driver<Void>
+        let addTravelScheduleTrigger: Driver<Void>
     }
     
     func transform(input: Input) -> Output {
         
-        let addTravelPlanTrigger = PublishRelay<Void>()
+        let addTravelScheduleTrigger = PublishRelay<Void>()
         
-        input.addTravelPlanButtonTap
-            .bind(onNext: addTravelPlanTrigger.accept(_:))
+        input.addTravelScheduleButtonTap
+            .bind(onNext: addTravelScheduleTrigger.accept(_:))
             .disposed(by: disposeBag)
         
         input.newTravelPlan
@@ -36,6 +36,6 @@ final class TravelPlanDetailViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
-        return Output(addTravelPlanTrigger: addTravelPlanTrigger.asDriver(onErrorJustReturn: ()))
+        return Output(addTravelScheduleTrigger: addTravelScheduleTrigger.asDriver(onErrorJustReturn: ()))
     }
 }
