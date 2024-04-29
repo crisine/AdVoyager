@@ -34,7 +34,7 @@ final class ContentTextView: UITextView {
             .subscribe(with: self) { owner, _ in
                 UIView.animate(withDuration: 0.3) {
                     owner.layer.borderWidth = 1.5
-                    owner.layer.borderColor = UIColor.systemBlue.cgColor
+                    owner.layer.borderColor = UIColor.lightpurple.cgColor
                 }
                 
                 if owner.isEdited == false {

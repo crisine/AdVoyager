@@ -14,17 +14,21 @@ import Pageboy
 
 final class TravelPlanDetailViewController: TabmanViewController {
     
-    private var viewControllers: Array<UINavigationController> = []
-    
+    private let fullView: UIView = {
+        let view = UIView()
+        return view
+    }()
     private let addTravelScheduleButton: FilledButton = {
         let plusImage = UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 32))
         let view = FilledButton(image: plusImage)
+        view.layer.cornerRadius = 32
         view.backgroundColor = .systemPurple
         return view
     }()
     
     private let disposeBag = DisposeBag()
-    private let viewModel = TravelPlanDetailViewModel()
+    let viewModel = TravelPlanDetailViewModel()
+    let reloadDataTrigger = PublishRelay<Void>()
     
     private var newTravelSchedule = PublishSubject<TravelScheduleModel>()
     
@@ -39,15 +43,22 @@ final class TravelPlanDetailViewController: TabmanViewController {
     
     private func bind() {
         
-        let input = TravelPlanDetailViewModel.Input(addTravelScheduleButtonTap: addTravelScheduleButton.rx.tap.asObservable(),
-        newTravelPlan: newTravelSchedule.asObservable())
+        let input = TravelPlanDetailViewModel.Input(reloadDataTrigger: reloadDataTrigger.asObservable(),
+                                                    addTravelScheduleButtonTap: addTravelScheduleButton.rx.tap.asObservable())
         
         let output = viewModel.transform(input: input)
         
         output.addTravelScheduleTrigger
             .drive(with: self) { owner, _ in
-                let nav = UINavigationController(rootViewController: AddNewTravelScheduleViewController())
-                nav.modalPresentationStyle = .fullScreen
+                let vc = AddNewTravelScheduleViewController()
+                let nav = UINavigationController(rootViewController: vc)
+                
+                vc.dismissTrigger.subscribe(with: self) { owner, _ in
+                    owner.reloadDataTrigger.accept(())
+                }
+                .disposed(by: vc.disposeBag)
+                
+                vc.viewModel.selectedTravelPlan = owner.viewModel.selectedTravelPlan
                 
                 owner.present(nav, animated: true)
             }
@@ -55,12 +66,18 @@ final class TravelPlanDetailViewController: TabmanViewController {
     }
     
     private func configureHierarchy() {
-        [addTravelScheduleButton].forEach {
+        [fullView, addTravelScheduleButton].forEach {
             view.addSubview($0)
         }
     }
     
     private func configureConstraints() {
+        fullView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(32)
+        }
+        
         addTravelScheduleButton.snp.makeConstraints { make in
             make.trailing.equalTo(view.safeAreaLayoutGuide).inset(32)
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-64)
@@ -68,14 +85,8 @@ final class TravelPlanDetailViewController: TabmanViewController {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        print(addTravelScheduleButton.frame.height)
-        addTravelScheduleButton.circle()
-    }
-    
     func configureView() {
-        viewControllers.append(UINavigationController(rootViewController: TravelScheduleViewController()))
-        viewControllers.append(UINavigationController(rootViewController: TravelScheduleViewController()))
+        viewModel.setViewControllers()
         
         let bar = TMBar.ButtonBar()
         bar.layout.transitionStyle = .snap
@@ -89,9 +100,12 @@ final class TravelPlanDetailViewController: TabmanViewController {
         }
         
         self.dataSource = self
-        addBar(bar, dataSource: self, at: .top)
+        addBar(bar, dataSource: self, at: .custom(view: fullView, layout: nil))
         
-        view.backgroundColor = .red
+        view.backgroundColor = .white
+        
+        navigationItem.largeTitleDisplayMode = .never
+        navigationItem.title = "여행 일정"
     }
 }
 
@@ -104,14 +118,14 @@ extension TravelPlanDetailViewController: PageboyViewControllerDataSource, TMBar
     }
     
     func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
-        return viewControllers.count
+        return viewModel.viewControllers.count
     }
 
     func viewController(for pageboyViewController: PageboyViewController,
                         at index: PageboyViewController.PageIndex) -> UIViewController? {
         // MARK: 여기서 index로 지금 몇 번째 뷰를 보고있는지 알 수 있음.
         // print("이건 언제불리니 \(index)")
-        return viewControllers[index]
+        return viewModel.viewControllers[index]
     }
 
     func defaultPage(for pageboyViewController: PageboyViewController) -> PageboyViewController.Page? {

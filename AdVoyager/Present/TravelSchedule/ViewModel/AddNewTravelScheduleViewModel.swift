@@ -12,6 +12,7 @@ import RxCocoa
 final class AddNewTravelScheduleViewModel: ViewModelType {
     
     var disposeBag = DisposeBag()
+    var selectedTravelPlan: TravelPlanModel?
     
     private let repository = Repository()
     
@@ -19,6 +20,7 @@ final class AddNewTravelScheduleViewModel: ViewModelType {
         let closeButtonTap: Observable<Void>
         let addScheduleButtonTap: Observable<Void>
         let scheduleDate: Observable<Date>
+        let scheduleTime: Observable<Date>
         let scheduleTitle: Observable<String>
         let scheduleDescription: Observable<String>
     }
@@ -39,22 +41,50 @@ final class AddNewTravelScheduleViewModel: ViewModelType {
         
         let travelScheduleObservable = Observable.combineLatest(
             input.scheduleDate,
+            input.scheduleTime,
             input.scheduleTitle,
             input.scheduleDescription
-        )
+        ).map { date, time, title, description in
+            
+            let combinedDate = combineDateAndTime(date: date, time: time)
+            
+            return TravelSchedule(planId: self.selectedTravelPlan!.id, order: 0, date: combinedDate, scheduleTitle: title, scheduleDescription: description)
+        }
         
-        // TODO: 여기에 planId를 넣으려면 Plan 을 선택한 후 이 화면에 진입해야 함
         input.addScheduleButtonTap
             .withLatestFrom(travelScheduleObservable)
-            .subscribe(with: self) { owner, schedule in
-//                let newSchedule = TravelSchedule(planId: <#ObjectId#>, order: 0, date: schedule.0, scheduleTitle: schedule.1, scheduleDescription: schedule.2)
-//                owner.repository.addSchedule(newSchedule)
-//                
-//                successTrigger.accept(())
+            .subscribe(with: self) { owner, travelSchedule in
+                owner.repository.addSchedule(travelSchedule)
+                successTrigger.accept(())
             }
             .disposed(by: disposeBag)
         
         return Output(closeTrigger: closeTrigger.asDriver(onErrorJustReturn: ()),
                       successTrigger: successTrigger.asDriver(onErrorJustReturn: ()))
     }
+}
+
+private func combineDateAndTime(date: Date, time: Date) -> Date {
+    
+    let calendar = Calendar.current
+
+    let year = calendar.component(.year, from: date)
+    let month = calendar.component(.month, from: date)
+    let day = calendar.component(.day, from: date)
+    
+    let hour = calendar.component(.hour, from: time)
+    let minute = calendar.component(.minute, from: time)
+    let second = calendar.component(.second, from: time)
+    
+    var dateComponents = DateComponents()
+    dateComponents.year = year
+    dateComponents.month = month
+    dateComponents.day = day
+    dateComponents.hour = hour
+    dateComponents.minute = minute
+    dateComponents.second = second
+    
+    let combinedDate = calendar.date(from: dateComponents)
+    
+    return combinedDate!
 }

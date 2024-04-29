@@ -51,8 +51,6 @@ final class LoginViewModel: ViewModelType {
             .disposed(by: disposeBag)
         
         
-        
-        
         input.loginButtonTapped
             .debounce(.seconds(1), scheduler: MainScheduler.instance)
             .withLatestFrom(loginObservable)

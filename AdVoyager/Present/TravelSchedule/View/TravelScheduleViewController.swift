@@ -14,29 +14,36 @@ final class TravelScheduleViewController: BaseViewController {
     
     private let travelPlanTableView: UITableView = {
         let view = UITableView()
-        view.register(TravelScheduleTableViewCell.self, forCellReuseIdentifier: "cell")
+        view.register(TravelScheduleTableViewCell.self, forCellReuseIdentifier: TravelScheduleTableViewCell.identifier)
         view.separatorStyle = .none
         return view
     }()
-    
-    private let viewModel = TravelScheduleViewModel()
+
+    let viewModel = TravelScheduleViewModel()
+    let reloadDataTrigger = PublishSubject<Void>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        reloadDataTrigger.onNext(())
+    }
+    
+    deinit {
+        print("일정표 deinit")
     }
     
     override func bind() {
         print(#function)
         
-        let input = TravelScheduleViewModel.Input(travelPlanItem: travelPlanTableView.rx
-            .modelSelected(TravelScheduleModel.self)
+        let input = TravelScheduleViewModel.Input(reloadDataTrigger: reloadDataTrigger.asObservable(),
+                                                  travelSchedule: travelPlanTableView.rx
+            .modelSelected(TravelSchedule.self)
             .asObservable(),
                                               tableViewIndexPath: travelPlanTableView.rx.itemSelected.asObservable())
         
         let output = viewModel.transform(input: input)
         
         output.dataSource
-            .drive(travelPlanTableView.rx.items(cellIdentifier: "cell", cellType: TravelScheduleTableViewCell.self)) {
+            .drive(travelPlanTableView.rx.items(cellIdentifier: TravelScheduleTableViewCell.identifier, cellType: TravelScheduleTableViewCell.self)) {
                 row, element, cell in
                 
                 output.dataSource
@@ -46,7 +53,7 @@ final class TravelScheduleViewController: BaseViewController {
                     }
                     .drive(with: self) { owner, isLastCell in
                         cell.updateCell(data: element, isLastCell: isLastCell)
-                    }.dispose()
+                    }.disposed(by: cell.disposeBag)
             }
             .disposed(by: disposeBag)
         
@@ -66,12 +73,14 @@ final class TravelScheduleViewController: BaseViewController {
     
     override func configureConstraints() {
         travelPlanTableView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(32)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
         }
     }
     
     override func configureView() {
-        navigationItem.title = "여행 일정"
-        navigationController?.navigationBar.prefersLargeTitles = true
+        // 배경으로 깔리는 뷰
+//        view.backgroundColor = .systemGray6
     }
 }

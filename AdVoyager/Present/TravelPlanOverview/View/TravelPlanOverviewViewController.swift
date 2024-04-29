@@ -26,6 +26,7 @@ final class TravelPlanOverviewViewController: BaseViewController {
     }()
     
     private let viewModel = TravelPlanOverviewViewModel()
+    private let dataReloadTrigger = PublishRelay<Void>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,15 +34,53 @@ final class TravelPlanOverviewViewController: BaseViewController {
     }
     
     override func bind() {
-        let input = TravelPlanOverviewViewModel.Input(addTravelPlanButtonTap: addTravelPlanButton.rx.tap.asObservable())
+        let input =
+        TravelPlanOverviewViewModel.Input(
+            travelPlan: travelPlanTableView.rx.modelSelected(TravelPlanModel.self).asObservable(),
+            tableViewIndexPath: travelPlanTableView.rx.itemSelected.asObservable(),
+            addTravelPlanButtonTap: addTravelPlanButton.rx.tap.asObservable(),
+            dataReloadTrigger: dataReloadTrigger.asObservable())
         
         let output = viewModel.transform(input: input)
+        
+        output.dataSource
+            .drive(travelPlanTableView.rx.items(cellIdentifier: TravelPlanTableViewCell.identifier, cellType: TravelPlanTableViewCell.self)) { row, element, cell in
+                cell.updateCell(data: element)
+            }
+            .disposed(by: disposeBag)
         
         output.moveToAddTravelPlanViewTrigger
             .drive(with: self) { owner, _ in
                 // MARK: 새 여행 계획 입력 화면 만들고 present
-                let nav = UINavigationController(rootViewController: AddTravelPlanViewController())
+                let vc = AddTravelPlanViewController()
+                let nav = UINavigationController(rootViewController: vc)
                 owner.present(nav, animated: true)
+                
+                vc.dismissTrigger
+                    .subscribe(with: self) { owner, _ in
+                        owner.dataReloadTrigger.accept(())
+                    }
+                    .disposed(by: vc.disposeBag)
+            }
+            .disposed(by: disposeBag)
+        
+        output.travelPlan
+            .drive(with: self) { owner, travelPlan in
+                guard let travelPlan else { return }
+                
+                let vc = TravelPlanDetailViewController()
+                vc.hidesBottomBarWhenPushed = true
+                
+                vc.viewModel.selectedTravelPlan = travelPlan
+                
+                owner.navigationController?.pushViewController(vc, animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        output.indexPath
+            .drive(with: self) { owner, indexPath in
+                guard let indexPath else { return }
+                owner.travelPlanTableView.deselectRow(at: indexPath, animated: true)
             }
             .disposed(by: disposeBag)
     }

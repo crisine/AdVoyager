@@ -12,9 +12,24 @@ final class Repository {
     
     private let realm = try! Realm()
     
+    func fetchTravelPlan() -> Results<TravelPlanModel> {
+        print(realm.configuration.fileURL)
+        return realm.objects(TravelPlanModel.self)
+    }
+    
     func fetchSchedule(planId: ObjectId) -> Results<TravelSchedule> {
         return realm.objects(TravelSchedule.self).where { schedule in
             schedule.planId == planId
+        }
+    }
+    
+    func addTravelPlan(_ travelPlan: TravelPlanModel) {
+        do {
+            try realm.write {
+                realm.add(travelPlan)
+            }
+        } catch {
+            print(error)
         }
     }
 

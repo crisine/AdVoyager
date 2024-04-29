@@ -13,6 +13,11 @@ import FSCalendar
 
 final class AddTravelPlanViewController: BaseViewController {
     
+    private let closeBarButtonItem: UIBarButtonItem = {
+        let view = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: nil, action: nil)
+        view.tintColor = .lightpurple
+        return view
+    }()
     private let planTitleTextField: SignTextField = {
         let view = SignTextField(placeholderText: "여행 제목 입력...")
         return view
@@ -87,6 +92,8 @@ final class AddTravelPlanViewController: BaseViewController {
     private let firstDateObservable = PublishSubject<Date?>()
     private let lastDateObservable = PublishSubject<Date?>()
     
+    let dismissTrigger = PublishSubject<Void>()
+    
     private let viewModel = AddTravelPlanViewModel()
     
     override func viewDidLoad() {
@@ -96,10 +103,19 @@ final class AddTravelPlanViewController: BaseViewController {
     
     override func bind() {
         
-        let input = AddTravelPlanViewModel.Input(firstDate: firstDateObservable.asObservable(),
-                                                 lastDate: lastDateObservable.asObservable())
+        let input = AddTravelPlanViewModel.Input(closeButtonTap: closeBarButtonItem.rx.tap.asObservable(),
+                                                 planTitle: planTitleTextField.rx.text.orEmpty.asObservable(),
+                                                 firstDate: firstDateObservable.asObservable(),
+                                                 lastDate: lastDateObservable.asObservable(),
+                                                 addTravelPlanButtonTap: addPlanButton.rx.tap.asObservable())
         
         let output = viewModel.transform(input: input)
+        
+        output.closeTrigger
+            .drive(with: self) { owner, _ in
+                owner.dismiss(animated: true)
+            }
+            .disposed(by: disposeBag)
         
         // TODO: Model 형태로 전달하여 반영하는 것이 좋을 것 같음.
         output.firstDateString
@@ -111,6 +127,14 @@ final class AddTravelPlanViewController: BaseViewController {
         output.lastDateString
             .drive(with: self) { owner, lastDateString in
                 owner.lastDateLabel.text = lastDateString
+            }
+            .disposed(by: disposeBag)
+        
+        output.saveSuccessTrigger
+            .drive(with: self) { owner, _ in
+                // TODO: 이전 뷰에다가 갱신하라고 신호 보내줘야함
+                owner.dismissTrigger.onNext(())
+                owner.dismiss(animated: true)
             }
             .disposed(by: disposeBag)
     }
@@ -162,6 +186,8 @@ final class AddTravelPlanViewController: BaseViewController {
     }
     
     override func configureView() {
+        self.navigationItem.leftBarButtonItem = closeBarButtonItem
+        
         navigationItem.title = "새로운 여행 계획"
         navigationController?.navigationBar.prefersLargeTitles = true
     }

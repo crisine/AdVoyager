@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import RxSwift
 
 final class TravelScheduleTableViewCell: BaseTableViewCell {
+    
+    let disposeBag = DisposeBag()
     
     private let dateLabel: UILabel = {
         let view = UILabel()
@@ -16,11 +19,12 @@ final class TravelScheduleTableViewCell: BaseTableViewCell {
     }()
     private let iconImageView: UIImageView = {
         let view = UIImageView()
-        view.layer.borderColor = UIColor.systemBlue.cgColor
+        view.layer.borderColor = UIColor.lightpurple.cgColor
         view.layer.borderWidth = 2
         view.contentMode = .scaleAspectFit
         view.clipsToBounds = true
         view.layer.cornerRadius = 12
+        view.tintColor = .lightpurple
         return view
     }()
     private let titleLabel: UILabel = {
@@ -46,16 +50,21 @@ final class TravelScheduleTableViewCell: BaseTableViewCell {
     
     private let previousStepLine: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.systemBlue
+        view.backgroundColor = UIColor.lightpurple
         view.isHidden = true
         return view
     }()
     private let nextStepLine: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.systemBlue
+        view.backgroundColor = UIColor.lightpurple
         view.isHidden = true
         return view
     }()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+    }
     
     override func configureHierarchy() {
         [dateLabel, iconImageView, previousStepLine, nextStepLine, contentStackView].forEach {
@@ -102,7 +111,7 @@ final class TravelScheduleTableViewCell: BaseTableViewCell {
         }
     }
     
-    func updateCell(data: TravelScheduleModel, isLastCell: Bool) {
+    func updateCell(data: TravelSchedule, isLastCell: Bool) {
         dateLabel.text = data.date.toString(format: "hh:mm")
         // iconImageView.image = UIImage(systemName: "circle")
         titleLabel.text = data.scheduleTitle

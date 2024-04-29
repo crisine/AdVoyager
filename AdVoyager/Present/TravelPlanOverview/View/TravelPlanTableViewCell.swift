@@ -19,15 +19,14 @@ final class TravelPlanTableViewCell: BaseTableViewCell {
         view.font = .boldSystemFont(ofSize: 16)
         return view
     }()
-    
     private let planDateLabel: UILabel = {
         let view = UILabel()
         view.font = .systemFont(ofSize: 13)
         return view
     }()
-    
     private let thumbnailImageView: UIImageView = {
         let view = UIImageView()
+        view.tintColor = .lightpurple
         return view
     }()
     
@@ -48,6 +47,7 @@ final class TravelPlanTableViewCell: BaseTableViewCell {
         
         backView.snp.makeConstraints { make in
             make.edges.equalTo(contentView.safeAreaLayoutGuide).inset(8)
+            make.height.equalTo(80)
         }
         
         planTitleLabel.snp.makeConstraints { make in
@@ -68,8 +68,16 @@ final class TravelPlanTableViewCell: BaseTableViewCell {
         }
     }
     
-    override func configureCell() {
-        
+    override func prepareForReuse() {
+        planTitleLabel.text = nil
+        planDateLabel.text = nil
+        thumbnailImageView.image = nil
+    }
+    
+    func updateCell(data: TravelPlanModel) {
+        planTitleLabel.text = data.planTitle
+        planDateLabel.text = "\(data.firstDate.toString(format: "yy.MM.dd")) ~ \(data.lastDate.toString(format: "yy.MM.dd"))"
+        thumbnailImageView.image = UIImage(systemName: "airplane.departure")
     }
 
     

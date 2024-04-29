@@ -26,11 +26,11 @@ final class LaunchViewModel: ViewModelType {
         
         // 한번이라도 로그인해서 리프레시 토큰을 받은 적 있는지 확인
         // TODO: 리프레시 토큰이 아예 존재하지 않는 상태에서는 메인 화면으로 진입이 불가능한 문제가 있다. (이벤트 발생시켜도 구독이 안 됨)
-        guard UserDefaults.standard.string(forKey: "refreshToken") != nil else {
-            print("refreshToken이 없습니다")
-            loginSuccessTrigger.onNext(false)
-            return Output(loginSuccessTrigger: loginSuccessTrigger.asDriver(onErrorJustReturn: false))
-        }
+//        guard UserDefaults.standard.string(forKey: "refreshToken") != nil else {
+//            print("refreshToken이 없습니다")
+//            loginSuccessTrigger.onNext(false)
+//            return Output(loginSuccessTrigger: loginSuccessTrigger.asDriver(onErrorJustReturn: false))
+//        }
                 
         Observable.just(())
             .flatMap { _ in

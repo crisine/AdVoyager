@@ -5,36 +5,50 @@
 //  Created by Minho on 4/24/24.
 //
 
+import Foundation
 import RxSwift
 import RxCocoa
-import Foundation
+import RealmSwift
 
 final class TravelScheduleViewModel: ViewModelType {
     
     var disposeBag = DisposeBag()
+    var planId: ObjectId?
+    var order: Int?
+    var date: Date?
     
-    private var dataSource: [TravelScheduleModel] = []
+    private let repository = Repository()
+    private var dataSource: [TravelSchedule] = []
     
     struct Input {
-        let travelPlanItem: Observable<TravelScheduleModel>
+        let reloadDataTrigger: Observable<Void>
+        let travelSchedule: Observable<TravelSchedule>
         let tableViewIndexPath: Observable<IndexPath>
     }
     
     struct Output {
-        let dataSource: Driver<[TravelScheduleModel]>
+        let dataSource: Driver<[TravelSchedule]>
         let indexPath: Driver<IndexPath?>
     }
     
     func transform(input: Input) -> Output {
         
-        let selectedTableViewItem = BehaviorSubject<TravelScheduleModel?>(value: nil)
+        let selectedTableViewItem = BehaviorSubject<TravelSchedule?>(value: nil)
         let selectedIndexPath = PublishRelay<IndexPath?>()
+        let dataSource = BehaviorRelay<[TravelSchedule]>(value: [])
         
-        // TODO: 더미데이터 넣는 부분이 빠졌으므로, Realm에서 실제 데이터를 가져올 수 있어야 함
+        input.reloadDataTrigger
+            .subscribe(with: self) { owner, _ in
+                guard let planId = owner.planId else { return }
+                guard let date = owner.date else { return }
+                
+                var scheduleArray = Array(owner.repository.fetchSchedule(planId: planId).filter { date.isSameWith($0.date) == true }).sorted { $0.date < $1.date }
+                
+                dataSource.accept(scheduleArray)
+            }
+            .disposed(by: disposeBag)
         
-        let dataSource = BehaviorRelay<[TravelScheduleModel]>(value: dataSource)
-        
-        input.travelPlanItem
+        input.travelSchedule
             .subscribe(with: self) { owner, item in
                 selectedTableViewItem.onNext(item)
             }
