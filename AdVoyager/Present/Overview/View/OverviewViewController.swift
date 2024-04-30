@@ -15,6 +15,9 @@ final class OverviewViewController: BaseViewController {
     private lazy var mainPostCollectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         view.register(PostCollectionViewCell.self, forCellWithReuseIdentifier: PostCollectionViewCell.identifier)
+        view.refreshControl = UIRefreshControl()
+        view.refreshControl?.endRefreshing()
+        view.refreshControl?.tintColor = .lightpurple
         return view
     }()
     private let addPostButton: FilledButton = {
@@ -37,7 +40,8 @@ final class OverviewViewController: BaseViewController {
     override func bind() {
         let input = OverviewViewModel.Input(viewDidLoadTrigger: viewDidLoadTrigger.asObservable(),
                                             addNewPostButtonTap: addPostButton.rx.tap.asObservable(),
-                                            renderingRowPosition: renderingRowPosition.asObservable())
+                                            renderingRowPosition: renderingRowPosition.asObservable(),
+                                            refreshLoading:  mainPostCollectionView.refreshControl!.rx.controlEvent(.valueChanged).asObservable())
         
         let output = viewModel.transform(input: input)
         
@@ -53,6 +57,18 @@ final class OverviewViewController: BaseViewController {
             .drive(with: self) { owner, _ in
                 let nav = UINavigationController(rootViewController: AddPostViewController())
                 owner.present(nav, animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        output.isRefreshing
+            .drive(with: self) { owner, isRefreshing in
+                if isRefreshing == false {
+                    owner.mainPostCollectionView.refreshControl?.endRefreshing()
+                    print("리프레시 종료")
+                } else {
+                    owner.mainPostCollectionView.refreshControl?.beginRefreshing()
+                    print("리프레시 시작")
+                }
             }
             .disposed(by: disposeBag)
     }
@@ -77,8 +93,11 @@ final class OverviewViewController: BaseViewController {
     }
     
     override func configureView() {
-        navigationItem.title = "둘러보기"
-        navigationController?.navigationBar.prefersLargeTitles = true
+        // TODO: LargeContent 와 RefreshControl을 동시에 사용하면 깜빡임 문제가 생김
+//        navigationItem.title = "둘러보기"
+//        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        self.isLogoVisible = true
     }
     
     private func createLayout() -> UICollectionViewLayout {

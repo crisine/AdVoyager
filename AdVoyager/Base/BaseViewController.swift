@@ -13,6 +13,7 @@ import Toast
 class BaseViewController: UIViewController {
     
     let disposeBag = DisposeBag()
+    var isLogoVisible = false
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -25,6 +26,13 @@ class BaseViewController: UIViewController {
         configureHierarchy()
         configureConstraints()
         configureView()
+        
+        if isLogoVisible {
+            let logoImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 120, height: 44))
+            logoImageView.contentMode = .scaleAspectFit
+            logoImageView.image = UIImage(named: "navTitleLogo")
+            navigationItem.titleView = logoImageView
+        }
     }
     
     func bind() {

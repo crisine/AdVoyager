@@ -22,16 +22,19 @@ final class OverviewViewModel: ViewModelType {
         let viewDidLoadTrigger: Observable<Void>
         let addNewPostButtonTap: Observable<Void>
         let renderingRowPosition: Observable<Int>
+        let refreshLoading: Observable<Void>
     }
     
     struct Output {
         let dataSource: Driver<[Post]>
         let addNewPostTrigger: Driver<Void>
+        let isRefreshing: Driver<Bool>
     }
     
     func transform(input: Input) -> Output {
         let dataSource = BehaviorRelay<[Post]>(value: [])
         let addNewPostTrigger = PublishRelay<Void>()
+        let isRefreshing = PublishRelay<Bool>()
         
         input.viewDidLoadTrigger
             .flatMap { [weak self] _ -> Single<PostModel> in
@@ -66,9 +69,31 @@ final class OverviewViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
+        input.refreshLoading
+            .subscribe(with: self) { owner, _ in
+                isRefreshing.accept(true)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    owner.reloadData(dataSource: dataSource)
+                    isRefreshing.accept(false)
+                }
+            }
+            .disposed(by: disposeBag)
+        
 
         return Output(dataSource: dataSource.asDriver(),
-                      addNewPostTrigger: addNewPostTrigger.asDriver(onErrorJustReturn: ()))
+                      addNewPostTrigger: addNewPostTrigger.asDriver(onErrorJustReturn: ()),
+                      isRefreshing: isRefreshing.asDriver(onErrorJustReturn: false))
     }
     
+    private func reloadData(dataSource: BehaviorRelay<[Post]>) {
+        print("데이터 신규 로드")
+        NetworkManager.fetchPost(query: PostQuery(next: "", limit: "\(limit)", product_id: productId)).asObservable()
+            .subscribe(with: self) { owner, postModel in
+                owner.dataSource = postModel.data
+                owner.nextCursor = postModel.next_cursor
+                dataSource.accept(owner.dataSource)
+            }
+            .disposed(by: disposeBag)
+    }
 }

@@ -108,10 +108,7 @@ final class ProfileViewController: BaseViewController {
         navigationItem.title = "나의 프로필"
         navigationController?.navigationBar.prefersLargeTitles = true
         
-        let logoImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 120, height: 44))
-        logoImageView.contentMode = .scaleAspectFit
-        logoImageView.image = UIImage(named: "navTitleLogo")
-        navigationItem.titleView = logoImageView
+        self.isLogoVisible = true
     }
     
 }

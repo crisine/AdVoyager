@@ -110,5 +110,7 @@ final class TravelPlanOverviewViewController: BaseViewController {
     override func configureView() {
         navigationItem.title = "여행 계획"
         navigationController?.navigationBar.prefersLargeTitles = true
+        
+        self.isLogoVisible = true
     }
 }

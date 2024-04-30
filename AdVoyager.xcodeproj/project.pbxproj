@@ -228,6 +228,7 @@
 		FA25AEE52BC8A3A800B08AF4 /* Present */ = {
 			isa = PBXGroup;
 			children = (
+				FAB272CB2BE141750011A500 /* New Group */,
 				FA3F0F082BDD6BF50034C6D4 /* AddTravelPlan */,
 				FA3F0EFB2BDD564C0034C6D4 /* TravelPlanOverview */,
 				FA3F0EE82BDD285E0034C6D4 /* TravelPlanDetail */,
@@ -566,6 +567,13 @@
 				FA8A75F12BDE9055001942CD /* TravelPlanModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		FAB272CB2BE141750011A500 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		FAE788992BCF210900623467 /* EditProfile */ = {
