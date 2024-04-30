@@ -56,8 +56,9 @@ final class OverviewViewModel: ViewModelType {
         
         input.renderingRowPosition
             .subscribe(with: self) { owner, rowPosition in
-                if rowPosition > (owner.dataSource.count - 4) {
-                    NetworkManager.fetchPost(query: PostQuery(next: owner.nextCursor, limit: "\(owner.limit)" , product_id: "")).asObservable()
+                
+                if rowPosition > (owner.dataSource.count - 4) && owner.nextCursor != "0" {
+                    NetworkManager.fetchPost(query: PostQuery(next: owner.nextCursor, limit: "\(owner.limit)" , product_id: owner.productId)).asObservable()
                         .subscribe(with: self) { owner, postModel in
                             print("데이터가 새로 로드되었습니다.")
                             owner.dataSource.append(contentsOf: postModel.data)

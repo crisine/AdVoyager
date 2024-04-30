@@ -11,6 +11,16 @@ import RxCocoa
 
 final class PostDetailViewController: BaseViewController {
     
+    private let scrollView: UIScrollView = {
+        let view = UIScrollView()
+        view.isScrollEnabled = true
+        view.showsVerticalScrollIndicator = true
+        return view
+    }()
+    private let postContentView: UIView = {
+        let view = UIView()
+        return view
+    }()
     private lazy var imageCollectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         view.register(PostDetailCollectionViewCell.self, forCellWithReuseIdentifier: PostDetailCollectionViewCell.identifier)
@@ -47,6 +57,7 @@ final class PostDetailViewController: BaseViewController {
         let view = UITextView()
         view.font = .systemFont(ofSize: 16)
         view.isEditable = false
+        view.isScrollEnabled = false
         return view
     }()
     
@@ -64,6 +75,13 @@ final class PostDetailViewController: BaseViewController {
         
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        let contentHeight = postDescriptionTextView.frame.maxY + 16
+        postContentView.frame.size.height = contentHeight
+    }
+    
     override func bind() {
         
         let input = PostDetailViewModel.Input(viewWillAppearTrigger: viewWillAppearTrigger.asObservable())
@@ -79,45 +97,65 @@ final class PostDetailViewController: BaseViewController {
     }
     
     override func configureHierarchy() {
+        
         [creatorProfileImageView, creatorNicknameLabel, separatorLineView, imageCollectionView, postTitleLabel, postDescriptionTextView].forEach {
-            view.addSubview($0)
+            postContentView.addSubview($0)
         }
+        
+        scrollView.addSubview(postContentView)
+        view.addSubview(scrollView)
     }
     
     override func configureConstraints() {
+        let screenWidth = UIScreen.main.bounds.width
+        
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
         imageCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(UIScreen.main.bounds.width)
+            make.top.equalTo(postContentView.safeAreaLayoutGuide)
+            make.width.equalTo(screenWidth)
+            make.height.equalTo(screenWidth)
         }
         
         creatorProfileImageView.snp.makeConstraints { make in
             make.top.equalTo(imageCollectionView.snp.bottom).offset(16)
-            make.leading.equalTo(view.safeAreaLayoutGuide).offset(16)
+            make.leading.equalTo(postContentView.safeAreaLayoutGuide).offset(16)
             make.size.equalTo(32)
         }
         
         creatorNicknameLabel.snp.makeConstraints { make in
             make.centerY.equalTo(creatorProfileImageView.snp.centerY)
-            make.leading.equalTo(creatorProfileImageView.snp.trailing).offset(4)
-            make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-16)
+            make.leading.equalTo(creatorProfileImageView.snp.trailing).offset(8)
+            make.width.lessThanOrEqualTo(screenWidth - creatorProfileImageView.fs_width)
+            make.height.equalTo(creatorProfileImageView.snp.height)
         }
         
         separatorLineView.snp.makeConstraints { make in
             make.top.equalTo(creatorProfileImageView.snp.bottom).offset(16)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.leading.equalTo(postContentView.snp.leading).offset(16)
+            make.width.equalTo(screenWidth - 32)
             make.height.equalTo(2)
         }
         
         postTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(separatorLineView.snp.bottom).offset(16)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.leading.equalTo(postContentView.snp.leading).offset(16)
+            make.width.equalTo(screenWidth - 32)
+            make.height.equalTo(28)
         }
         
         postDescriptionTextView.snp.makeConstraints { make in
             make.top.equalTo(postTitleLabel.snp.bottom).offset(8)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
-            make.height.lessThanOrEqualTo(360)
+            make.leading.equalTo(postContentView.snp.leading).offset(16)
+            make.trailing.equalTo(postContentView.snp.trailing).inset(16)
+            make.bottom.lessThanOrEqualToSuperview().inset(16)
+        }
+        
+        postContentView.snp.makeConstraints { make in
+            make.edges.equalTo(scrollView.contentLayoutGuide)
+            make.width.equalTo(screenWidth)
         }
     }
     

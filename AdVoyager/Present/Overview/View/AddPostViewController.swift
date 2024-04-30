@@ -16,7 +16,6 @@ final class AddPostViewController: BaseViewController {
         let view = FilledButton()
         view.layer.borderColor = UIColor.darkPurple.cgColor
         view.setImage(UIImage(systemName: "camera.fill"), for: .normal)
-        view.setTitle("0/5", for: .normal)
         return view
     }()
     private lazy var photoCollectionView: UICollectionView = {
@@ -98,7 +97,9 @@ final class AddPostViewController: BaseViewController {
                 var configuration = PHPickerConfiguration()
                 configuration.filter = .any(of: [.images, .screenshots])
                 configuration.selection = .ordered
-                configuration.selectionLimit = 5
+                
+                guard owner.viewModel.dataSource.count != 5 else { return owner.showToast(message: "더 이상 사진을 추가할 수 없습니다.") }
+                configuration.selectionLimit = 5 - owner.viewModel.dataSource.count
                 
                 let picker = PHPickerViewController(configuration: configuration)
                 picker.delegate = self
