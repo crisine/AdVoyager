@@ -19,10 +19,10 @@ struct UploadPostQuery: Encodable {
     let content3: String?
     let content4: String?
     let content5: String?
-    let product_id: String?
+    let product_id: String
     let files: [String]
     
-    init(title: String? = nil, content: String? = nil, content1: String? = nil, content2: String? = nil, content3: String? = nil, content4: String? = nil, content5: String? = nil, product_id: String? = nil, files: [String]) {
+    init(title: String? = nil, content: String? = nil, content1: String? = nil, content2: String? = nil, content3: String? = nil, content4: String? = nil, content5: String? = nil, product_id: String = "advoyager", files: [String]) {
         self.title = title
         self.content = content
         self.content1 = content1

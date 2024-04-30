@@ -14,7 +14,7 @@ final class OverviewViewModel: ViewModelType {
     var disposeBag = DisposeBag()
     private var dataSource: [Post] = []
     private var nextCursor = ""
-    private var productId = ""
+    private var productId = "advoyager"
     private var limit = 10
     private lazy var tempPostQuery = PostQuery(next: nextCursor, limit: "\(limit)", product_id: productId)
     

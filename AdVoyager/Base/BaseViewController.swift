@@ -33,6 +33,22 @@ class BaseViewController: UIViewController {
             logoImageView.image = UIImage(named: "navTitleLogo")
             navigationItem.titleView = logoImageView
         }
+        
+        navigationController?.navigationBar.isTranslucent = true
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithTransparentBackground()
+        navigationItem.standardAppearance = appearance
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.compactAppearance = appearance
+        navigationController?.navigationBar.compactScrollEdgeAppearance = appearance
+        
+//        let tabBarAppearance = UITabBarAppearance()
+//        tabBarAppearance.configureWithTransparentBackground()
+//        tabBarController?.tabBar.standardAppearance = tabBarAppearance
+//        
+        tabBarController?.tabBar.isTranslucent = true
     }
     
     func bind() {

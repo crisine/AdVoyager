@@ -75,6 +75,10 @@
 		FA90C21A2BD939A7002EDDEC /* TravelScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90C2192BD939A7002EDDEC /* TravelScheduleViewController.swift */; };
 		FA90C21F2BD93B56002EDDEC /* TravelScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90C21E2BD93B56002EDDEC /* TravelScheduleModel.swift */; };
 		FAB272CA2BE11D360011A500 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB272C92BE11D360011A500 /* BaseCollectionViewCell.swift */; };
+		FAB272CF2BE142180011A500 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB272CE2BE142180011A500 /* PostDetailViewController.swift */; };
+		FAB272D12BE144E80011A500 /* PostDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB272D02BE144E80011A500 /* PostDetailCollectionViewCell.swift */; };
+		FAB272D32BE1470F0011A500 /* PostDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB272D22BE1470F0011A500 /* PostDetailViewModel.swift */; };
+		FAB272D52BE16FB10011A500 /* AddPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB272D42BE16FB10011A500 /* AddPhotoCollectionViewCell.swift */; };
 		FADC9CA02BD2511E00973357 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = FADC9C9F2BD2511E00973357 /* RxGesture */; };
 		FADC9CA22BD25EF400973357 /* ProfileQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADC9CA12BD25EF400973357 /* ProfileQuery.swift */; };
 		FAE788952BCF0DC300623467 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE788942BCF0DC300623467 /* ProfileViewModel.swift */; };
@@ -143,6 +147,10 @@
 		FA90C2192BD939A7002EDDEC /* TravelScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelScheduleViewController.swift; sourceTree = "<group>"; };
 		FA90C21E2BD93B56002EDDEC /* TravelScheduleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelScheduleModel.swift; sourceTree = "<group>"; };
 		FAB272C92BE11D360011A500 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
+		FAB272CE2BE142180011A500 /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
+		FAB272D02BE144E80011A500 /* PostDetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailCollectionViewCell.swift; sourceTree = "<group>"; };
+		FAB272D22BE1470F0011A500 /* PostDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewModel.swift; sourceTree = "<group>"; };
+		FAB272D42BE16FB10011A500 /* AddPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		FADC9CA12BD25EF400973357 /* ProfileQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileQuery.swift; sourceTree = "<group>"; };
 		FAE788942BCF0DC300623467 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		FAF1C1082BD3F8C000E56291 /* OverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewModel.swift; sourceTree = "<group>"; };
@@ -228,7 +236,6 @@
 		FA25AEE52BC8A3A800B08AF4 /* Present */ = {
 			isa = PBXGroup;
 			children = (
-				FAB272CB2BE141750011A500 /* New Group */,
 				FA3F0F082BDD6BF50034C6D4 /* AddTravelPlan */,
 				FA3F0EFB2BDD564C0034C6D4 /* TravelPlanOverview */,
 				FA3F0EE82BDD285E0034C6D4 /* TravelPlanDetail */,
@@ -238,6 +245,7 @@
 				FA25AEE62BC8A3B100B08AF4 /* Login */,
 				FA25AF212BCD85E700B08AF4 /* SignUp */,
 				FA25AF342BCDD08E00B08AF4 /* Overview */,
+				FAB272CB2BE141750011A500 /* PostDetail */,
 				FA25AF392BCDD13700B08AF4 /* Profile */,
 				FAE788992BCF210900623467 /* EditProfile */,
 			);
@@ -361,6 +369,7 @@
 				FA25AF372BCDD0BA00B08AF4 /* OverviewViewController.swift */,
 				FAF1C10A2BD3FBD400E56291 /* PostCollectionViewCell.swift */,
 				FA1F68C72BD5685D00644C5A /* AddPostViewController.swift */,
+				FAB272D42BE16FB10011A500 /* AddPhotoCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -569,11 +578,30 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		FAB272CB2BE141750011A500 /* New Group */ = {
+		FAB272CB2BE141750011A500 /* PostDetail */ = {
 			isa = PBXGroup;
 			children = (
+				FAB272CD2BE142080011A500 /* ViewModel */,
+				FAB272CC2BE141FB0011A500 /* View */,
 			);
-			path = "New Group";
+			path = PostDetail;
+			sourceTree = "<group>";
+		};
+		FAB272CC2BE141FB0011A500 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FAB272CE2BE142180011A500 /* PostDetailViewController.swift */,
+				FAB272D02BE144E80011A500 /* PostDetailCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FAB272CD2BE142080011A500 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FAB272D22BE1470F0011A500 /* PostDetailViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		FAE788992BCF210900623467 /* EditProfile */ = {
@@ -698,6 +726,7 @@
 			files = (
 				FA25AEEF2BC8A45000B08AF4 /* LoginViewController.swift in Sources */,
 				FA90C21A2BD939A7002EDDEC /* TravelScheduleViewController.swift in Sources */,
+				FAB272D52BE16FB10011A500 /* AddPhotoCollectionViewCell.swift in Sources */,
 				FA25AF312BCD9BA300B08AF4 /* Date+Extension.swift in Sources */,
 				FA1F68C82BD5685D00644C5A /* AddPostViewController.swift in Sources */,
 				FA3F0EFF2BDD566D0034C6D4 /* TravelPlanOverviewViewController.swift in Sources */,
@@ -719,6 +748,7 @@
 				FA9032E52BDD74D9002008D9 /* UIColor+Extension.swift in Sources */,
 				FA25AF002BC8A80200B08AF4 /* FilledButton.swift in Sources */,
 				FA25AF382BCDD0BA00B08AF4 /* OverviewViewController.swift in Sources */,
+				FAB272D32BE1470F0011A500 /* PostDetailViewModel.swift in Sources */,
 				FA3F0F032BDD580A0034C6D4 /* BaseTableViewCell.swift in Sources */,
 				FA25AEF62BC8A4A100B08AF4 /* LoginView.swift in Sources */,
 				FA3F0EEC2BDD28DD0034C6D4 /* TravelPlanDetailViewController.swift in Sources */,
@@ -735,6 +765,7 @@
 				FA25AEFC2BC8A68900B08AF4 /* Color.swift in Sources */,
 				FA25AEDF2BC8A32700B08AF4 /* HTTPHeader.swift in Sources */,
 				FA25AEF42BC8A48E00B08AF4 /* BaseViewController.swift in Sources */,
+				FAB272D12BE144E80011A500 /* PostDetailCollectionViewCell.swift in Sources */,
 				FA25AF292BCD8AEB00B08AF4 /* BirthdayDatePicker.swift in Sources */,
 				FA90C1EA2BD69438002EDDEC /* NeuView.swift in Sources */,
 				FA25AF272BCD8A6900B08AF4 /* NumberTextField.swift in Sources */,
@@ -747,6 +778,7 @@
 				FA90C2152BD7BEA7002EDDEC /* LaunchViewModel.swift in Sources */,
 				FA3F0F012BDD57A80034C6D4 /* TravelPlanTableViewCell.swift in Sources */,
 				FA25AEE32BC8A32700B08AF4 /* NetworkManager.swift in Sources */,
+				FAB272CF2BE142180011A500 /* PostDetailViewController.swift in Sources */,
 				FA25AEE22BC8A32700B08AF4 /* LoginQuery.swift in Sources */,
 				FA0816152BDC0EC600F69CBF /* CommonTextComponentType.swift in Sources */,
 				FA3F0F052BDD58D70034C6D4 /* Reusable.swift in Sources */,

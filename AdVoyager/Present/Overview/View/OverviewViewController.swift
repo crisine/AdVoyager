@@ -18,6 +18,7 @@ final class OverviewViewController: BaseViewController {
         view.refreshControl = UIRefreshControl()
         view.refreshControl?.endRefreshing()
         view.refreshControl?.tintColor = .lightpurple
+        view.backgroundView = UIImageView(image: UIImage(named: "purpleBackground"))
         return view
     }()
     private let addPostButton: FilledButton = {
@@ -71,6 +72,16 @@ final class OverviewViewController: BaseViewController {
                 }
             }
             .disposed(by: disposeBag)
+        
+        mainPostCollectionView.rx.modelSelected(Post.self)
+            .asObservable()
+            .subscribe(with: self) { owner, selectedPost in
+                let vc = PostDetailViewController()
+                vc.post = selectedPost
+                vc.hidesBottomBarWhenPushed = true
+                owner.navigationController?.pushViewController(vc, animated: true)
+            }
+            .disposed(by: disposeBag)
     }
     
     override func configureHierarchy() {
@@ -82,7 +93,7 @@ final class OverviewViewController: BaseViewController {
     override func configureConstraints() {
         
         mainPostCollectionView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.edges.equalTo(view)
         }
         
         addPostButton.snp.makeConstraints { make in

@@ -5,24 +5,28 @@
 //  Created by Minho on 4/22/24.
 //
 
+import UIKit
 import RxSwift
 import RxCocoa
 
 final class AddPostViewModel: ViewModelType {
     
     var disposeBag = DisposeBag()
+    var dataSource: [UIImage] = []
     
     struct Input {
         let titleText: Observable<String>
         let contentText: Observable<String>
         let addPostButtonTapTrigger: Observable<Void>
         let cancelPostButtonTapTrigger: Observable<Void>
+        let imageStream: Observable<UIImage>
     }
     
     struct Output {
         let postUploadSuccessTrigger: Driver<Void>
         let postValidation: Driver<Bool>
         let canelPostUploadTrigger: Driver<Void>
+        let dataSource: Driver<[UIImage]>
     }
     
     func transform(input: Input) -> Output {
@@ -30,6 +34,7 @@ final class AddPostViewModel: ViewModelType {
         let postValid = BehaviorRelay(value: false)
         let postUploadSuccessTrigger = PublishRelay<Void>()
         let cancelPostUploadTrigger = PublishRelay<Void>()
+        let dataSource = PublishSubject<[UIImage]>()
         
         let postObservable = Observable.combineLatest(
             input.titleText,
@@ -68,8 +73,16 @@ final class AddPostViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
+        input.imageStream
+            .subscribe(with: self) { owner, selectedImage in
+                owner.dataSource.append(selectedImage)
+                dataSource.onNext(owner.dataSource)
+            }
+            .disposed(by: disposeBag)
+        
         return Output(postUploadSuccessTrigger: postUploadSuccessTrigger.asDriver(onErrorJustReturn: ()),
                       postValidation: postValid.asDriver(),
-                      canelPostUploadTrigger: cancelPostUploadTrigger.asDriver(onErrorJustReturn: ()))
+                      canelPostUploadTrigger: cancelPostUploadTrigger.asDriver(onErrorJustReturn: ()),
+                      dataSource: dataSource.asDriver(onErrorJustReturn: []))
     }
 }

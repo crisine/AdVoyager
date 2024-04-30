@@ -21,7 +21,7 @@ final class EditProfileViewController: BaseViewController {
         view.addGestureRecognizer(profileImageViewTapGesture)
         view.clipsToBounds = true
         view.layer.cornerRadius = 64
-        view.layer.borderColor = UIColor.systemBlue.cgColor
+        view.layer.borderColor = UIColor.lightpurple.cgColor
         view.layer.borderWidth = 1
         view.contentMode = .scaleAspectFill
         return view
@@ -47,7 +47,7 @@ final class EditProfileViewController: BaseViewController {
     }()
     
     private let editProfileButton: FilledButton = {
-        let view = FilledButton(title: "회원정보 수정", fillColor: .systemBlue)
+        let view = FilledButton(title: "회원정보 수정", fillColor: .lightpurple)
         return view
     }()
     
