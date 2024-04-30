@@ -111,13 +111,15 @@ final class TravelScheduleTableViewCell: BaseTableViewCell {
         }
     }
     
-    func updateCell(data: TravelSchedule, isLastCell: Bool) {
+    func updateCell(data: TravelSchedule, row: Int, isLastCell: Bool) {
         dateLabel.text = data.date.toString(format: "hh:mm")
         // iconImageView.image = UIImage(systemName: "circle")
         titleLabel.text = data.scheduleTitle
         descriptionLabel.text = data.scheduleDescription
         
-        if data.order == 1 {
+        // MARK: data의 순서를 따져서 하려고 했는데 어.. 이렇게 하면 안될거같은데?
+        if row == 0 {
+            guard isLastCell != true else { return }
             nextStepLine.isHidden = false
         } else if isLastCell == false {
             previousStepLine.isHidden = false

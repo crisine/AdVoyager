@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import RxSwift
 
 class NumberTextField: UITextField {
+    
+    let disposeBag = DisposeBag()
 
     init(placeholderText: String) {
         super.init(frame: .zero)
@@ -19,6 +22,23 @@ class NumberTextField: UITextField {
         layer.cornerRadius = 16
         keyboardType = .numberPad
         backgroundColor = .systemGray6
+        
+        rx.editingDidBegin
+            .subscribe(with: self) { owner, _ in
+                UIView.animate(withDuration: 0.3) {
+                    owner.layer.borderWidth = 1.5
+                    owner.layer.borderColor = UIColor.lightpurple.cgColor
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        rx.editingDidEnd
+            .subscribe(with: self) { owner, _ in
+                UIView.animate(withDuration: 0.3) {
+                    owner.layer.borderWidth = 0
+                }
+            }
+            .disposed(by: disposeBag)
     }
     
     @available(*, unavailable)

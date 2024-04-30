@@ -50,7 +50,7 @@ final class SignUpViewController: BaseViewController  {
     }()
     
     private let signUpButton: FilledButton = {
-        let view = FilledButton(title: "회원가입", fillColor: .systemBlue)
+        let view = FilledButton(title: "회원가입", fillColor: .lightpurple)
         return view
     }()
     

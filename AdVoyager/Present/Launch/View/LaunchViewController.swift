@@ -12,17 +12,10 @@ import RxCocoa
 
 final class LaunchViewController: BaseViewController {
     
-    private let tempLogo: UIImageView = {
+    private let titleLogo: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage(systemName: "apple.logo")!
+        view.image = UIImage(named: "titleLogo")!
         view.contentMode = .scaleAspectFit
-        return view
-    }()
-    private let tempLabel: UILabel = {
-        let view = UILabel()
-        view.text = "임시 런치스크린"
-        view.textAlignment = .center
-        view.font = .boldSystemFont(ofSize: 48)
         return view
     }()
     
@@ -52,33 +45,24 @@ final class LaunchViewController: BaseViewController {
                 case false:
                     print("로그인 화면으로 이동합니다.")
                     let vc = LoginViewController()
-                    vc.modalPresentationStyle = .fullScreen
-                    owner.present(vc, animated: true)
+                    let nav = UINavigationController(rootViewController: vc)
+                    nav.modalPresentationStyle = .fullScreen
+                    owner.present(nav, animated: true)
                 }
             }
             .disposed(by: disposeBag)
     }
     
     override func configureHierarchy() {
-        view.addSubview(tempLogo)
-        view.addSubview(tempLabel)
+        view.addSubview(titleLogo)
     }
     
     override func configureConstraints() {
-        tempLogo.snp.makeConstraints { make in
-            make.centerX.equalTo(view.safeAreaLayoutGuide)
-            make.centerY.equalTo(view.safeAreaLayoutGuide).offset(-80)
-            make.size.equalTo(80)
-        }
-        
-        tempLabel.snp.makeConstraints { make in
+        titleLogo.snp.makeConstraints { make in
             make.center.equalTo(view.safeAreaLayoutGuide)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
-            make.height.equalTo(56)
+            make.size.equalTo(360)
         }
     }
     
-    override func configureView() {
-        tempLogo.tintColor = .red
-    }
+    override func configureView() {}
 }

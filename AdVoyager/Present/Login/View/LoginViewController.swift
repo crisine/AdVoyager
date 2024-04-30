@@ -12,6 +12,12 @@ import RxCocoa
 
 final class LoginViewController: BaseViewController {
     
+    private let titleLogo: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(named: "titleLogo")!
+        view.contentMode = .scaleAspectFit
+        return view
+    }()
     private let emailTextField: SignTextField = {
         let view = SignTextField(placeholderText: "이메일 입력...")
         return view
@@ -71,14 +77,20 @@ final class LoginViewController: BaseViewController {
     }
     
     override func configureHierarchy() {
-        [emailTextField, passwordTextField, loginButton, signupButton].forEach {
+        [titleLogo, emailTextField, passwordTextField, loginButton, signupButton].forEach {
             view.addSubview($0)
         }
     }
     
     override func configureConstraints() {
+        titleLogo.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(64)
+            make.centerX.equalTo(view.safeAreaLayoutGuide)
+            make.size.equalTo(240)
+        }
+        
         emailTextField.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(200)
+            make.top.equalTo(titleLogo.snp.bottom).offset(16)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
             make.height.equalTo(48)
         }

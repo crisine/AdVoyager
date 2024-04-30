@@ -52,7 +52,7 @@ final class TravelScheduleViewController: BaseViewController {
                         return row == dataSource.count - 1
                     }
                     .drive(with: self) { owner, isLastCell in
-                        cell.updateCell(data: element, isLastCell: isLastCell)
+                        cell.updateCell(data: element, row: row, isLastCell: isLastCell)
                     }.disposed(by: cell.disposeBag)
             }
             .disposed(by: disposeBag)

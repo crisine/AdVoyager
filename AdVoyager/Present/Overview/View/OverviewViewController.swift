@@ -10,14 +10,6 @@ import SnapKit
 
 final class OverviewViewController: BaseViewController {
     
-    private let profileImageView: UIImageView = {
-        let view = UIImageView(image: UIImage(systemName: "person.circle"))
-        view.clipsToBounds = true
-        view.layer.cornerRadius = 16
-        view.contentMode = .scaleAspectFit
-        return view
-    }()
-    
     private lazy var mainPostCollectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         view.register(PostCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
@@ -59,22 +51,15 @@ final class OverviewViewController: BaseViewController {
     }
     
     override func configureHierarchy() {
-        view.addSubview(profileImageView)
-        view.addSubview(mainPostCollectionView)
-        view.addSubview(addPostButton)
+        [mainPostCollectionView, addPostButton].forEach {
+            view.addSubview($0)
+        }
     }
     
     override func configureConstraints() {
-        profileImageView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(4)
-            make.leading.equalTo(view.safeAreaLayoutGuide).offset(8)
-            make.size.equalTo(32)
-        }
         
         mainPostCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(profileImageView.snp.bottom).offset(16)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
-            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
+            make.edges.equalTo(view.safeAreaLayoutGuide)
         }
         
         addPostButton.snp.makeConstraints { make in

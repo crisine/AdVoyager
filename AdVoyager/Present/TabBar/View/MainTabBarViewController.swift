@@ -12,6 +12,8 @@ class MainTabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.tabBar.tintColor = .lightpurple
+        
         let overviewVC = UINavigationController(rootViewController: OverviewViewController())
         let travelPlanOverviewVC = UINavigationController(rootViewController: TravelPlanOverviewViewController())
         let profileVC = UINavigationController(rootViewController: ProfileViewController())

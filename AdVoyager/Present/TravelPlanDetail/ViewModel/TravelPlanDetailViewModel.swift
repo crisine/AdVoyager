@@ -54,7 +54,7 @@ final class TravelPlanDetailViewModel: ViewModelType {
                 let vc = TravelScheduleViewController()
                 
                 let calendar = Calendar.current
-                let date = calendar.date(byAdding: .day, value: order + 1, to: selectedTravelPlan.firstDate)
+                let date = calendar.date(byAdding: .day, value: order, to: selectedTravelPlan.firstDate)
                 
                 vc.viewModel.order = order
                 vc.viewModel.planId = selectedTravelPlan.id

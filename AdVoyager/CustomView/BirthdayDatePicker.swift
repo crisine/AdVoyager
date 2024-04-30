@@ -13,8 +13,6 @@ class BirthdayDatePicker: UIDatePicker {
         super.init(frame: .zero)
         
         layer.cornerRadius = 16
-        layer.borderWidth = 1
-        layer.borderColor = UIColor.systemGray3.cgColor
         
         let dateString = "19000101"
         let dateFormatter = DateFormatter()
