@@ -40,6 +40,7 @@ struct Follower: Decodable {
 
 struct PostModel: Decodable {
     let data: [Post]
+    let next_cursor: String
 }
 
 struct Post: Decodable {

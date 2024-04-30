@@ -7,12 +7,14 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
 
 final class OverviewViewController: BaseViewController {
     
     private lazy var mainPostCollectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
-        view.register(PostCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        view.register(PostCollectionViewCell.self, forCellWithReuseIdentifier: PostCollectionViewCell.identifier)
         return view
     }()
     private let addPostButton: FilledButton = {
@@ -23,21 +25,26 @@ final class OverviewViewController: BaseViewController {
     }()
     
     private let viewModel = OverviewViewModel()
+    private let renderingRowPosition = PublishRelay<Int>()
+    private let viewDidLoadTrigger = PublishRelay<Void>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(#function)
+        
+        viewDidLoadTrigger.accept(())
     }
     
     override func bind() {
-        print(#function)
-        let input = OverviewViewModel.Input(addNewPostButtonTap: addPostButton.rx.tap.asObservable())
+        let input = OverviewViewModel.Input(viewDidLoadTrigger: viewDidLoadTrigger.asObservable(),
+                                            addNewPostButtonTap: addPostButton.rx.tap.asObservable(),
+                                            renderingRowPosition: renderingRowPosition.asObservable())
         
         let output = viewModel.transform(input: input)
         
         output.dataSource
-            .drive(mainPostCollectionView.rx.items(cellIdentifier: "cell", cellType: PostCollectionViewCell.self)) { row, element, cell in
+            .drive(mainPostCollectionView.rx.items(cellIdentifier: PostCollectionViewCell.identifier, cellType: PostCollectionViewCell.self)) { [weak self] row, element, cell in
                 
+                self?.renderingRowPosition.accept(row)
                 cell.updateCell(data: element)
             }
             .disposed(by: disposeBag)
@@ -80,7 +87,7 @@ final class OverviewViewController: BaseViewController {
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 0
         layout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 5)
         
         return layout
     }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PostCollectionViewCell: UICollectionViewCell {
+class PostCollectionViewCell: BaseCollectionViewCell {
     
     let backView: NeuView = {
         let view = NeuView()
@@ -26,18 +26,7 @@ class PostCollectionViewCell: UICollectionViewCell {
     let titleLabel: UILabel = {
         let view = UILabel()
         view.font = .boldSystemFont(ofSize: 24)
-        view.textAlignment = .center
         view.text = "제목"
-        return view
-    }()
-    let likeButton: UIButton = {
-        let view = UIButton()
-        view.setImage(UIImage(systemName: "heart"), for: .normal)
-        view.tintColor = .systemPink
-        view.backgroundColor = .white
-        view.clipsToBounds = true
-        view.contentMode = .scaleAspectFill
-        view.layer.cornerRadius = 24
         return view
     }()
     let likeLabel: UILabel = {
@@ -47,8 +36,20 @@ class PostCollectionViewCell: UICollectionViewCell {
     }()
     let addressLabel: UILabel = {
         let view = UILabel()
+        view.font = .systemFont(ofSize: 16)
+        return view
+    }()
+    let profileImageView: UIImageView = {
+        let view = UIImageView()
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 16
+        view.contentMode = .scaleAspectFill
+        view.tintColor = .lightpurple
+        return view
+    }()
+    let creatorNameLabel: UILabel = {
+        let view = UILabel()
         view.font = .boldSystemFont(ofSize: 16)
-        view.textAlignment = .center
         return view
     }()
     
@@ -59,64 +60,84 @@ class PostCollectionViewCell: UICollectionViewCell {
         configureConstraints()
     }
     
-    func configureHierarchy() {
+    override func configureHierarchy() {
         contentView.addSubview(backView)
         
-        [titleImageView, likeButton, titleLabel, addressLabel].forEach {
+        [titleImageView,
+         titleLabel,
+         addressLabel,
+         profileImageView,
+         creatorNameLabel].forEach {
             backView.addSubview($0)
         }
     }
     
-    func configureConstraints() {
+    override func configureConstraints() {
         
         backView.snp.makeConstraints { make in
             make.edges.equalTo(contentView.safeAreaLayoutGuide).inset(16)
         }
         
         titleImageView.snp.makeConstraints { make in
-            make.top.equalTo(backView.snp.top).offset(16)
-            make.horizontalEdges.equalTo(backView).inset(16)
-            make.height.equalTo(300)
-        }
-        
-        likeButton.snp.makeConstraints { make in
-            make.bottom.equalTo(titleImageView).inset(16)
-            make.trailing.equalTo(titleImageView).inset(16)
-            make.size.equalTo(48)
+            make.trailing.equalTo(backView).inset(4)
+            make.width.equalTo(120)
+            make.verticalEdges.equalTo(backView).inset(4)
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleImageView.snp.bottom).offset(8)
-            make.horizontalEdges.equalTo(titleImageView)
+            make.top.equalTo(backView.snp.top).offset(16)
+            make.leading.equalTo(backView.snp.leading).offset(16)
+            make.trailing.equalTo(titleImageView.snp.leading).offset(-16)
         }
         
         addressLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(8)
-            make.horizontalEdges.equalTo(titleImageView)
-            make.bottom.equalTo(backView).offset(-16)
+            make.leading.equalTo(backView.snp.leading).offset(16)
+            make.trailing.equalTo(titleImageView.snp.leading).offset(-16)
+        }
+        
+        profileImageView.snp.makeConstraints { make in
+            make.leading.equalTo(backView.snp.leading).offset(16)
+            make.bottom.equalTo(backView.snp.bottom).offset(-16)
+            make.size.equalTo(32)
+        }
+        
+        creatorNameLabel.snp.makeConstraints { make in
+            make.leading.equalTo(profileImageView.snp.trailing).offset(4)
+            make.trailing.equalTo(titleImageView.snp.leading).offset(-16)
+            make.centerY.equalTo(profileImageView.snp.centerY)
         }
     }
     
     override func prepareForReuse() {
         titleImageView.image = nil
-        titleLabel.text = ""
-        addressLabel.text = ""
+        profileImageView.image = nil
+        titleLabel.text = nil
+        addressLabel.text = nil
+        creatorNameLabel.text = nil
     }
     
     func updateCell(data: Post) {
         
         titleLabel.text = data.title
         addressLabel.text = data.content
+        creatorNameLabel.text = data.creator.nick
         
-        guard let thumbnailImageString = data.files.first else {
+        let baseUrl = APIKey.baseURL.rawValue + "/"
+        
+        if let thumbnailImageString = data.files.first {
+            let imageURL = baseUrl + thumbnailImageString
+            titleImageView.kf.setImage(with: URL(string: imageURL), placeholder: UIImage(systemName: "photo"), options: [.requestModifier(NetworkManager.kingfisherImageRequest)])
+        } else {
             return titleImageView.image = UIImage(systemName: "photo")
-            // print("썸네일 이미지가 없는 포스트입니다. \(data.title)")
         }
         
-        let imageURL = APIKey.baseURL.rawValue + "/" + thumbnailImageString
-         
-        // TODO: placeholder를 사용하도록 바꾸면, 이미지 크기를 Snapkit에서 잡아둔 크기를 무시하고 잡힘. 이를 방지하기 위해서 snapkit height를 고정적으로 만들어주었음. 좋은 해결방안이 나올지 고려.
-        titleImageView.kf.setImage(with: URL(string: imageURL), placeholder: UIImage(systemName: "photo"), options: [.requestModifier(NetworkManager.kingfisherImageRequest)])
+        if let profileImageString = data.creator.profileImage {
+            let imageURL = baseUrl + profileImageString
+            profileImageView.kf.setImage(with: URL(string: imageURL), placeholder: UIImage(systemName: "person.circle"), options: [.requestModifier(NetworkManager.kingfisherImageRequest)])
+        } else {
+            return profileImageView.image = UIImage(systemName: "person.circle")
+        }
     }
     
     required init?(coder: NSCoder) {

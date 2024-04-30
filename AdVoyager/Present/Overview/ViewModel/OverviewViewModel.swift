@@ -12,9 +12,16 @@ import RxCocoa
 final class OverviewViewModel: ViewModelType {
     
     var disposeBag = DisposeBag()
+    private var dataSource: [Post] = []
+    private var nextCursor = ""
+    private var productId = ""
+    private var limit = 10
+    private lazy var tempPostQuery = PostQuery(next: nextCursor, limit: "\(limit)", product_id: productId)
     
     struct Input {
+        let viewDidLoadTrigger: Observable<Void>
         let addNewPostButtonTap: Observable<Void>
+        let renderingRowPosition: Observable<Int>
     }
     
     struct Output {
@@ -23,19 +30,18 @@ final class OverviewViewModel: ViewModelType {
     }
     
     func transform(input: Input) -> Output {
-        print(#function)
-        
         let dataSource = BehaviorRelay<[Post]>(value: [])
-        
-        let tempPostQuery = PostQuery(next: "", limit: "10", product_id: "")
-        let postModel = NetworkManager.fetchPost(query: tempPostQuery)
-        
         let addNewPostTrigger = PublishRelay<Void>()
         
-        postModel.asObservable()
+        input.viewDidLoadTrigger
+            .flatMap { [weak self] _ -> Single<PostModel> in
+                guard let self else { return .never() }
+                return NetworkManager.fetchPost(query: self.tempPostQuery)
+            }
             .subscribe(with: self) { owner, postModel in
-                dataSource.accept(postModel.data)
-                print("가져온 포스트 개수 : \(postModel.data.count)")
+                owner.dataSource = postModel.data
+                owner.nextCursor = postModel.next_cursor
+                dataSource.accept(owner.dataSource)
             }
             .disposed(by: disposeBag)
         
@@ -44,6 +50,22 @@ final class OverviewViewModel: ViewModelType {
                 addNewPostTrigger.accept(())
             }
             .disposed(by: disposeBag)
+        
+        input.renderingRowPosition
+            .subscribe(with: self) { owner, rowPosition in
+                if rowPosition > (owner.dataSource.count - 4) {
+                    NetworkManager.fetchPost(query: PostQuery(next: owner.nextCursor, limit: "\(owner.limit)" , product_id: "")).asObservable()
+                        .subscribe(with: self) { owner, postModel in
+                            print("데이터가 새로 로드되었습니다.")
+                            owner.dataSource.append(contentsOf: postModel.data)
+                            owner.nextCursor = postModel.next_cursor
+                            dataSource.accept(owner.dataSource)
+                        }
+                        .disposed(by: owner.disposeBag)
+                }
+            }
+            .disposed(by: disposeBag)
+        
 
         return Output(dataSource: dataSource.asDriver(),
                       addNewPostTrigger: addNewPostTrigger.asDriver(onErrorJustReturn: ()))
