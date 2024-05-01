@@ -248,6 +248,31 @@ struct NetworkManager {
         }
     }
     
+    static func fetchSpecificPost(postId: String) -> Single<Post> {
+        return Single<Post>.create { single in
+            do {
+                let urlRequest = try Router.fetchSpecificPost(postId: postId).asURLRequest()
+                
+                AF.request(urlRequest)
+                    .validate(statusCode: 200..<300)
+                    .responseDecodable(of: Post.self) { response in
+                        switch response.result {
+                        case .success(let postModel):
+                            print("post 조회 성공")
+                            single(.success(postModel))
+                        case .failure(let error):
+                            print("post 조회 실패: \(error)")
+                            single(.failure(error))
+                        }
+                    }
+            } catch {
+                single(.failure(error))
+            }
+            
+            return Disposables.create()
+        }
+    }
+    
     static func createPost(query: UploadPostQuery) -> Single<Post> {
         return Single<Post>.create { single in
             do {
@@ -269,6 +294,59 @@ struct NetworkManager {
             }
             
             return Disposables.create()
+        }
+    }
+    
+    static func createComment(query: UploadCommentQuery, postId: String) -> Single<Comment> {
+        return Single<Comment>.create { single in
+            do {
+                let urlRequest = try Router.uploadComment(query: query, postId: postId).asURLRequest()
+                
+                print("요청하려는 주소\(urlRequest)")
+                
+                AF.request(urlRequest)
+                    .validate(statusCode: 200..<300)
+                    .responseDecodable(of: Comment.self) { response in
+                        switch response.result {
+                        case .success(let comment):
+                            single(.success(comment))
+                        case .failure(let error):
+                            print("댓글 업로드 실패: \(error)")
+                            single(.failure(error))
+                        }
+                    }
+            } catch {
+                print("댓글 업로드 실패: \(error)")
+                single(.failure(error))
+            }
+            
+            return Disposables.create()
+        }
+    }
+    
+    static func deleteComment(postId: String, commentId: String) -> Single<Void> {
+        return Single<Void>.create { single in
+            do {
+                print("댓글 삭제 요청 전송")
+                let urlRequest = try Router.deleteComment(postId: postId, commentId: commentId).asURLRequest()
+                
+                AF.request(urlRequest)
+                    .validate(statusCode: 200...200)
+                    .response { response in
+                        switch response.result {
+                        case .success:
+                            single(.success(()))
+                        case .failure(let error):
+                            print("댓글 삭제 실패: \(error)")
+                            single(.failure(error))
+                        }
+                    }
+            } catch {
+                print("댓글 삭제 실패: \(error)")
+                single(.failure(error))
+            }
+            
+            return  Disposables.create()
         }
     }
     

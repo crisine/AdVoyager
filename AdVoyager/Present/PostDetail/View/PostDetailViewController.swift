@@ -37,6 +37,7 @@ final class PostDetailViewController: BaseViewController {
         view.contentMode = .scaleAspectFill
         view.clipsToBounds = true
         view.layer.cornerRadius = 16
+        view.tintColor = .lightpurple
         return view
     }()
     private let creatorNicknameLabel: UILabel = {
@@ -98,8 +99,7 @@ final class PostDetailViewController: BaseViewController {
     
     override func bind() {
         
-        let input = PostDetailViewModel.Input(viewWillAppearTrigger: viewWillAppearTrigger.asObservable(),
-                                              showCommentButtonTrigger: showCommentButton.rx.tap.asObservable())
+        let input = PostDetailViewModel.Input(viewWillAppearTrigger: viewWillAppearTrigger.asObservable())
         
         let output = viewModel.transform(input: input)
         
@@ -107,6 +107,18 @@ final class PostDetailViewController: BaseViewController {
             .drive(imageCollectionView.rx.items(cellIdentifier: PostDetailCollectionViewCell.identifier, cellType: PostDetailCollectionViewCell.self)) { row, element, cell in
                 
                 cell.updateCell(imageUrl: element)
+            }
+            .disposed(by: disposeBag)
+        
+        showCommentButton.rx.tap
+            .asObservable()
+            .subscribe(with: self) { owner, _ in
+                guard let post = owner.post else { return }
+                let vc = CommentViewController()
+                let nav = UINavigationController(rootViewController: vc)
+                vc.comments = post.comments
+                vc.postId = post.post_id
+                owner.present(nav, animated: true)
             }
             .disposed(by: disposeBag)
     }
@@ -199,7 +211,7 @@ final class PostDetailViewController: BaseViewController {
             let requestUrl = baseUrl + profileImageUrl
             creatorProfileImageView.kf.setImage(with: URL(string: requestUrl), placeholder: UIImage(systemName: "photo"), options: [.requestModifier(NetworkManager.kingfisherImageRequest)])
         } else {
-            return creatorProfileImageView.image = UIImage(systemName: "photo")
+            return creatorProfileImageView.image = UIImage(systemName: "person.circle")
         }
     }
                                     

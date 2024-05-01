@@ -49,6 +49,7 @@ class BaseViewController: UIViewController {
 //        tabBarController?.tabBar.standardAppearance = tabBarAppearance
 //        
         tabBarController?.tabBar.isTranslucent = true
+        navigationController?.navigationBar.tintColor = .lightpurple
     }
     
     func bind() {

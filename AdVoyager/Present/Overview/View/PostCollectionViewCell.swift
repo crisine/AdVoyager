@@ -52,6 +52,25 @@ class PostCollectionViewCell: BaseCollectionViewCell {
         view.font = .boldSystemFont(ofSize: 16)
         return view
     }()
+    let commentImageView: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(systemName: "bubble")
+        view.tintColor = .black
+        view.contentMode = .scaleAspectFit
+        return view
+    }()
+    let commentCountLabel: UILabel = {
+        let view = UILabel()
+        view.font = .boldSystemFont(ofSize: 16)
+        return view
+    }()
+    let commentStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.distribution = .fillEqually
+        view.spacing = 8
+        return view
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -61,13 +80,19 @@ class PostCollectionViewCell: BaseCollectionViewCell {
     }
     
     override func configureHierarchy() {
+        
         contentView.addSubview(backView)
+        
+        [commentImageView, commentCountLabel].forEach {
+            commentStackView.addArrangedSubview($0)
+        }
         
         [titleImageView,
          titleLabel,
          addressLabel,
          profileImageView,
-         creatorNameLabel].forEach {
+         creatorNameLabel,
+         commentStackView].forEach {
             backView.addSubview($0)
         }
     }
@@ -104,8 +129,15 @@ class PostCollectionViewCell: BaseCollectionViewCell {
         
         creatorNameLabel.snp.makeConstraints { make in
             make.leading.equalTo(profileImageView.snp.trailing).offset(4)
-            make.trailing.equalTo(titleImageView.snp.leading).offset(-16)
+            make.trailing.equalTo(commentStackView.snp.leading).offset(-16)
             make.centerY.equalTo(profileImageView.snp.centerY)
+        }
+        
+        commentStackView.snp.makeConstraints { make in
+            make.centerY.equalTo(creatorNameLabel.snp.centerY)
+            make.trailing.equalTo(titleImageView.snp.leading).offset(-16)
+            make.width.equalTo(72)
+            make.height.equalTo(32)
         }
     }
     
@@ -122,6 +154,7 @@ class PostCollectionViewCell: BaseCollectionViewCell {
         titleLabel.text = data.title
         addressLabel.text = data.content
         creatorNameLabel.text = data.creator.nick
+        commentCountLabel.text = "\(data.comments.count)"
         
         let baseUrl = APIKey.baseURL.rawValue + "/"
         
@@ -129,14 +162,14 @@ class PostCollectionViewCell: BaseCollectionViewCell {
             let imageURL = baseUrl + thumbnailImageString
             titleImageView.kf.setImage(with: URL(string: imageURL), placeholder: UIImage(systemName: "photo"), options: [.requestModifier(NetworkManager.kingfisherImageRequest)])
         } else {
-            return titleImageView.image = UIImage(systemName: "photo")
+            titleImageView.image = UIImage(systemName: "photo")
         }
         
         if let profileImageString = data.creator.profileImage {
             let imageURL = baseUrl + profileImageString
             profileImageView.kf.setImage(with: URL(string: imageURL), placeholder: UIImage(systemName: "person.circle"), options: [.requestModifier(NetworkManager.kingfisherImageRequest)])
         } else {
-            return profileImageView.image = UIImage(systemName: "person.circle")
+            profileImageView.image = UIImage(systemName: "person.circle")
         }
     }
     

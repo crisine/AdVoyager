@@ -79,6 +79,12 @@
 		FAB272D12BE144E80011A500 /* PostDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB272D02BE144E80011A500 /* PostDetailCollectionViewCell.swift */; };
 		FAB272D32BE1470F0011A500 /* PostDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB272D22BE1470F0011A500 /* PostDetailViewModel.swift */; };
 		FAB272D52BE16FB10011A500 /* AddPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB272D42BE16FB10011A500 /* AddPhotoCollectionViewCell.swift */; };
+		FAB272D82BE24CBC0011A500 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB272D72BE24CBC0011A500 /* CommentViewController.swift */; };
+		FAB272DC2BE24CE30011A500 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB272DB2BE24CE30011A500 /* CommentViewModel.swift */; };
+		FAB272DE2BE24D520011A500 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB272DD2BE24D520011A500 /* CommentTableViewCell.swift */; };
+		FAB272E02BE257250011A500 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB272DF2BE257250011A500 /* String+Extension.swift */; };
+		FAB272E32BE266210011A500 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FAB272E22BE266210011A500 /* IQKeyboardManagerSwift */; };
+		FAB272E52BE26B2D0011A500 /* CommentQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB272E42BE26B2D0011A500 /* CommentQuery.swift */; };
 		FADC9CA02BD2511E00973357 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = FADC9C9F2BD2511E00973357 /* RxGesture */; };
 		FADC9CA22BD25EF400973357 /* ProfileQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADC9CA12BD25EF400973357 /* ProfileQuery.swift */; };
 		FAE788952BCF0DC300623467 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE788942BCF0DC300623467 /* ProfileViewModel.swift */; };
@@ -151,6 +157,11 @@
 		FAB272D02BE144E80011A500 /* PostDetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailCollectionViewCell.swift; sourceTree = "<group>"; };
 		FAB272D22BE1470F0011A500 /* PostDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewModel.swift; sourceTree = "<group>"; };
 		FAB272D42BE16FB10011A500 /* AddPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		FAB272D72BE24CBC0011A500 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
+		FAB272DB2BE24CE30011A500 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
+		FAB272DD2BE24D520011A500 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		FAB272DF2BE257250011A500 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		FAB272E42BE26B2D0011A500 /* CommentQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentQuery.swift; sourceTree = "<group>"; };
 		FADC9CA12BD25EF400973357 /* ProfileQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileQuery.swift; sourceTree = "<group>"; };
 		FAE788942BCF0DC300623467 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		FAF1C1082BD3F8C000E56291 /* OverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewModel.swift; sourceTree = "<group>"; };
@@ -167,6 +178,7 @@
 				FA08160F2BDBEF0000F69CBF /* Alamofire in Frameworks */,
 				FA25AECF2BC8A2EB00B08AF4 /* Kingfisher in Frameworks */,
 				FADC9CA02BD2511E00973357 /* RxGesture in Frameworks */,
+				FAB272E32BE266210011A500 /* IQKeyboardManagerSwift in Frameworks */,
 				FA25AEC72BC8A2E100B08AF4 /* SnapKit in Frameworks */,
 				FA3F0EF12BDD39BE0034C6D4 /* Realm in Frameworks */,
 				FA25AED22BC8A2F700B08AF4 /* RxCocoa in Frameworks */,
@@ -229,6 +241,7 @@
 				FA25AF322BCD9C5700B08AF4 /* SignUpQuery.swift */,
 				FADC9CA12BD25EF400973357 /* ProfileQuery.swift */,
 				FA1F68C42BD54D3E00644C5A /* PostQuery.swift */,
+				FAB272E42BE26B2D0011A500 /* CommentQuery.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -246,6 +259,7 @@
 				FA25AF212BCD85E700B08AF4 /* SignUp */,
 				FA25AF342BCDD08E00B08AF4 /* Overview */,
 				FAB272CB2BE141750011A500 /* PostDetail */,
+				FAB272D62BE24CA90011A500 /* Comment */,
 				FA25AF392BCDD13700B08AF4 /* Profile */,
 				FAE788992BCF210900623467 /* EditProfile */,
 			);
@@ -350,6 +364,7 @@
 				FA25AF302BCD9BA300B08AF4 /* Date+Extension.swift */,
 				FA0816162BDC151D00F69CBF /* Reactive+Extension.swift */,
 				FA9032E42BDD74D9002008D9 /* UIColor+Extension.swift */,
+				FAB272DF2BE257250011A500 /* String+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -604,6 +619,32 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		FAB272D62BE24CA90011A500 /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				FAB272DA2BE24CD90011A500 /* ViewModel */,
+				FAB272D92BE24CD30011A500 /* View */,
+			);
+			path = Comment;
+			sourceTree = "<group>";
+		};
+		FAB272D92BE24CD30011A500 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FAB272D72BE24CBC0011A500 /* CommentViewController.swift */,
+				FAB272DD2BE24D520011A500 /* CommentTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FAB272DA2BE24CD90011A500 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FAB272DB2BE24CE30011A500 /* CommentViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		FAE788992BCF210900623467 /* EditProfile */ = {
 			isa = PBXGroup;
 			children = (
@@ -657,6 +698,7 @@
 				FA3F0EF02BDD39BE0034C6D4 /* Realm */,
 				FA3F0EF22BDD39BE0034C6D4 /* RealmSwift */,
 				FA9032F22BDE8197002008D9 /* FSCalendar */,
+				FAB272E22BE266210011A500 /* IQKeyboardManagerSwift */,
 			);
 			productName = AdVoyager;
 			productReference = FA25AEAB2BC6D43700B08AF4 /* AdVoyager.app */;
@@ -696,6 +738,7 @@
 				FA3F0EE52BDD25CA0034C6D4 /* XCRemoteSwiftPackageReference "Tabman" */,
 				FA3F0EEF2BDD39BE0034C6D4 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				FA9032F12BDE8197002008D9 /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				FAB272E12BE266210011A500 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = FA25AEAC2BC6D43700B08AF4 /* Products */;
 			projectDirPath = "";
@@ -727,12 +770,15 @@
 				FA25AEEF2BC8A45000B08AF4 /* LoginViewController.swift in Sources */,
 				FA90C21A2BD939A7002EDDEC /* TravelScheduleViewController.swift in Sources */,
 				FAB272D52BE16FB10011A500 /* AddPhotoCollectionViewCell.swift in Sources */,
+				FAB272DC2BE24CE30011A500 /* CommentViewModel.swift in Sources */,
 				FA25AF312BCD9BA300B08AF4 /* Date+Extension.swift in Sources */,
 				FA1F68C82BD5685D00644C5A /* AddPostViewController.swift in Sources */,
 				FA3F0EFF2BDD566D0034C6D4 /* TravelPlanOverviewViewController.swift in Sources */,
 				FA3F0EEE2BDD32430034C6D4 /* TravelPlanDetailViewModel.swift in Sources */,
 				FA25AEF92BC8A65500B08AF4 /* SignTextField.swift in Sources */,
+				FAB272D82BE24CBC0011A500 /* CommentViewController.swift in Sources */,
 				FA3F0F0C2BDD6C0C0034C6D4 /* AddTravelPlanViewController.swift in Sources */,
+				FAB272E02BE257250011A500 /* String+Extension.swift in Sources */,
 				FAE788952BCF0DC300623467 /* ProfileViewModel.swift in Sources */,
 				FA3F0EF62BDD39F20034C6D4 /* Repository.swift in Sources */,
 				FA8A75F22BDE9055001942CD /* TravelPlanModel.swift in Sources */,
@@ -775,8 +821,10 @@
 				FA0D4F602BD1370B00400D74 /* EditProfileViewController.swift in Sources */,
 				FA25AEE42BC8A32700B08AF4 /* Router.swift in Sources */,
 				FA1F68CA2BD5699E00644C5A /* ContentTextView.swift in Sources */,
+				FAB272E52BE26B2D0011A500 /* CommentQuery.swift in Sources */,
 				FA90C2152BD7BEA7002EDDEC /* LaunchViewModel.swift in Sources */,
 				FA3F0F012BDD57A80034C6D4 /* TravelPlanTableViewCell.swift in Sources */,
+				FAB272DE2BE24D520011A500 /* CommentTableViewCell.swift in Sources */,
 				FA25AEE32BC8A32700B08AF4 /* NetworkManager.swift in Sources */,
 				FAB272CF2BE142180011A500 /* PostDetailViewController.swift in Sources */,
 				FA25AEE22BC8A32700B08AF4 /* LoginQuery.swift in Sources */,
@@ -1085,6 +1133,14 @@
 				minimumVersion = 2.8.4;
 			};
 		};
+		FAB272E12BE266210011A500 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.2;
+			};
+		};
 		FADC9C9E2BD2511E00973357 /* XCRemoteSwiftPackageReference "RxGesture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RxSwiftCommunity/RxGesture.git";
@@ -1145,6 +1201,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FA9032F12BDE8197002008D9 /* XCRemoteSwiftPackageReference "FSCalendar" */;
 			productName = FSCalendar;
+		};
+		FAB272E22BE266210011A500 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FAB272E12BE266210011A500 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
 		};
 		FADC9C9F2BD2511E00973357 /* RxGesture */ = {
 			isa = XCSwiftPackageProductDependency;

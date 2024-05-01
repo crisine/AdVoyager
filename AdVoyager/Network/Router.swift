@@ -21,8 +21,11 @@ enum Router {
     case profile
     case editProfile(query: EditProfileQuery)
     case fetchPost(queryString: PostQuery)
+    case fetchSpecificPost(postId: String)
     case uploadPost(query: UploadPostQuery)
     case uploadImage(query: UploadPostImageQuery)
+    case uploadComment(query: UploadCommentQuery, postId: String)
+    case deleteComment(postId: String, commentId: String)
     case refresh
 //    case withdraw
 //    case fetchPost
@@ -42,8 +45,11 @@ extension Router: TargetType {
         case .profile: .get
         case .editProfile: .put
         case .fetchPost: .get
+        case .fetchSpecificPost: .get
         case .uploadPost: .post
         case .uploadImage: .post
+        case .uploadComment: .post
+        case .deleteComment: .delete
         case .refresh: .get
         }
     }
@@ -55,8 +61,11 @@ extension Router: TargetType {
         case .profile: "/users/me/profile"
         case .editProfile: "/users/me/profile"
         case .fetchPost: "/posts"
+        case .fetchSpecificPost(let postId): "/posts/\(postId)"
         case .uploadPost: "/posts"
         case .uploadImage: "/posts/files"
+        case .uploadComment(let query, let postId): "/posts/\(postId)/comments"
+        case .deleteComment(let postId, let commentId): "/posts/\(postId)/comments/\(commentId)"
         case .refresh: "/auth/refresh"
         }
     }
@@ -80,6 +89,9 @@ extension Router: TargetType {
         case .fetchPost:
             [HTTPHeader.authorization.rawValue: UserDefaults.standard.string(forKey: "accessToken") ?? "",
              HTTPHeader.sesacKey.rawValue: APIKey.sesacKey.rawValue]
+        case .fetchSpecificPost:
+            [HTTPHeader.authorization.rawValue: UserDefaults.standard.string(forKey: "accessToken") ?? "",
+             HTTPHeader.sesacKey.rawValue: APIKey.sesacKey.rawValue]
         case .uploadPost:
             [HTTPHeader.authorization.rawValue: UserDefaults.standard.string(forKey: "accessToken") ?? "",
              HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
@@ -87,6 +99,13 @@ extension Router: TargetType {
         case .uploadImage:
             [HTTPHeader.authorization.rawValue: UserDefaults.standard.string(forKey: "accessToken") ?? "",
              HTTPHeader.contentType.rawValue: HTTPHeader.multipart.rawValue,
+             HTTPHeader.sesacKey.rawValue: APIKey.sesacKey.rawValue]
+        case .uploadComment:
+            [HTTPHeader.authorization.rawValue: UserDefaults.standard.string(forKey: "accessToken") ?? "",
+             HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
+             HTTPHeader.sesacKey.rawValue: APIKey.sesacKey.rawValue]
+        case .deleteComment:
+            [HTTPHeader.authorization.rawValue: UserDefaults.standard.string(forKey: "accessToken") ?? "",
              HTTPHeader.sesacKey.rawValue: APIKey.sesacKey.rawValue]
         case .refresh:
             [HTTPHeader.authorization.rawValue: UserDefaults.standard.string(forKey: "accessToken") ?? "",
@@ -122,6 +141,9 @@ extension Router: TargetType {
             encoder.keyEncodingStrategy = .convertToSnakeCase
             return try? encoder.encode(query)
         case .uploadPost(let query):
+            encoder.keyEncodingStrategy = .convertToSnakeCase
+            return try? encoder.encode(query)
+        case .uploadComment(let query, _):
             encoder.keyEncodingStrategy = .convertToSnakeCase
             return try? encoder.encode(query)
         default:
