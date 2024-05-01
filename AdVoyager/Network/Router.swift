@@ -22,6 +22,7 @@ enum Router {
     case editProfile(query: EditProfileQuery)
     case fetchPost(queryString: PostQuery)
     case uploadPost(query: UploadPostQuery)
+    case uploadImage(query: UploadPostImageQuery)
     case refresh
 //    case withdraw
 //    case fetchPost
@@ -42,6 +43,7 @@ extension Router: TargetType {
         case .editProfile: .put
         case .fetchPost: .get
         case .uploadPost: .post
+        case .uploadImage: .post
         case .refresh: .get
         }
     }
@@ -54,6 +56,7 @@ extension Router: TargetType {
         case .editProfile: "/users/me/profile"
         case .fetchPost: "/posts"
         case .uploadPost: "/posts"
+        case .uploadImage: "/posts/files"
         case .refresh: "/auth/refresh"
         }
     }
@@ -80,6 +83,10 @@ extension Router: TargetType {
         case .uploadPost:
             [HTTPHeader.authorization.rawValue: UserDefaults.standard.string(forKey: "accessToken") ?? "",
              HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
+             HTTPHeader.sesacKey.rawValue: APIKey.sesacKey.rawValue]
+        case .uploadImage:
+            [HTTPHeader.authorization.rawValue: UserDefaults.standard.string(forKey: "accessToken") ?? "",
+             HTTPHeader.contentType.rawValue: HTTPHeader.multipart.rawValue,
              HTTPHeader.sesacKey.rawValue: APIKey.sesacKey.rawValue]
         case .refresh:
             [HTTPHeader.authorization.rawValue: UserDefaults.standard.string(forKey: "accessToken") ?? "",
@@ -127,8 +134,6 @@ extension Router: TargetType {
         
         switch self {
         case .editProfile(let query):
-            let multipart = MultipartFormData()
-            
             let birthDay = query.birthDay.data(using: .utf8) ?? Data()
             let nick = query.nick.data(using: .utf8) ?? Data()
             let phoneNum = query.phoneNum.data(using: .utf8) ?? Data()
@@ -139,6 +144,11 @@ extension Router: TargetType {
             multipart.append(phoneNum, withName: "phoneNum")
             multipart.append(profile, withName: "profile", fileName: "profileImage.jpeg", mimeType: "image/jpeg")
             
+            return multipart
+        case .uploadImage(let query):
+            for image in query.files {
+                multipart.append(image, withName: "files", fileName: "image", mimeType: "image/jpeg")
+            }
             return multipart
         default:
             return multipart

@@ -15,6 +15,7 @@ final class PostDetailViewModel: ViewModelType {
     
     struct Input {
         let viewWillAppearTrigger: Observable<Post>
+        let showCommentButtonTrigger: Observable<Void>
     }
     
     struct Output {
@@ -33,6 +34,12 @@ final class PostDetailViewModel: ViewModelType {
                 // 그리고 dataSource를 뷰로 보내서 그거 기반으로 컬렉션뷰 그려야함 ㅇㅋ?
                 owner.dataSource = selectedPost.files
                 dataSource.onNext(owner.dataSource)
+            }
+            .disposed(by: disposeBag)
+        
+        input.showCommentButtonTrigger
+            .subscribe(with: self) { owner, _ in
+                
             }
             .disposed(by: disposeBag)
         

@@ -62,6 +62,10 @@ struct Post: Decodable {
     let comments: [Comment]
 }
 
+struct ImageModel: Decodable {
+    let files: [String]
+}
+
 struct Creator: Decodable {
     let user_id: String
     let nick: String
@@ -186,6 +190,32 @@ struct NetworkManager {
                 
             } catch {
                 print("프로필 수정 과정에서 에러 발생: ",error, error.localizedDescription)
+                single(.failure(error))
+            }
+            
+            return Disposables.create()
+        }
+    }
+    
+    static func uploadImage(query: UploadPostImageQuery) -> Single<ImageModel> {
+        return Single<ImageModel>.create { single in
+            do {
+                print("이미지 업로드 통신 시작")
+                let urlRequest = try Router.uploadImage(query: query).asURLRequest()
+                
+                AF.upload(multipartFormData: Router.uploadImage(query: query).multipart, with: urlRequest)
+                    .validate(statusCode: 200..<300)
+                    .responseDecodable(of: ImageModel.self) { response in
+                        switch response.result {
+                        case .success(let imageModel):
+                            single(.success(imageModel))
+                        case .failure(let error):
+                            print("이미지 업로드 실패(Response Error): \(error)")
+                            single(.failure(error))
+                        }
+                    }
+            } catch {
+                print("이미지 업로드 실패(AFError): \(error)")
                 single(.failure(error))
             }
             

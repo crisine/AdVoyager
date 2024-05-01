@@ -29,6 +29,7 @@ final class PostDetailViewController: BaseViewController {
         view.tintColor = .lightpurple
         view.flashScrollIndicators()
         view.backgroundColor = .systemGray6
+        view.contentMode = .scaleAspectFill
         return view
     }()
     private let creatorProfileImageView: UIImageView = {
@@ -43,7 +44,7 @@ final class PostDetailViewController: BaseViewController {
         view.font = .boldSystemFont(ofSize: 18)
         return view
     }()
-    private let separatorLineView: UIView = {
+    private let profileSeparatorLineView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemGray5
         return view
@@ -58,6 +59,19 @@ final class PostDetailViewController: BaseViewController {
         view.font = .systemFont(ofSize: 16)
         view.isEditable = false
         view.isScrollEnabled = false
+        return view
+    }()
+    private let showCommentButton: UIButton = {
+        let view = UIButton()
+        view.setImage(UIImage(systemName: "bubble.right"), for: .normal)
+        view.tintColor = .black
+        view.setTitleColor(.black, for: .normal)
+        view.contentHorizontalAlignment = .trailing
+        return view
+    }()
+    private let commentSeparatorLineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemGray5
         return view
     }()
     
@@ -84,7 +98,8 @@ final class PostDetailViewController: BaseViewController {
     
     override func bind() {
         
-        let input = PostDetailViewModel.Input(viewWillAppearTrigger: viewWillAppearTrigger.asObservable())
+        let input = PostDetailViewModel.Input(viewWillAppearTrigger: viewWillAppearTrigger.asObservable(),
+                                              showCommentButtonTrigger: showCommentButton.rx.tap.asObservable())
         
         let output = viewModel.transform(input: input)
         
@@ -98,7 +113,7 @@ final class PostDetailViewController: BaseViewController {
     
     override func configureHierarchy() {
         
-        [creatorProfileImageView, creatorNicknameLabel, separatorLineView, imageCollectionView, postTitleLabel, postDescriptionTextView].forEach {
+        [creatorProfileImageView, creatorNicknameLabel, profileSeparatorLineView, imageCollectionView, postTitleLabel, postDescriptionTextView, commentSeparatorLineView, showCommentButton].forEach {
             postContentView.addSubview($0)
         }
         
@@ -132,7 +147,7 @@ final class PostDetailViewController: BaseViewController {
             make.height.equalTo(creatorProfileImageView.snp.height)
         }
         
-        separatorLineView.snp.makeConstraints { make in
+        profileSeparatorLineView.snp.makeConstraints { make in
             make.top.equalTo(creatorProfileImageView.snp.bottom).offset(16)
             make.leading.equalTo(postContentView.snp.leading).offset(16)
             make.width.equalTo(screenWidth - 32)
@@ -140,7 +155,7 @@ final class PostDetailViewController: BaseViewController {
         }
         
         postTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(separatorLineView.snp.bottom).offset(16)
+            make.top.equalTo(profileSeparatorLineView.snp.bottom).offset(16)
             make.leading.equalTo(postContentView.snp.leading).offset(16)
             make.width.equalTo(screenWidth - 32)
             make.height.equalTo(28)
@@ -150,6 +165,18 @@ final class PostDetailViewController: BaseViewController {
             make.top.equalTo(postTitleLabel.snp.bottom).offset(8)
             make.leading.equalTo(postContentView.snp.leading).offset(16)
             make.trailing.equalTo(postContentView.snp.trailing).inset(16)
+        }
+        
+        commentSeparatorLineView.snp.makeConstraints { make in
+            make.top.equalTo(postDescriptionTextView.snp.bottom).offset(16)
+            make.horizontalEdges.equalTo(postContentView.snp.horizontalEdges).inset(16)
+            make.height.equalTo(2)
+        }
+        
+        showCommentButton.snp.makeConstraints { make in
+            make.top.equalTo(commentSeparatorLineView.snp.bottom).offset(8)
+            make.horizontalEdges.equalTo(postContentView.snp.horizontalEdges).inset(16)
+            make.height.equalTo(32)
             make.bottom.lessThanOrEqualToSuperview().inset(16)
         }
         
@@ -157,12 +184,14 @@ final class PostDetailViewController: BaseViewController {
             make.edges.equalTo(scrollView.contentLayoutGuide)
             make.width.equalTo(screenWidth)
         }
+        
     }
     
     override func configureView() {
         postTitleLabel.text = post?.title
         postDescriptionTextView.text = post?.content
         creatorNicknameLabel.text = post?.creator.nick
+        showCommentButton.setTitle("\(post?.comments.count ?? 0)개의 댓글", for: .normal)
         
         let baseUrl = APIKey.baseURL.rawValue + "/"
         

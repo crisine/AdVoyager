@@ -21,6 +21,10 @@ final class AddPostViewController: BaseViewController {
     private lazy var photoCollectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         view.register(AddPhotoCollectionViewCell.self, forCellWithReuseIdentifier: AddPhotoCollectionViewCell.identifier)
+        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.layer.borderWidth = 1
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 16
         return view
     }()
     private lazy var postTitleTextField: SignTextField = {
@@ -46,6 +50,7 @@ final class AddPostViewController: BaseViewController {
     
     private let viewModel = AddPostViewModel()
     private let imageStream = PublishSubject<UIImage>()
+    private let finishedAddingImageTrigger = PublishSubject<Void>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +63,8 @@ final class AddPostViewController: BaseViewController {
                                            contentText: contentTextView.rx.text.orEmpty.asObservable(),
                                            addPostButtonTapTrigger: addPostBarButtonItem.rx.tap.asObservable(),
                                            cancelPostButtonTapTrigger: cancelPostBarButtonItem.rx.tap.asObservable(),
-                                           imageStream: imageStream.asObservable())
+                                           imageStream: imageStream.asObservable(),
+                                           finishedAddingImageTrigger: finishedAddingImageTrigger.asObservable())
         
         let output = viewModel.transform(input: input)
         
@@ -165,19 +171,33 @@ final class AddPostViewController: BaseViewController {
 
 extension AddPostViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        results.forEach { result in
-                        let itemProvider = result.itemProvider
-                        if itemProvider.canLoadObject(ofClass: UIImage.self) {
-                            itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
-                                if let image = image as? UIImage {
-                                    self?.imageStream.onNext(image)
-                                }
-                                if let error = error {
-                                    print("이미지가 너무 커서 찐빠가 났다!")
-                                }
-                            }
+        
+        let group = DispatchGroup()
+        
+        for index in 0..<results.count {
+            let itemProvider = results[index].itemProvider
+            if itemProvider.canLoadObject(ofClass: UIImage.self) {
+                group.enter()
+                itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
+                    defer { group.leave() }
+                    
+                    if let image = image as? UIImage {
+                        DispatchQueue.main.async {
+                            self?.imageStream.onNext(image)
                         }
                     }
-        picker.dismiss(animated: true)
+                    
+                    if let error = error {
+                        print("이미지를 불러오는데 문제가 발생했습니다.")
+                    }
+                }
+            }
+        }
+        
+        group.notify(queue: .main) {
+            group.wait()
+            self.finishedAddingImageTrigger.onNext(())
+            picker.dismiss(animated: true)
+        }
     }
 }

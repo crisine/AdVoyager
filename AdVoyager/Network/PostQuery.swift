@@ -5,6 +5,8 @@
 //  Created by Minho on 4/21/24.
 //
 
+import Foundation
+
 struct PostQuery: Encodable {
     let next: String
     let limit: String
@@ -33,4 +35,8 @@ struct UploadPostQuery: Encodable {
         self.product_id = product_id
         self.files = files
     }
+}
+
+struct UploadPostImageQuery: Encodable {
+    let files: [Data]
 }

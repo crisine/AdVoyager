@@ -50,7 +50,7 @@ final class EditProfileViewModel: ViewModelType {
             input.phoneNum,
             input.birthDay
         ).map { nick, phoneNum, birthDay in
-            print("프로필 정보 수정된 부분 전송 전 확인: \n이미지: \(self.profileImage.count / (1 * 1024 * 1024))MB\n닉네임: \(nick)\n휴대폰: \(phoneNum)\n생년월일: \(birthDay)")
+            print("프로필 정보 수정된 부분 전송 전 확인: \n이미지: \(self.profileImage.count / (5 * 1024 * 1024))MB\n닉네임: \(nick)\n휴대폰: \(phoneNum)\n생년월일: \(birthDay)")
             return EditProfileQuery(nick: nick,
                                     phoneNum: phoneNum,
                                     birthDay: birthDay.toString(format: "yyyyMMdd"),

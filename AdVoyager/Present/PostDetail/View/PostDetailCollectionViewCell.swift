@@ -12,7 +12,6 @@ final class PostDetailCollectionViewCell: BaseCollectionViewCell {
     
     let imageView: UIImageView = {
         let view = UIImageView()
-        view.contentMode = .scaleAspectFit
         return view
     }()
     

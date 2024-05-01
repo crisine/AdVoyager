@@ -20,6 +20,7 @@ final class AddPostViewModel: ViewModelType {
         let addPostButtonTapTrigger: Observable<Void>
         let cancelPostButtonTapTrigger: Observable<Void>
         let imageStream: Observable<UIImage>
+        let finishedAddingImageTrigger: Observable<Void>
     }
     
     struct Output {
@@ -35,12 +36,14 @@ final class AddPostViewModel: ViewModelType {
         let postUploadSuccessTrigger = PublishRelay<Void>()
         let cancelPostUploadTrigger = PublishRelay<Void>()
         let dataSource = PublishSubject<[UIImage]>()
+        let uploadedImages = PublishSubject<[String]>()
         
         let postObservable = Observable.combineLatest(
             input.titleText,
-            input.contentText
-        ).map { title, content in
-            return UploadPostQuery(title: title, content: content, files: [])
+            input.contentText,
+            uploadedImages
+        ).map { title, content, files in
+            return UploadPostQuery(title: title, content: content, files: files)
         }
         
         postObservable
@@ -75,8 +78,20 @@ final class AddPostViewModel: ViewModelType {
         
         input.imageStream
             .subscribe(with: self) { owner, selectedImage in
+                print("이미지 추가중")
                 owner.dataSource.append(selectedImage)
                 dataSource.onNext(owner.dataSource)
+            }
+            .disposed(by: disposeBag)
+        
+        input.finishedAddingImageTrigger
+            .flatMap {
+                let query = UploadPostImageQuery(files: self.compressImages(dataSource: self.dataSource))
+                return NetworkManager.uploadImage(query: query)
+            }
+            .subscribe(with: self) { owner, response in
+                print("이미지 업로드 성공")
+                uploadedImages.onNext(response.files)
             }
             .disposed(by: disposeBag)
         
@@ -84,5 +99,20 @@ final class AddPostViewModel: ViewModelType {
                       postValidation: postValid.asDriver(),
                       canelPostUploadTrigger: cancelPostUploadTrigger.asDriver(onErrorJustReturn: ()),
                       dataSource: dataSource.asDriver(onErrorJustReturn: []))
+    }
+    
+    func compressImages(dataSource: [UIImage]) -> [Data] {
+        var images: [Data] = []
+        
+        dataSource.forEach { uiimage in
+            guard let jpegImage = uiimage.jpegData(compressionQuality: 0.5) else { return }
+            
+            if jpegImage.count <= (5 * 1024 * 1024) {
+                print("현재 이미지 크기 \(jpegImage.count / (1 * 1024 * 1024))MB")
+                images.append(jpegImage)
+            }
+        }
+        
+        return images
     }
 }
