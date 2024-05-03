@@ -248,6 +248,31 @@ struct NetworkManager {
         }
     }
     
+    static func fetchHashtagPost(query: HashtagPostQuery) -> Single<PostModel> {
+        return Single<PostModel>.create { single in
+            do {
+                let urlRequest = try Router.fetchHashtagPost(queryString: query).asURLRequest()
+                
+                AF.request(urlRequest)
+                    .validate(statusCode: 200..<300)
+                    .responseDecodable(of: PostModel.self) { response in
+                        switch response.result {
+                        case .success(let postModel):
+                            print("hashtag post 조회 성공")
+                            single(.success(postModel))
+                        case .failure(let error):
+                            print("hashtag post 조회 실패: \(error)")
+                            single(.failure(error))
+                        }
+                    }
+            } catch {
+                single(.failure(error))
+            }
+            
+            return Disposables.create()
+        }
+    }
+    
     static func fetchSpecificPost(postId: String) -> Single<Post> {
         return Single<Post>.create { single in
             do {

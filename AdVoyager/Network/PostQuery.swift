@@ -13,6 +13,13 @@ struct PostQuery: Encodable {
     let product_id: String
 }
 
+struct HashtagPostQuery: Encodable {
+    let next: String
+    let limit: String
+    let product_id: String
+    let hashTag: String
+}
+
 struct UploadPostQuery: Encodable {
     let title: String?
     let content: String?

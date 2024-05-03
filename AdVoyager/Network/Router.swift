@@ -21,6 +21,7 @@ enum Router {
     case profile
     case editProfile(query: EditProfileQuery)
     case fetchPost(queryString: PostQuery)
+    case fetchHashtagPost(queryString: HashtagPostQuery)
     case fetchSpecificPost(postId: String)
     case uploadPost(query: UploadPostQuery)
     case deletePost(postId: String)
@@ -43,6 +44,7 @@ extension Router: TargetType {
         case .profile: .get
         case .editProfile: .put
         case .fetchPost: .get
+        case .fetchHashtagPost: .get
         case .fetchSpecificPost: .get
         case .uploadPost: .post
         case .deletePost: .delete
@@ -60,6 +62,7 @@ extension Router: TargetType {
         case .profile: "/users/me/profile"
         case .editProfile: "/users/me/profile"
         case .fetchPost: "/posts"
+        case .fetchHashtagPost: "/posts/hashtags"
         case .fetchSpecificPost(let postId): "/posts/\(postId)"
         case .uploadPost: "/posts"
         case .deletePost(let postId): "/posts/\(postId)"
@@ -87,6 +90,9 @@ extension Router: TargetType {
              HTTPHeader.contentType.rawValue: HTTPHeader.multipart.rawValue,
              HTTPHeader.sesacKey.rawValue: APIKey.sesacKey.rawValue]
         case .fetchPost:
+            [HTTPHeader.authorization.rawValue: UserDefaults.standard.string(forKey: "accessToken") ?? "",
+             HTTPHeader.sesacKey.rawValue: APIKey.sesacKey.rawValue]
+        case .fetchHashtagPost:
             [HTTPHeader.authorization.rawValue: UserDefaults.standard.string(forKey: "accessToken") ?? "",
              HTTPHeader.sesacKey.rawValue: APIKey.sesacKey.rawValue]
         case .fetchSpecificPost:
@@ -128,6 +134,13 @@ extension Router: TargetType {
                 URLQueryItem(name: "limit", value: query.limit),
                 URLQueryItem(name: "next", value: query.next),
                 URLQueryItem(name: "product_id", value: query.product_id)
+            ]
+        case .fetchHashtagPost(let query):
+            return [
+                URLQueryItem(name: "limit", value: query.limit),
+                URLQueryItem(name: "next", value: query.next),
+                URLQueryItem(name: "product_id", value: query.product_id),
+                URLQueryItem(name: "hashTag", value: query.hashTag)
             ]
         default:
             return nil

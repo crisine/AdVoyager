@@ -137,10 +137,18 @@ final class NewOverviewViewController: BaseViewController {
         
         let output = viewModel.transform(input: input)
         
-        output.dataSource
+        output.normalDataSource
             .drive(newPlansCollectionView.rx.items(cellIdentifier: PlanCollectionViewCell.identifier, cellType: PlanCollectionViewCell.self)) { [weak self] row, element, cell in
                 
                 self?.renderingRowPosition.accept(row)
+                // TODO: 아래 hashtag 섹션과 heroid가 겹쳐서 문제 발생
+                cell.updateCell(post: element, heroId: "\(element.post_id)")
+            }
+            .disposed(by: disposeBag)
+        
+        output.hashtagDataSource
+            .drive(hashtagPlanCollectionView.rx.items(cellIdentifier: PlanCollectionViewCell.identifier, cellType: PlanCollectionViewCell.self)) { row, element, cell in
+                // TODO: 위의 다른 컬렉션뷰에서 보이는 renderingRowPosition을 다른 이름으로 얘도 갖고 있어야 함
                 cell.updateCell(post: element, heroId: "\(element.post_id)")
             }
             .disposed(by: disposeBag)
@@ -173,6 +181,23 @@ final class NewOverviewViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         newPlansCollectionView.rx.modelSelected(Post.self)
+            .asObservable()
+            .subscribe(with: self) { owner, selectedPost in
+                let vc = PostDetailViewController()
+                vc.post = selectedPost
+                vc.hidesBottomBarWhenPushed = true
+                owner.navigationController?.pushViewController(vc, animated: true)
+                
+                vc.deleteSuccess
+                    .subscribe { _ in
+                        owner.refreshTrigger.accept(())
+                        owner.showToast(message: "포스트가 삭제되었습니다.")
+                    }
+                    .disposed(by: vc.disposeBag)
+            }
+            .disposed(by: disposeBag)
+        
+        hashtagPlanCollectionView.rx.modelSelected(Post.self)
             .asObservable()
             .subscribe(with: self) { owner, selectedPost in
                 let vc = PostDetailViewController()
@@ -269,7 +294,7 @@ final class NewOverviewViewController: BaseViewController {
         hashtagPlanCollectionView.snp.makeConstraints { make in
             make.top.equalTo(hashtagPlansTitleLabel.snp.bottom).offset(8)
             make.horizontalEdges.equalTo(newPlansCollectionView.snp.horizontalEdges)
-            make.bottom.lessThanOrEqualToSuperview().inset(16)
+            make.height.equalTo(UIScreen.main.bounds.height / 3.5)
         }
         
         addPostButton.snp.makeConstraints { make in

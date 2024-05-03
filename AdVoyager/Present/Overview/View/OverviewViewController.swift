@@ -48,7 +48,7 @@ final class OverviewViewController: BaseViewController {
         
         let output = viewModel.transform(input: input)
         
-        output.dataSource
+        output.normalDataSource
             .drive(mainPostCollectionView.rx.items(cellIdentifier: PostCollectionViewCell.identifier, cellType: PostCollectionViewCell.self)) { [weak self] row, element, cell in
                 
                 self?.renderingRowPosition.accept(row)
