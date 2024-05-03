@@ -23,13 +23,11 @@ enum Router {
     case fetchPost(queryString: PostQuery)
     case fetchSpecificPost(postId: String)
     case uploadPost(query: UploadPostQuery)
+    case deletePost(postId: String)
     case uploadImage(query: UploadPostImageQuery)
     case uploadComment(query: UploadCommentQuery, postId: String)
     case deleteComment(postId: String, commentId: String)
     case refresh
-//    case withdraw
-//    case fetchPost
-//    case uploadPost
 }
 
 extension Router: TargetType {
@@ -47,6 +45,7 @@ extension Router: TargetType {
         case .fetchPost: .get
         case .fetchSpecificPost: .get
         case .uploadPost: .post
+        case .deletePost: .delete
         case .uploadImage: .post
         case .uploadComment: .post
         case .deleteComment: .delete
@@ -63,8 +62,9 @@ extension Router: TargetType {
         case .fetchPost: "/posts"
         case .fetchSpecificPost(let postId): "/posts/\(postId)"
         case .uploadPost: "/posts"
+        case .deletePost(let postId): "/posts/\(postId)"
         case .uploadImage: "/posts/files"
-        case .uploadComment(let query, let postId): "/posts/\(postId)/comments"
+        case .uploadComment(_, let postId): "/posts/\(postId)/comments"
         case .deleteComment(let postId, let commentId): "/posts/\(postId)/comments/\(commentId)"
         case .refresh: "/auth/refresh"
         }
@@ -95,6 +95,9 @@ extension Router: TargetType {
         case .uploadPost:
             [HTTPHeader.authorization.rawValue: UserDefaults.standard.string(forKey: "accessToken") ?? "",
              HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
+             HTTPHeader.sesacKey.rawValue: APIKey.sesacKey.rawValue]
+        case .deletePost:
+            [HTTPHeader.authorization.rawValue: UserDefaults.standard.string(forKey: "accessToken") ?? "",
              HTTPHeader.sesacKey.rawValue: APIKey.sesacKey.rawValue]
         case .uploadImage:
             [HTTPHeader.authorization.rawValue: UserDefaults.standard.string(forKey: "accessToken") ?? "",

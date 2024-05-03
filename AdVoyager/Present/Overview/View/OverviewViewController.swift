@@ -31,6 +31,7 @@ final class OverviewViewController: BaseViewController {
     private let viewModel = OverviewViewModel()
     private let renderingRowPosition = PublishRelay<Int>()
     private let viewDidLoadTrigger = PublishRelay<Void>()
+    private let refreshTrigger = PublishRelay<Void>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +43,8 @@ final class OverviewViewController: BaseViewController {
         let input = OverviewViewModel.Input(viewDidLoadTrigger: viewDidLoadTrigger.asObservable(),
                                             addNewPostButtonTap: addPostButton.rx.tap.asObservable(),
                                             renderingRowPosition: renderingRowPosition.asObservable(),
-                                            refreshLoading:  mainPostCollectionView.refreshControl!.rx.controlEvent(.valueChanged).asObservable())
+                                            refreshLoading:  mainPostCollectionView.refreshControl!.rx.controlEvent(.valueChanged).asObservable(),
+                                            refreshTrigger: refreshTrigger.asObservable())
         
         let output = viewModel.transform(input: input)
         
@@ -56,8 +58,16 @@ final class OverviewViewController: BaseViewController {
         
         output.addNewPostTrigger
             .drive(with: self) { owner, _ in
-                let nav = UINavigationController(rootViewController: AddPostViewController())
+                let vc = AddPostViewController()
+                let nav = UINavigationController(rootViewController: vc)
                 owner.present(nav, animated: true)
+                
+                vc.postUploadSuccessTrigger
+                    .subscribe(with: self) { owner, _ in
+                        owner.refreshTrigger.accept(())
+                        owner.showToast(message: "게시글 작성에 성공했습니다.")
+                    }
+                    .disposed(by: vc.disposeBag)
             }
             .disposed(by: disposeBag)
         
@@ -80,6 +90,13 @@ final class OverviewViewController: BaseViewController {
                 vc.post = selectedPost
                 vc.hidesBottomBarWhenPushed = true
                 owner.navigationController?.pushViewController(vc, animated: true)
+                
+                vc.deleteSuccess
+                    .subscribe { _ in
+                        owner.refreshTrigger.accept(())
+                        owner.showToast(message: "포스트가 삭제되었습니다.")
+                    }
+                    .disposed(by: vc.disposeBag)
             }
             .disposed(by: disposeBag)
     }

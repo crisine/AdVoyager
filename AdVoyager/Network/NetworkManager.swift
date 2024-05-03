@@ -350,6 +350,32 @@ struct NetworkManager {
         }
     }
     
+    static func deletePost(postId: String) -> Single<Void> {
+        return Single<Void>.create { single in
+            do {
+                print("게시글 삭제 요청 전송")
+                let urlRequest = try Router.deletePost(postId: postId).asURLRequest()
+                
+                AF.request(urlRequest)
+                    .validate(statusCode: 200...200)
+                    .response { response in
+                        switch response.result {
+                        case .success:
+                            single(.success(()))
+                        case .failure(let error):
+                            print("게시글 삭제 실패: \(error)")
+                            single(.failure(error))
+                        }
+                    }
+            } catch {
+                print("게시글 삭제 실패: \(error)")
+                single(.failure(error))
+            }
+            
+            return  Disposables.create()
+        }
+    }
+    
     static func refreshToken() -> Single<String> {
         return Single<String>.create { single in
             do {

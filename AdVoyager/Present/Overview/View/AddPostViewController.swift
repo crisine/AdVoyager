@@ -51,6 +51,7 @@ final class AddPostViewController: BaseViewController {
     private let viewModel = AddPostViewModel()
     private let imageStream = PublishSubject<UIImage>()
     private let finishedAddingImageTrigger = PublishSubject<Void>()
+    let postUploadSuccessTrigger = PublishRelay<Void>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,7 +86,7 @@ final class AddPostViewController: BaseViewController {
         output.postUploadSuccessTrigger
             .asObservable()
             .subscribe(with: self) { owner, _ in
-                // dismiss + 성공 trigger를 completeHandler로 다른 view로 전송
+                owner.postUploadSuccessTrigger.accept(())
                 owner.dismiss(animated: true)
             }
             .disposed(by: disposeBag)

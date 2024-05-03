@@ -37,6 +37,10 @@ final class ProfileViewController: BaseViewController {
         let view = FilledButton(title: "프로필 수정")
         return view
     }()
+    private let logoutButton: FilledButton = {
+        let view = FilledButton(title: "로그아웃", fillColor: .systemRed)
+        return view
+    }()
     
     private let viewModel = ProfileViewModel()
     
@@ -46,18 +50,16 @@ final class ProfileViewController: BaseViewController {
     }
     
     override func bind() {
-        let input = ProfileViewModel.Input(editProfileButtonTapped: editProfileButton.rx.tap.asObservable())
+        let input = ProfileViewModel.Input(editProfileButtonTapped: editProfileButton.rx.tap.asObservable(),
+                                           logoutButtonTap: logoutButton.rx.tap.asObservable())
         
         let output = viewModel.transform(input: input)
         
         output.profileInfo
-            .asObservable()
-            .subscribe(with: self) { owner, profile in
+            .drive(with: self) { owner, profile in
                 guard let profile else { return }
                 
                 let imageURL = APIKey.baseURL.rawValue + "/" + profile.profileImage!
-                
-                print("프로필 이미지 url: \(imageURL)")
                 
                 owner.profileImageView.kf.setImage(with: URL(string: imageURL), placeholder: UIImage(systemName: "person"), options: [.requestModifier(NetworkManager.kingfisherImageRequest)])
                 owner.nickNameLabel.text = profile.nick
@@ -65,17 +67,31 @@ final class ProfileViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
-        output.editProfileTrigger.asObservable()
-            .subscribe(with: self) { owner, _ in
+        output.editProfileTrigger
+            .drive(with: self) { owner, _ in
                 let vc = EditProfileViewController()
                 vc.hidesBottomBarWhenPushed = true
                 owner.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: disposeBag)
+        
+        output.logoutSuccess
+            .drive(with: self) { owner, _ in
+                let vc = LoginViewController()
+                vc.showToast(message: "로그아웃에 성공했습니다.")
+                let nav = UINavigationController(rootViewController: vc)
+                nav.modalPresentationStyle = .fullScreen
+                owner.present(nav, animated: true)
+            }
+            .disposed(by: disposeBag)
     }
     
     override func configureHierarchy() {
-        [profileImageView, nickNameLabel, emailLabel, editProfileButton].forEach {
+        [profileImageView, 
+         nickNameLabel,
+         emailLabel,
+         editProfileButton,
+         logoutButton].forEach {
             view.addSubview($0)
         }
     }
@@ -99,6 +115,12 @@ final class ProfileViewController: BaseViewController {
         
         editProfileButton.snp.makeConstraints { make in
             make.top.equalTo(emailLabel.snp.bottom).offset(32)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(64)
+            make.height.equalTo(48)
+        }
+        
+        logoutButton.snp.makeConstraints { make in
+            make.top.equalTo(editProfileButton.snp.bottom).offset(16)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(64)
             make.height.equalTo(48)
         }

@@ -85,6 +85,12 @@
 		FAB272E02BE257250011A500 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB272DF2BE257250011A500 /* String+Extension.swift */; };
 		FAB272E32BE266210011A500 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FAB272E22BE266210011A500 /* IQKeyboardManagerSwift */; };
 		FAB272E52BE26B2D0011A500 /* CommentQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB272E42BE26B2D0011A500 /* CommentQuery.swift */; };
+		FAB272FA2BE509D40011A500 /* NewOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB272F92BE509D40011A500 /* NewOverviewViewController.swift */; };
+		FAB272FC2BE50A480011A500 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB272FB2BE50A480011A500 /* UIViewController+Extension.swift */; };
+		FAB272FE2BE516960011A500 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB272FD2BE516960011A500 /* UIView+Extension.swift */; };
+		FAB273002BE5186B0011A500 /* PlanCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB272FF2BE5186B0011A500 /* PlanCollectionViewCell.swift */; };
+		FAB273022BE52CAA0011A500 /* PlannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB273012BE52CAA0011A500 /* PlannerCollectionViewCell.swift */; };
+		FAB273052BE54D960011A500 /* Hero in Frameworks */ = {isa = PBXBuildFile; productRef = FAB273042BE54D960011A500 /* Hero */; };
 		FADC9CA02BD2511E00973357 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = FADC9C9F2BD2511E00973357 /* RxGesture */; };
 		FADC9CA22BD25EF400973357 /* ProfileQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADC9CA12BD25EF400973357 /* ProfileQuery.swift */; };
 		FAE788952BCF0DC300623467 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE788942BCF0DC300623467 /* ProfileViewModel.swift */; };
@@ -162,6 +168,11 @@
 		FAB272DD2BE24D520011A500 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		FAB272DF2BE257250011A500 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		FAB272E42BE26B2D0011A500 /* CommentQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentQuery.swift; sourceTree = "<group>"; };
+		FAB272F92BE509D40011A500 /* NewOverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOverviewViewController.swift; sourceTree = "<group>"; };
+		FAB272FB2BE50A480011A500 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		FAB272FD2BE516960011A500 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		FAB272FF2BE5186B0011A500 /* PlanCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCollectionViewCell.swift; sourceTree = "<group>"; };
+		FAB273012BE52CAA0011A500 /* PlannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerCollectionViewCell.swift; sourceTree = "<group>"; };
 		FADC9CA12BD25EF400973357 /* ProfileQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileQuery.swift; sourceTree = "<group>"; };
 		FAE788942BCF0DC300623467 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		FAF1C1082BD3F8C000E56291 /* OverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewModel.swift; sourceTree = "<group>"; };
@@ -174,6 +185,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA25AED42BC8A2F700B08AF4 /* RxSwift in Frameworks */,
+				FAB273052BE54D960011A500 /* Hero in Frameworks */,
 				FA3F0EE72BDD25CA0034C6D4 /* Tabman in Frameworks */,
 				FA08160F2BDBEF0000F69CBF /* Alamofire in Frameworks */,
 				FA25AECF2BC8A2EB00B08AF4 /* Kingfisher in Frameworks */,
@@ -365,6 +377,8 @@
 				FA0816162BDC151D00F69CBF /* Reactive+Extension.swift */,
 				FA9032E42BDD74D9002008D9 /* UIColor+Extension.swift */,
 				FAB272DF2BE257250011A500 /* String+Extension.swift */,
+				FAB272FB2BE50A480011A500 /* UIViewController+Extension.swift */,
+				FAB272FD2BE516960011A500 /* UIView+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -381,10 +395,10 @@
 		FA25AF352BCDD0A600B08AF4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FAB273062BE54DA10011A500 /* Cell */,
+				FAB272F92BE509D40011A500 /* NewOverviewViewController.swift */,
 				FA25AF372BCDD0BA00B08AF4 /* OverviewViewController.swift */,
-				FAF1C10A2BD3FBD400E56291 /* PostCollectionViewCell.swift */,
 				FA1F68C72BD5685D00644C5A /* AddPostViewController.swift */,
-				FAB272D42BE16FB10011A500 /* AddPhotoCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -645,6 +659,17 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		FAB273062BE54DA10011A500 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				FAF1C10A2BD3FBD400E56291 /* PostCollectionViewCell.swift */,
+				FAB272D42BE16FB10011A500 /* AddPhotoCollectionViewCell.swift */,
+				FAB272FF2BE5186B0011A500 /* PlanCollectionViewCell.swift */,
+				FAB273012BE52CAA0011A500 /* PlannerCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		FAE788992BCF210900623467 /* EditProfile */ = {
 			isa = PBXGroup;
 			children = (
@@ -699,6 +724,7 @@
 				FA3F0EF22BDD39BE0034C6D4 /* RealmSwift */,
 				FA9032F22BDE8197002008D9 /* FSCalendar */,
 				FAB272E22BE266210011A500 /* IQKeyboardManagerSwift */,
+				FAB273042BE54D960011A500 /* Hero */,
 			);
 			productName = AdVoyager;
 			productReference = FA25AEAB2BC6D43700B08AF4 /* AdVoyager.app */;
@@ -739,6 +765,7 @@
 				FA3F0EEF2BDD39BE0034C6D4 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				FA9032F12BDE8197002008D9 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				FAB272E12BE266210011A500 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				FAB273032BE54D960011A500 /* XCRemoteSwiftPackageReference "Hero" */,
 			);
 			productRefGroup = FA25AEAC2BC6D43700B08AF4 /* Products */;
 			projectDirPath = "";
@@ -785,6 +812,7 @@
 				FA3F0EFA2BDD46600034C6D4 /* TravelScheduleTableViewCell.swift in Sources */,
 				FAF1C10B2BD3FBD400E56291 /* PostCollectionViewCell.swift in Sources */,
 				FA3F0EF82BDD45AD0034C6D4 /* TravelScheduleViewModel.swift in Sources */,
+				FAB272FC2BE50A480011A500 /* UIViewController+Extension.swift in Sources */,
 				FADC9CA22BD25EF400973357 /* ProfileQuery.swift in Sources */,
 				FA25AEED2BC8A3E900B08AF4 /* ViewModelType.swift in Sources */,
 				FAF1C1092BD3F8C000E56291 /* OverviewViewModel.swift in Sources */,
@@ -793,12 +821,15 @@
 				FA0D4F622BD138F000400D74 /* EditProfileViewModel.swift in Sources */,
 				FA9032E52BDD74D9002008D9 /* UIColor+Extension.swift in Sources */,
 				FA25AF002BC8A80200B08AF4 /* FilledButton.swift in Sources */,
+				FAB273022BE52CAA0011A500 /* PlannerCollectionViewCell.swift in Sources */,
+				FAB272FE2BE516960011A500 /* UIView+Extension.swift in Sources */,
 				FA25AF382BCDD0BA00B08AF4 /* OverviewViewController.swift in Sources */,
 				FAB272D32BE1470F0011A500 /* PostDetailViewModel.swift in Sources */,
 				FA3F0F032BDD580A0034C6D4 /* BaseTableViewCell.swift in Sources */,
 				FA25AEF62BC8A4A100B08AF4 /* LoginView.swift in Sources */,
 				FA3F0EEC2BDD28DD0034C6D4 /* TravelPlanDetailViewController.swift in Sources */,
 				FA90C2132BD7BEA1002EDDEC /* LaunchViewController.swift in Sources */,
+				FAB273002BE5186B0011A500 /* PlanCollectionViewCell.swift in Sources */,
 				FA25AF422BCDD52900B08AF4 /* MainTabBarViewController.swift in Sources */,
 				FA0816172BDC151D00F69CBF /* Reactive+Extension.swift in Sources */,
 				FA1F68C52BD54D3E00644C5A /* PostQuery.swift in Sources */,
@@ -831,6 +862,7 @@
 				FA0816152BDC0EC600F69CBF /* CommonTextComponentType.swift in Sources */,
 				FA3F0F052BDD58D70034C6D4 /* Reusable.swift in Sources */,
 				FA25AEB12BC6D43700B08AF4 /* SceneDelegate.swift in Sources */,
+				FAB272FA2BE509D40011A500 /* NewOverviewViewController.swift in Sources */,
 				FA25AF3D2BCDD15D00B08AF4 /* ProfileViewController.swift in Sources */,
 				FA3F0F072BDD65080034C6D4 /* TravelPlanOverviewViewModel.swift in Sources */,
 				FA25AEEA2BC8A3D000B08AF4 /* LoginViewModel.swift in Sources */,
@@ -1141,6 +1173,14 @@
 				minimumVersion = 7.0.2;
 			};
 		};
+		FAB273032BE54D960011A500 /* XCRemoteSwiftPackageReference "Hero" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/HeroTransitions/Hero.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.6.3;
+			};
+		};
 		FADC9C9E2BD2511E00973357 /* XCRemoteSwiftPackageReference "RxGesture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RxSwiftCommunity/RxGesture.git";
@@ -1206,6 +1246,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FAB272E12BE266210011A500 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
 			productName = IQKeyboardManagerSwift;
+		};
+		FAB273042BE54D960011A500 /* Hero */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FAB273032BE54D960011A500 /* XCRemoteSwiftPackageReference "Hero" */;
+			productName = Hero;
 		};
 		FADC9C9F2BD2511E00973357 /* RxGesture */ = {
 			isa = XCSwiftPackageProductDependency;

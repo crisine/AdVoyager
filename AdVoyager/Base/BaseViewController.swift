@@ -44,11 +44,6 @@ class BaseViewController: UIViewController {
         navigationController?.navigationBar.compactAppearance = appearance
         navigationController?.navigationBar.compactScrollEdgeAppearance = appearance
         
-//        let tabBarAppearance = UITabBarAppearance()
-//        tabBarAppearance.configureWithTransparentBackground()
-//        tabBarController?.tabBar.standardAppearance = tabBarAppearance
-//        
-        tabBarController?.tabBar.isTranslucent = true
         navigationController?.navigationBar.tintColor = .lightpurple
     }
     

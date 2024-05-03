@@ -11,10 +11,11 @@ import RxCocoa
 
 final class PostDetailViewController: BaseViewController {
     
-    private let scrollView: UIScrollView = {
+    private lazy var scrollView: UIScrollView = {
         let view = UIScrollView()
         view.isScrollEnabled = true
         view.showsVerticalScrollIndicator = true
+        view.delegate = self
         return view
     }()
     private let postContentView: UIView = {
@@ -30,6 +31,7 @@ final class PostDetailViewController: BaseViewController {
         view.flashScrollIndicators()
         view.backgroundColor = .systemGray6
         view.contentMode = .scaleAspectFill
+        view.hero.id = "thumbnail\(post!.post_id)"
         return view
     }()
     private let creatorProfileImageView: UIImageView = {
@@ -76,8 +78,18 @@ final class PostDetailViewController: BaseViewController {
         return view
     }()
     
+    private let modifyBarButtonItem: UIBarButtonItem = {
+        let view = UIBarButtonItem()
+        view.tintColor = .black
+        view.image = UIImage(systemName: "ellipsis")
+        return view
+    }()
+    
     private let viewModel = PostDetailViewModel()
     private let viewWillAppearTrigger = PublishRelay<Post>()
+    private let modifyPost = PublishSubject<Void>()
+    private let deletePost = PublishSubject<Void>()
+    let deleteSuccess = PublishRelay<Void>()
     var post: Post?
     
     override func viewWillAppear(_ animated: Bool) {
@@ -99,7 +111,40 @@ final class PostDetailViewController: BaseViewController {
     
     override func bind() {
         
-        let input = PostDetailViewModel.Input(viewWillAppearTrigger: viewWillAppearTrigger.asObservable())
+        showCommentButton.rx.tap
+            .asObservable()
+            .subscribe(with: self) { owner, _ in
+                guard let post = owner.post else { return }
+                let vc = CommentViewController()
+                let nav = UINavigationController(rootViewController: vc)
+                vc.comments = post.comments
+                vc.postId = post.post_id
+                owner.present(nav, animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        modifyBarButtonItem.rx.tap
+            .asObservable()
+            .subscribe(with: self) { owner, _ in
+                let actionSheet = UIAlertController(title: "게시글 관리", message: "하고싶은 동작을 선택해주세요", preferredStyle: .actionSheet)
+                
+                actionSheet.addAction(UIAlertAction(title: "글 수정하기", style: .default, handler: { action in
+                    owner.modifyPost.onNext(())
+                }))
+                
+                actionSheet.addAction(UIAlertAction(title: "글 삭제하기", style: .destructive, handler: { action in
+                    owner.deletePost.onNext(())
+                }))
+                
+                actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel))
+                
+                owner.present(actionSheet, animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        let input = PostDetailViewModel.Input(viewWillAppearTrigger: viewWillAppearTrigger.asObservable(),
+                                              modifyPostTrigger: modifyPost.asObservable(),
+                                              deletePostTrigger: deletePost.asObservable())
         
         let output = viewModel.transform(input: input)
         
@@ -110,15 +155,10 @@ final class PostDetailViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
-        showCommentButton.rx.tap
-            .asObservable()
-            .subscribe(with: self) { owner, _ in
-                guard let post = owner.post else { return }
-                let vc = CommentViewController()
-                let nav = UINavigationController(rootViewController: vc)
-                vc.comments = post.comments
-                vc.postId = post.post_id
-                owner.present(nav, animated: true)
+        output.deletePostSuccess
+            .drive(with: self) { owner, _ in
+                owner.deleteSuccess.accept(())
+                owner.navigationController?.popViewController(animated: true)
             }
             .disposed(by: disposeBag)
     }
@@ -213,6 +253,9 @@ final class PostDetailViewController: BaseViewController {
         } else {
             return creatorProfileImageView.image = UIImage(systemName: "person.circle")
         }
+        
+        navigationItem.rightBarButtonItem = modifyBarButtonItem
+        self.navigationController?.hero.isEnabled = true
     }
                                     
     private func createLayout() -> UICollectionViewLayout {
@@ -224,4 +267,22 @@ final class PostDetailViewController: BaseViewController {
         
         return layout
     }
+}
+
+extension PostDetailViewController: UIScrollViewDelegate {
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+
+        if (velocity.y > 0) {
+            UIView.animate(withDuration: 0.1, delay: 0, options: UIView.AnimationOptions(), animations: {
+                self.navigationController?.setNavigationBarHidden(true, animated: true)
+                print("Hide")
+            }, completion: nil)
+
+        } else {
+            UIView.animate(withDuration: 0.1, delay: 0, options: UIView.AnimationOptions(), animations: {
+                self.navigationController?.setNavigationBarHidden(false, animated: true)
+                print("Unhide")
+            }, completion: nil)
+        }
+   }
 }

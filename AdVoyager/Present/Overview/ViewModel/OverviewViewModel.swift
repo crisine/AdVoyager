@@ -23,6 +23,7 @@ final class OverviewViewModel: ViewModelType {
         let addNewPostButtonTap: Observable<Void>
         let renderingRowPosition: Observable<Int>
         let refreshLoading: Observable<Void>
+        let refreshTrigger: Observable<Void>
     }
     
     struct Output {
@@ -78,6 +79,12 @@ final class OverviewViewModel: ViewModelType {
                     owner.reloadData(dataSource: dataSource)
                     isRefreshing.accept(false)
                 }
+            }
+            .disposed(by: disposeBag)
+        
+        input.refreshTrigger
+            .subscribe(with: self) { owner, _ in
+                owner.reloadData(dataSource: dataSource)
             }
             .disposed(by: disposeBag)
         
