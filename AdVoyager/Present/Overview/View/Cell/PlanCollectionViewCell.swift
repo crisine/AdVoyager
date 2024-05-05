@@ -84,12 +84,9 @@ final class PlanCollectionViewCell: BaseCollectionViewCell {
         
     }
 
-    func updateCell(post: Post, heroId: String?) {
+    func updateCell(post: Post) {
         
         titleLabel.text = post.title
-//        addressLabel.text = post.content
-//        creatorNameLabel.text = post.creator.nick
-//        commentCountLabel.text = "\(post.comments.count)"
         
         let baseUrl = APIKey.baseURL.rawValue + "/"
         
@@ -99,16 +96,5 @@ final class PlanCollectionViewCell: BaseCollectionViewCell {
         } else {
             thumbnailImageView.image = UIImage(named: "purpleBackground")
         }
-        
-        
-//        if let profileImageString = post.creator.profileImage {
-//            let imageURL = baseUrl + profileImageString
-//            profileImageView.kf.setImage(with: URL(string: imageURL), placeholder: UIImage(systemName: "person.circle"), options: [.requestModifier(NetworkManager.kingfisherImageRequest)])
-//        } else {
-//            profileImageView.image = UIImage(systemName: "person.circle")
-//        }
-        
-        guard let heroId else { return }
-        thumbnailImageView.hero.id = "thumbnail\(heroId)"
     }
 }

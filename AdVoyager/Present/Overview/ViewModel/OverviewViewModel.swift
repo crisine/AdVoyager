@@ -20,12 +20,15 @@ final class OverviewViewModel: ViewModelType {
     private var planNextCursor = ""
     private var hashtagPlanNextCursor = ""
     
+    // TODO: 검색 기록이나 fetch 기록에 따라 random하게 hashtag를 선정하도록 추후 구현
     private var hashtag = "대한민국"
     private lazy var tempPostQuery = PostQuery(next: planNextCursor, limit: "\(limit)", product_id: productId)
     private lazy var tempHashtagPostQuery = HashtagPostQuery(next: planNextCursor, limit: "\(limit)", product_id: productId, hashTag: hashtag)
     
     struct Input {
         let viewDidLoadTrigger: Observable<Void>
+        let searchText: Observable<String>
+        let searchButtonTap: Observable<Void>
         let addNewPostButtonTap: Observable<Void>
         let renderingRowPosition: Observable<Int>
         let refreshLoading: Observable<Void>
@@ -33,8 +36,10 @@ final class OverviewViewModel: ViewModelType {
     }
     
     struct Output {
+        let searchText: Driver<String>
         let normalDataSource: Driver<[Post]>
         let hashtagDataSource: Driver<[Post]>
+        let profile: Driver<ProfileModel?>
         let addNewPostTrigger: Driver<Void>
         let isRefreshing: Driver<Bool>
     }
@@ -42,8 +47,10 @@ final class OverviewViewModel: ViewModelType {
     func transform(input: Input) -> Output {
         let normalDataSource = BehaviorRelay<[Post]>(value: [])
         let hashtagDataSource = BehaviorRelay<[Post]>(value: [])
+        let profile = PublishSubject<ProfileModel?>()
         let addNewPostTrigger = PublishRelay<Void>()
         let isRefreshing = PublishRelay<Bool>()
+        let searchText = PublishRelay<String>()
         
         // MARK: Normal
         input.viewDidLoadTrigger
@@ -68,6 +75,23 @@ final class OverviewViewModel: ViewModelType {
                 owner.hashtagDataSource = postModel.data
                 owner.hashtagPlanNextCursor = postModel.next_cursor
                 hashtagDataSource.accept(owner.hashtagDataSource)
+            }
+            .disposed(by: disposeBag)
+        
+        // MARK: Profile Loading
+        input.viewDidLoadTrigger
+            .flatMap { _ -> Single<ProfileModel> in
+                return NetworkManager.fetchProfile()
+            }
+            .subscribe(with: self) { owner, profileModel in
+                profile.onNext(profileModel)
+            }
+            .disposed(by: disposeBag)
+        
+        input.searchButtonTap
+            .withLatestFrom(input.searchText)
+            .subscribe(with: self) { owner, query in
+                searchText.accept(query)
             }
             .disposed(by: disposeBag)
         
@@ -111,8 +135,10 @@ final class OverviewViewModel: ViewModelType {
             .disposed(by: disposeBag)
         
 
-        return Output(normalDataSource: normalDataSource.asDriver(),
+        return Output(searchText: searchText.asDriver(onErrorJustReturn: ""),
+                      normalDataSource: normalDataSource.asDriver(),
                       hashtagDataSource: hashtagDataSource.asDriver(),
+                      profile: profile.asDriver(onErrorJustReturn: nil),
                       addNewPostTrigger: addNewPostTrigger.asDriver(onErrorJustReturn: ()),
                       isRefreshing: isRefreshing.asDriver(onErrorJustReturn: false))
     }
@@ -127,4 +153,5 @@ final class OverviewViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
     }
+    
 }

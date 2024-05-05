@@ -15,16 +15,16 @@ final class TravelPlanOverviewViewModel: ViewModelType {
     private let repository = Repository()
     
     struct Input {
-        let travelPlan: Observable<TravelPlanModel>
+        let travelPlan: Observable<TravelPlan>
         let tableViewIndexPath: Observable<IndexPath>
         let addTravelPlanButtonTap: Observable<Void>
         let dataReloadTrigger: Observable<Void>
     }
     
     struct Output {
-        let dataSource: Driver<[TravelPlanModel]>
+        let dataSource: Driver<[TravelPlan]>
         let moveToAddTravelPlanViewTrigger: Driver<Void>
-        let travelPlan: Driver<TravelPlanModel?>
+        let travelPlan: Driver<TravelPlan?>
         let indexPath: Driver<IndexPath?>
     }
     
@@ -35,7 +35,7 @@ final class TravelPlanOverviewViewModel: ViewModelType {
         let plans = Array(repository.fetchTravelPlan())
         let dataSource = BehaviorRelay(value: plans)
         let moveToAddTravelPlanViewTrigger = PublishRelay<Void>()
-        let selectedTravelPlan = PublishRelay<TravelPlanModel?>()
+        let selectedTravelPlan = PublishRelay<TravelPlan?>()
         
         input.addTravelPlanButtonTap
             .subscribe(with: self) { owner, _ in

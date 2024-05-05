@@ -11,6 +11,13 @@ import RxCocoa
 
 final class PostDetailViewController: BaseViewController {
     
+    private let modifyBarButtonItem: UIBarButtonItem = {
+        let view = UIBarButtonItem()
+        view.tintColor = .black
+        view.image = UIImage(systemName: "ellipsis")
+        return view
+    }()
+    
     private lazy var scrollView: UIScrollView = {
         let view = UIScrollView()
         view.isScrollEnabled = true
@@ -31,9 +38,9 @@ final class PostDetailViewController: BaseViewController {
         view.flashScrollIndicators()
         view.backgroundColor = .systemGray6
         view.contentMode = .scaleAspectFill
-        view.hero.id = "thumbnail\(post!.post_id)"
         return view
     }()
+    
     private let creatorProfileImageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
@@ -52,6 +59,7 @@ final class PostDetailViewController: BaseViewController {
         view.backgroundColor = .systemGray5
         return view
     }()
+    
     private let postTitleLabel: UILabel = {
         let view = UILabel()
         view.font = .boldSystemFont(ofSize: 24)
@@ -64,6 +72,22 @@ final class PostDetailViewController: BaseViewController {
         view.isScrollEnabled = false
         return view
     }()
+    
+    private let postSeparatorLineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemGray5
+        return view
+    }()
+    private let downloadTravelPlanButton: FilledButton = {
+        let view = FilledButton(title: "여행 계획 다운받기")
+        return view
+    }()
+    
+    private let commentSeparatorLineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemGray5
+        return view
+    }()
     private let showCommentButton: UIButton = {
         let view = UIButton()
         view.setImage(UIImage(systemName: "bubble.right"), for: .normal)
@@ -72,23 +96,13 @@ final class PostDetailViewController: BaseViewController {
         view.contentHorizontalAlignment = .trailing
         return view
     }()
-    private let commentSeparatorLineView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemGray5
-        return view
-    }()
-    
-    private let modifyBarButtonItem: UIBarButtonItem = {
-        let view = UIBarButtonItem()
-        view.tintColor = .black
-        view.image = UIImage(systemName: "ellipsis")
-        return view
-    }()
     
     private let viewModel = PostDetailViewModel()
     private let viewWillAppearTrigger = PublishRelay<Post>()
     private let modifyPost = PublishSubject<Void>()
     private let deletePost = PublishSubject<Void>()
+    private let pushBackedDate = PublishSubject<Date?>()
+    private let savePlanTrigger = PublishSubject<Void>()
     let deleteSuccess = PublishRelay<Void>()
     var post: Post?
     
@@ -99,6 +113,7 @@ final class PostDetailViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
     }
     
@@ -142,9 +157,25 @@ final class PostDetailViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
+        downloadTravelPlanButton.rx.tap
+            .subscribe(with: self) { owner, _ in
+                let vc = PushBackViewController()
+                let nav = UINavigationController(rootViewController: vc)
+                owner.present(nav, animated: true)
+                
+                vc.selectedDateStream.subscribe(with: self) { owner, selectedDate in
+                    owner.pushBackedDate.onNext(selectedDate)
+                    owner.savePlanTrigger.onNext(())
+                }
+                .disposed(by: vc.disposeBag)
+            }
+            .disposed(by: disposeBag)
+        
         let input = PostDetailViewModel.Input(viewWillAppearTrigger: viewWillAppearTrigger.asObservable(),
                                               modifyPostTrigger: modifyPost.asObservable(),
-                                              deletePostTrigger: deletePost.asObservable())
+                                              deletePostTrigger: deletePost.asObservable(),
+                                              savePlanTrigger: savePlanTrigger.asObservable(),
+                                              pushBackedDate: pushBackedDate.asObservable())
         
         let output = viewModel.transform(input: input)
         
@@ -161,11 +192,30 @@ final class PostDetailViewController: BaseViewController {
                 owner.navigationController?.popViewController(animated: true)
             }
             .disposed(by: disposeBag)
+        
+        output.saveStatus
+            .drive(with: self) { owner, saveSuccess in
+                if saveSuccess {
+                    owner.showToast(message: "여행계획 저장에 성공했습니다.")
+                } else {
+                    owner.showToast(message: "여행계획 저장에 실패했습니다.")
+                }
+            }
+            .disposed(by: disposeBag)
     }
     
     override func configureHierarchy() {
         
-        [creatorProfileImageView, creatorNicknameLabel, profileSeparatorLineView, imageCollectionView, postTitleLabel, postDescriptionTextView, commentSeparatorLineView, showCommentButton].forEach {
+        [creatorProfileImageView, 
+         creatorNicknameLabel,
+         profileSeparatorLineView,
+         imageCollectionView,
+         postTitleLabel,
+         postDescriptionTextView,
+         postSeparatorLineView,
+         downloadTravelPlanButton,
+         commentSeparatorLineView,
+         showCommentButton].forEach {
             postContentView.addSubview($0)
         }
         
@@ -219,15 +269,27 @@ final class PostDetailViewController: BaseViewController {
             make.trailing.equalTo(postContentView.snp.trailing).inset(16)
         }
         
-        commentSeparatorLineView.snp.makeConstraints { make in
+        postSeparatorLineView.snp.makeConstraints { make in
             make.top.equalTo(postDescriptionTextView.snp.bottom).offset(16)
-            make.horizontalEdges.equalTo(postContentView.snp.horizontalEdges).inset(16)
+            make.horizontalEdges.equalTo(postContentView).inset(16)
+            make.height.equalTo(2)
+        }
+        
+        downloadTravelPlanButton.snp.makeConstraints { make in
+            make.top.equalTo(postSeparatorLineView.snp.bottom).offset(8)
+            make.horizontalEdges.equalTo(postContentView).inset(16)
+            make.height.equalTo(48)
+        }
+        
+        commentSeparatorLineView.snp.makeConstraints { make in
+            make.top.equalTo(downloadTravelPlanButton.snp.bottom).offset(8)
+            make.horizontalEdges.equalTo(postContentView).inset(16)
             make.height.equalTo(2)
         }
         
         showCommentButton.snp.makeConstraints { make in
             make.top.equalTo(commentSeparatorLineView.snp.bottom).offset(8)
-            make.horizontalEdges.equalTo(postContentView.snp.horizontalEdges).inset(16)
+            make.horizontalEdges.equalTo(postContentView).inset(16)
             make.height.equalTo(32)
             make.bottom.lessThanOrEqualToSuperview().inset(16)
         }
@@ -251,11 +313,13 @@ final class PostDetailViewController: BaseViewController {
             let requestUrl = baseUrl + profileImageUrl
             creatorProfileImageView.kf.setImage(with: URL(string: requestUrl), placeholder: UIImage(systemName: "photo"), options: [.requestModifier(NetworkManager.kingfisherImageRequest)])
         } else {
-            return creatorProfileImageView.image = UIImage(systemName: "person.circle")
+            creatorProfileImageView.image = UIImage(systemName: "person.circle")
         }
         
         navigationItem.rightBarButtonItem = modifyBarButtonItem
-        self.navigationController?.hero.isEnabled = true
+        
+        downloadTravelPlanButton.isEnabled = post?.content1 != nil ? true : false
+        downloadTravelPlanButton.backgroundColor = downloadTravelPlanButton.isEnabled ? .lightpurple : .lightGray
     }
                                     
     private func createLayout() -> UICollectionViewLayout {

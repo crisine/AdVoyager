@@ -24,6 +24,10 @@ final class NewOverviewViewController: BaseViewController {
         view.refreshControl?.tintColor = .lightpurple
         return view
     }()
+    private let postContentView: UIView = {
+        let view = UIView()
+        return view
+    }()
     
     private let searchBackgroundImageView: UIImageView = {
         let view = UIImageView()
@@ -34,22 +38,25 @@ final class NewOverviewViewController: BaseViewController {
         let view = UIImageView()
         view.clipsToBounds = true
         view.layer.cornerRadius = 24
-        view.tintColor = .black
+        view.tintColor = .lightpurple
         view.contentMode = .scaleAspectFit
         
+        view.layer.borderColor = UIColor.lightpurple.cgColor
+        view.layer.borderWidth = 2
+        
         // 임시 이미지
-        view.image = UIImage(systemName: "person.circle")
+        view.image = UIImage(systemName: "person")
         return view
     }()
     private let welcomeLabel: UILabel = {
         let view = UILabel()
-        view.text = "안녕하세요! Minho님"
+        view.text = "안녕하세요! 사용자님"
         view.font = .systemFont(ofSize: 28, weight: .heavy)
         return view
     }()
     private let welcomeSubtitleLabel: UILabel = {
         let view = UILabel()
-        view.text = "327개의 여행 코스가 공유되고 있어요!"
+        view.text = "오늘도 많은 여행 코스가 공유되고 있어요!"
         view.font = .systemFont(ofSize: 16)
         view.textColor = .white
         return view
@@ -98,12 +105,6 @@ final class NewOverviewViewController: BaseViewController {
         view.font = .boldSystemFont(ofSize: 22)
         return view
     }()
-    private let seeMoreHashtagPlansButton: UIButton = {
-        let view = UIButton()
-        view.setTitle("더보기", for: .normal)
-        view.setTitleColor(UIColor.lightpurple, for: .normal)
-        return view
-    }()
     private lazy var hashtagPlanCollectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         view.register(PlanCollectionViewCell.self, forCellWithReuseIdentifier: PlanCollectionViewCell.identifier)
@@ -130,6 +131,8 @@ final class NewOverviewViewController: BaseViewController {
     
     override func bind() {
         let input = OverviewViewModel.Input(viewDidLoadTrigger: viewDidLoadTrigger.asObservable(),
+                                            searchText: searchBar.rx.text.orEmpty.asObservable(),
+                                            searchButtonTap: searchBar.rx.searchButtonClicked.asObservable(),
                                             addNewPostButtonTap: addPostButton.rx.tap.asObservable(),
                                             renderingRowPosition: renderingRowPosition.asObservable(),
                                             refreshLoading: scrollView.refreshControl!.rx.controlEvent(.valueChanged).asObservable(),
@@ -137,19 +140,41 @@ final class NewOverviewViewController: BaseViewController {
         
         let output = viewModel.transform(input: input)
         
+        output.searchText
+            .drive(with: self) { owner, query in
+                let vc = SearchResultViewController()
+                vc.query = query
+                vc.hidesBottomBarWhenPushed = true
+                owner.navigationController?.pushViewController(vc, animated: true)
+            }
+            .disposed(by: disposeBag)
+        
         output.normalDataSource
             .drive(newPlansCollectionView.rx.items(cellIdentifier: PlanCollectionViewCell.identifier, cellType: PlanCollectionViewCell.self)) { [weak self] row, element, cell in
                 
                 self?.renderingRowPosition.accept(row)
-                // TODO: 아래 hashtag 섹션과 heroid가 겹쳐서 문제 발생
-                cell.updateCell(post: element, heroId: "\(element.post_id)")
+                cell.updateCell(post: element)
             }
             .disposed(by: disposeBag)
         
         output.hashtagDataSource
             .drive(hashtagPlanCollectionView.rx.items(cellIdentifier: PlanCollectionViewCell.identifier, cellType: PlanCollectionViewCell.self)) { row, element, cell in
                 // TODO: 위의 다른 컬렉션뷰에서 보이는 renderingRowPosition을 다른 이름으로 얘도 갖고 있어야 함
-                cell.updateCell(post: element, heroId: "\(element.post_id)")
+                cell.updateCell(post: element)
+            }
+            .disposed(by: disposeBag)
+        
+        output.profile
+            .drive(with: self) { owner, profile in
+                guard let profile else {
+                    return
+                }
+                
+                let baseUrl = APIKey.baseURL.rawValue + "/"
+                let url = URL(string: baseUrl + (profile.profileImage ?? ""))
+                owner.profileImageView.kf.setImage(with: url, placeholder: UIImage(systemName: "person"), options: [.requestModifier(NetworkManager.kingfisherImageRequest)])
+                
+                owner.welcomeLabel.text = "안녕하세요! \(profile.nick)님"
             }
             .disposed(by: disposeBag)
         
@@ -224,7 +249,6 @@ final class NewOverviewViewController: BaseViewController {
          newPlansTitleLabel,
          newPlansCollectionView,
          hashtagPlansTitleLabel,
-         seeMoreHashtagPlansButton,
          hashtagPlanCollectionView,
          addPostButton].forEach {
             scrollView.addSubview($0)
@@ -281,14 +305,7 @@ final class NewOverviewViewController: BaseViewController {
         
         hashtagPlansTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(newPlansCollectionView.snp.bottom).offset(16)
-            make.leading.equalTo(scrollView.safeAreaLayoutGuide).offset(16)
-            make.trailing.equalTo(seeMoreHashtagPlansButton.snp.leading).offset(-16)
-        }
-        
-        seeMoreHashtagPlansButton.snp.makeConstraints { make in
-            make.centerY.equalTo(hashtagPlansTitleLabel.snp.centerY)
-            make.trailing.equalTo(scrollView.safeAreaLayoutGuide).offset(-16)
-            make.size.equalTo(48)
+            make.horizontalEdges.equalTo(scrollView).inset(16)
         }
         
         hashtagPlanCollectionView.snp.makeConstraints { make in
@@ -312,8 +329,6 @@ final class NewOverviewViewController: BaseViewController {
         
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.backgroundColor = .clear
-        
-        self.navigationController?.hero.isEnabled = true
     }
     
     private func createLayout() -> UICollectionViewLayout {

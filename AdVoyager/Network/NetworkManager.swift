@@ -100,8 +100,9 @@ struct NetworkManager {
     static func createLogin(query: LoginQuery) -> Single<LoginModel> {
         return Single<LoginModel>.create { single in
             do {
-                // MARK: url, parameter, encoder, header 등등이 이 LoginQuery모델 안에 다 들어있으므로 이렇게 짧은 문장으로 API콜이 가능해진다.
-                let urlRequest = try Router.login(query: query).asURLRequest()
+                print("로그인 요청 중")
+                var urlRequest = try Router.login(query: query).asURLRequest()
+                urlRequest.timeoutInterval = 3
                                 
                 AF.request(urlRequest)
                     .validate(statusCode: 200..<300)
@@ -128,7 +129,7 @@ struct NetworkManager {
         return Single<SignUpModel>.create { single in
             do {
                 let urlRequest = try Router.signUp(query: query).asURLRequest()
-                                
+                
                 print("쿼리 내용: \(query)")
                 
                 AF.request(urlRequest)
@@ -136,12 +137,15 @@ struct NetworkManager {
                     .responseDecodable(of: SignUpModel.self) { response in
                         switch response.result {
                         case .success(let signUpModel):
+                            print("회원 가입 성공")
                             single(.success(signUpModel))
                         case .failure(let error):
+                            print("회원 가입 실패: \(error)")
                             single(.failure(error))
                         }
                     }
             } catch {
+                print("회원 가입 실패: \(error)")
                 single(.failure(error))
             }
             
@@ -405,7 +409,8 @@ struct NetworkManager {
         return Single<String>.create { single in
             do {
                 print("토큰 리프레시 요청중...")
-                let urlRequest = try Router.refresh.asURLRequest()
+                var urlRequest = try Router.refresh.asURLRequest()
+                urlRequest.timeoutInterval = 1
                 
                 AF.request(urlRequest)
                     .validate(statusCode: 200..<300)
@@ -420,6 +425,7 @@ struct NetworkManager {
                         }
                     }
             } catch {
+                print("토큰 갱신 실패")
                 single(.failure(error))
             }
             

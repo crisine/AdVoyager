@@ -12,7 +12,7 @@ import RxCocoa
 final class AddNewTravelScheduleViewModel: ViewModelType {
     
     var disposeBag = DisposeBag()
-    var selectedTravelPlan: TravelPlanModel?
+    var selectedTravelPlan: TravelPlan?
     
     private let repository = Repository()
     

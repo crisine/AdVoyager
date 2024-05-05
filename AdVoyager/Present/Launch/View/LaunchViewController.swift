@@ -20,22 +20,20 @@ final class LaunchViewController: BaseViewController {
     }()
     
     private let viewModel = LaunchViewModel()
+    private let viewDidLoadTrigger = PublishSubject<Void>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        viewDidLoadTrigger.onNext(())
     }
     
     override func bind() {
-        let input = LaunchViewModel.Input()
+        let input = LaunchViewModel.Input(viewDidLoadTrigger: viewDidLoadTrigger.asObservable())
         
         let output = viewModel.transform(input: input)
         
         output.loginSuccessTrigger
-            .asObservable()
-            .subscribe(with: self) { owner, isTokenRefreshed in
-                print("로그인 이벤트 구독")
-                
+            .drive(with: self) { owner, isTokenRefreshed in
                 switch isTokenRefreshed {
                 case true:
                     print("메인 화면으로 이동합니다.")

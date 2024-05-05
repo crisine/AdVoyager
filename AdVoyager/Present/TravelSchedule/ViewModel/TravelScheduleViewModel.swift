@@ -42,7 +42,7 @@ final class TravelScheduleViewModel: ViewModelType {
                 guard let planId = owner.planId else { return }
                 guard let date = owner.date else { return }
                 
-                var scheduleArray = Array(owner.repository.fetchSchedule(planId: planId).filter { date.isSameWith($0.date) == true }).sorted { $0.date < $1.date }
+                let scheduleArray = Array(owner.repository.fetchSchedule(planId: planId).filter { date.isSameWith($0.date) == true }).sorted { $0.date < $1.date }
                 
                 dataSource.accept(scheduleArray)
             }

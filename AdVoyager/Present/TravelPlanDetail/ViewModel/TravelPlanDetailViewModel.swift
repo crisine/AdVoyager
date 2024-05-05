@@ -12,7 +12,7 @@ import RxCocoa
 final class TravelPlanDetailViewModel: ViewModelType {
     
     var viewControllers: Array<TravelScheduleViewController> = []
-    var selectedTravelPlan: TravelPlanModel?
+    var selectedTravelPlan: TravelPlan?
     var disposeBag = DisposeBag()
     
     struct Input {

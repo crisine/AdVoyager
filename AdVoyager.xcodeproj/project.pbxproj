@@ -48,14 +48,12 @@
 		FA25AF2D2BCD990700B08AF4 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AF2C2BCD990700B08AF4 /* SignUpViewModel.swift */; };
 		FA25AF312BCD9BA300B08AF4 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AF302BCD9BA300B08AF4 /* Date+Extension.swift */; };
 		FA25AF332BCD9C5800B08AF4 /* SignUpQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AF322BCD9C5700B08AF4 /* SignUpQuery.swift */; };
-		FA25AF382BCDD0BA00B08AF4 /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AF372BCDD0BA00B08AF4 /* OverviewViewController.swift */; };
+		FA25AF382BCDD0BA00B08AF4 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AF372BCDD0BA00B08AF4 /* SearchResultViewController.swift */; };
 		FA25AF3D2BCDD15D00B08AF4 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AF3C2BCDD15D00B08AF4 /* ProfileViewController.swift */; };
 		FA25AF422BCDD52900B08AF4 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25AF412BCDD52900B08AF4 /* MainTabBarViewController.swift */; };
 		FA3F0EE72BDD25CA0034C6D4 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = FA3F0EE62BDD25CA0034C6D4 /* Tabman */; };
 		FA3F0EEC2BDD28DD0034C6D4 /* TravelPlanDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F0EEB2BDD28DD0034C6D4 /* TravelPlanDetailViewController.swift */; };
 		FA3F0EEE2BDD32430034C6D4 /* TravelPlanDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F0EED2BDD32430034C6D4 /* TravelPlanDetailViewModel.swift */; };
-		FA3F0EF12BDD39BE0034C6D4 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = FA3F0EF02BDD39BE0034C6D4 /* Realm */; };
-		FA3F0EF32BDD39BE0034C6D4 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FA3F0EF22BDD39BE0034C6D4 /* RealmSwift */; };
 		FA3F0EF62BDD39F20034C6D4 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F0EF52BDD39F20034C6D4 /* Repository.swift */; };
 		FA3F0EF82BDD45AD0034C6D4 /* TravelScheduleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F0EF72BDD45AD0034C6D4 /* TravelScheduleViewModel.swift */; };
 		FA3F0EFA2BDD46600034C6D4 /* TravelScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F0EF92BDD46600034C6D4 /* TravelScheduleTableViewCell.swift */; };
@@ -66,7 +64,7 @@
 		FA3F0F072BDD65080034C6D4 /* TravelPlanOverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F0F062BDD65080034C6D4 /* TravelPlanOverviewViewModel.swift */; };
 		FA3F0F0C2BDD6C0C0034C6D4 /* AddTravelPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F0F0B2BDD6C0C0034C6D4 /* AddTravelPlanViewController.swift */; };
 		FA3F0F0E2BDD6C3A0034C6D4 /* AddTravelPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F0F0D2BDD6C3A0034C6D4 /* AddTravelPlanViewModel.swift */; };
-		FA8A75F22BDE9055001942CD /* TravelPlanModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A75F12BDE9055001942CD /* TravelPlanModel.swift */; };
+		FA8A75F22BDE9055001942CD /* TravelPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A75F12BDE9055001942CD /* TravelPlan.swift */; };
 		FA9032E52BDD74D9002008D9 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9032E42BDD74D9002008D9 /* UIColor+Extension.swift */; };
 		FA9032F32BDE8197002008D9 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = FA9032F22BDE8197002008D9 /* FSCalendar */; };
 		FA90C1EA2BD69438002EDDEC /* NeuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90C1E92BD69438002EDDEC /* NeuView.swift */; };
@@ -89,8 +87,12 @@
 		FAB272FC2BE50A480011A500 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB272FB2BE50A480011A500 /* UIViewController+Extension.swift */; };
 		FAB272FE2BE516960011A500 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB272FD2BE516960011A500 /* UIView+Extension.swift */; };
 		FAB273002BE5186B0011A500 /* PlanCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB272FF2BE5186B0011A500 /* PlanCollectionViewCell.swift */; };
-		FAB273022BE52CAA0011A500 /* PlannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB273012BE52CAA0011A500 /* PlannerCollectionViewCell.swift */; };
 		FAB273052BE54D960011A500 /* Hero in Frameworks */ = {isa = PBXBuildFile; productRef = FAB273042BE54D960011A500 /* Hero */; };
+		FAB273132BE6518D0011A500 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FAB273122BE6518D0011A500 /* RealmSwift */; };
+		FAB273152BE65F9A0011A500 /* Encodable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB273142BE65F9A0011A500 /* Encodable+Extension.swift */; };
+		FAB273172BE65FAC0011A500 /* Decodable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB273162BE65FAC0011A500 /* Decodable+Extension.swift */; };
+		FAB2731C2BE78E160011A500 /* SearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB2731B2BE78E160011A500 /* SearchResultViewModel.swift */; };
+		FAB273212BE798A10011A500 /* PushBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB273202BE798A10011A500 /* PushBackViewController.swift */; };
 		FADC9CA02BD2511E00973357 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = FADC9C9F2BD2511E00973357 /* RxGesture */; };
 		FADC9CA22BD25EF400973357 /* ProfileQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADC9CA12BD25EF400973357 /* ProfileQuery.swift */; };
 		FAE788952BCF0DC300623467 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE788942BCF0DC300623467 /* ProfileViewModel.swift */; };
@@ -136,7 +138,7 @@
 		FA25AF2C2BCD990700B08AF4 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		FA25AF302BCD9BA300B08AF4 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		FA25AF322BCD9C5700B08AF4 /* SignUpQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpQuery.swift; sourceTree = "<group>"; };
-		FA25AF372BCDD0BA00B08AF4 /* OverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
+		FA25AF372BCDD0BA00B08AF4 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		FA25AF3C2BCDD15D00B08AF4 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		FA25AF412BCDD52900B08AF4 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		FA3F0EEB2BDD28DD0034C6D4 /* TravelPlanDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPlanDetailViewController.swift; sourceTree = "<group>"; };
@@ -151,7 +153,7 @@
 		FA3F0F062BDD65080034C6D4 /* TravelPlanOverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPlanOverviewViewModel.swift; sourceTree = "<group>"; };
 		FA3F0F0B2BDD6C0C0034C6D4 /* AddTravelPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTravelPlanViewController.swift; sourceTree = "<group>"; };
 		FA3F0F0D2BDD6C3A0034C6D4 /* AddTravelPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTravelPlanViewModel.swift; sourceTree = "<group>"; };
-		FA8A75F12BDE9055001942CD /* TravelPlanModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPlanModel.swift; sourceTree = "<group>"; };
+		FA8A75F12BDE9055001942CD /* TravelPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPlan.swift; sourceTree = "<group>"; };
 		FA9032E42BDD74D9002008D9 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		FA90C1E92BD69438002EDDEC /* NeuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuView.swift; sourceTree = "<group>"; };
 		FA90C2122BD7BEA1002EDDEC /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
@@ -172,7 +174,10 @@
 		FAB272FB2BE50A480011A500 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		FAB272FD2BE516960011A500 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		FAB272FF2BE5186B0011A500 /* PlanCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCollectionViewCell.swift; sourceTree = "<group>"; };
-		FAB273012BE52CAA0011A500 /* PlannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerCollectionViewCell.swift; sourceTree = "<group>"; };
+		FAB273142BE65F9A0011A500 /* Encodable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Extension.swift"; sourceTree = "<group>"; };
+		FAB273162BE65FAC0011A500 /* Decodable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decodable+Extension.swift"; sourceTree = "<group>"; };
+		FAB2731B2BE78E160011A500 /* SearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewModel.swift; sourceTree = "<group>"; };
+		FAB273202BE798A10011A500 /* PushBackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushBackViewController.swift; sourceTree = "<group>"; };
 		FADC9CA12BD25EF400973357 /* ProfileQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileQuery.swift; sourceTree = "<group>"; };
 		FAE788942BCF0DC300623467 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		FAF1C1082BD3F8C000E56291 /* OverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewModel.swift; sourceTree = "<group>"; };
@@ -184,6 +189,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAB273132BE6518D0011A500 /* RealmSwift in Frameworks */,
 				FA25AED42BC8A2F700B08AF4 /* RxSwift in Frameworks */,
 				FAB273052BE54D960011A500 /* Hero in Frameworks */,
 				FA3F0EE72BDD25CA0034C6D4 /* Tabman in Frameworks */,
@@ -192,9 +198,7 @@
 				FADC9CA02BD2511E00973357 /* RxGesture in Frameworks */,
 				FAB272E32BE266210011A500 /* IQKeyboardManagerSwift in Frameworks */,
 				FA25AEC72BC8A2E100B08AF4 /* SnapKit in Frameworks */,
-				FA3F0EF12BDD39BE0034C6D4 /* Realm in Frameworks */,
 				FA25AED22BC8A2F700B08AF4 /* RxCocoa in Frameworks */,
-				FA3F0EF32BDD39BE0034C6D4 /* RealmSwift in Frameworks */,
 				FA25AED72BC8A2FD00B08AF4 /* Toast in Frameworks */,
 				FA9032F32BDE8197002008D9 /* FSCalendar in Frameworks */,
 			);
@@ -270,7 +274,9 @@
 				FA25AEE62BC8A3B100B08AF4 /* Login */,
 				FA25AF212BCD85E700B08AF4 /* SignUp */,
 				FA25AF342BCDD08E00B08AF4 /* Overview */,
+				FAB273182BE78DC50011A500 /* Search */,
 				FAB272CB2BE141750011A500 /* PostDetail */,
+				FAB2731D2BE798360011A500 /* PushBackSchedule */,
 				FAB272D62BE24CA90011A500 /* Comment */,
 				FA25AF392BCDD13700B08AF4 /* Profile */,
 				FAE788992BCF210900623467 /* EditProfile */,
@@ -379,6 +385,8 @@
 				FAB272DF2BE257250011A500 /* String+Extension.swift */,
 				FAB272FB2BE50A480011A500 /* UIViewController+Extension.swift */,
 				FAB272FD2BE516960011A500 /* UIView+Extension.swift */,
+				FAB273142BE65F9A0011A500 /* Encodable+Extension.swift */,
+				FAB273162BE65FAC0011A500 /* Decodable+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -397,7 +405,6 @@
 			children = (
 				FAB273062BE54DA10011A500 /* Cell */,
 				FAB272F92BE509D40011A500 /* NewOverviewViewController.swift */,
-				FA25AF372BCDD0BA00B08AF4 /* OverviewViewController.swift */,
 				FA1F68C72BD5685D00644C5A /* AddPostViewController.swift */,
 			);
 			path = View;
@@ -602,7 +609,7 @@
 			isa = PBXGroup;
 			children = (
 				FA90C21E2BD93B56002EDDEC /* TravelScheduleModel.swift */,
-				FA8A75F12BDE9055001942CD /* TravelPlanModel.swift */,
+				FA8A75F12BDE9055001942CD /* TravelPlan.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -662,12 +669,52 @@
 		FAB273062BE54DA10011A500 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				FAF1C10A2BD3FBD400E56291 /* PostCollectionViewCell.swift */,
 				FAB272D42BE16FB10011A500 /* AddPhotoCollectionViewCell.swift */,
 				FAB272FF2BE5186B0011A500 /* PlanCollectionViewCell.swift */,
-				FAB273012BE52CAA0011A500 /* PlannerCollectionViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		FAB273182BE78DC50011A500 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				FAB2731A2BE78DD30011A500 /* ViewModel */,
+				FAB273192BE78DD00011A500 /* View */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		FAB273192BE78DD00011A500 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FA25AF372BCDD0BA00B08AF4 /* SearchResultViewController.swift */,
+				FAF1C10A2BD3FBD400E56291 /* PostCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FAB2731A2BE78DD30011A500 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FAB2731B2BE78E160011A500 /* SearchResultViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FAB2731D2BE798360011A500 /* PushBackSchedule */ = {
+			isa = PBXGroup;
+			children = (
+				FAB2731E2BE798910011A500 /* View */,
+			);
+			path = PushBackSchedule;
+			sourceTree = "<group>";
+		};
+		FAB2731E2BE798910011A500 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FAB273202BE798A10011A500 /* PushBackViewController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		FAE788992BCF210900623467 /* EditProfile */ = {
@@ -720,11 +767,10 @@
 				FADC9C9F2BD2511E00973357 /* RxGesture */,
 				FA08160E2BDBEF0000F69CBF /* Alamofire */,
 				FA3F0EE62BDD25CA0034C6D4 /* Tabman */,
-				FA3F0EF02BDD39BE0034C6D4 /* Realm */,
-				FA3F0EF22BDD39BE0034C6D4 /* RealmSwift */,
 				FA9032F22BDE8197002008D9 /* FSCalendar */,
 				FAB272E22BE266210011A500 /* IQKeyboardManagerSwift */,
 				FAB273042BE54D960011A500 /* Hero */,
+				FAB273122BE6518D0011A500 /* RealmSwift */,
 			);
 			productName = AdVoyager;
 			productReference = FA25AEAB2BC6D43700B08AF4 /* AdVoyager.app */;
@@ -762,10 +808,10 @@
 				FADC9C9E2BD2511E00973357 /* XCRemoteSwiftPackageReference "RxGesture" */,
 				FA08160D2BDBEF0000F69CBF /* XCRemoteSwiftPackageReference "Alamofire" */,
 				FA3F0EE52BDD25CA0034C6D4 /* XCRemoteSwiftPackageReference "Tabman" */,
-				FA3F0EEF2BDD39BE0034C6D4 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				FA9032F12BDE8197002008D9 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				FAB272E12BE266210011A500 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				FAB273032BE54D960011A500 /* XCRemoteSwiftPackageReference "Hero" */,
+				FAB273112BE6518D0011A500 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = FA25AEAC2BC6D43700B08AF4 /* Products */;
 			projectDirPath = "";
@@ -801,6 +847,7 @@
 				FA25AF312BCD9BA300B08AF4 /* Date+Extension.swift in Sources */,
 				FA1F68C82BD5685D00644C5A /* AddPostViewController.swift in Sources */,
 				FA3F0EFF2BDD566D0034C6D4 /* TravelPlanOverviewViewController.swift in Sources */,
+				FAB273212BE798A10011A500 /* PushBackViewController.swift in Sources */,
 				FA3F0EEE2BDD32430034C6D4 /* TravelPlanDetailViewModel.swift in Sources */,
 				FA25AEF92BC8A65500B08AF4 /* SignTextField.swift in Sources */,
 				FAB272D82BE24CBC0011A500 /* CommentViewController.swift in Sources */,
@@ -808,22 +855,23 @@
 				FAB272E02BE257250011A500 /* String+Extension.swift in Sources */,
 				FAE788952BCF0DC300623467 /* ProfileViewModel.swift in Sources */,
 				FA3F0EF62BDD39F20034C6D4 /* Repository.swift in Sources */,
-				FA8A75F22BDE9055001942CD /* TravelPlanModel.swift in Sources */,
+				FA8A75F22BDE9055001942CD /* TravelPlan.swift in Sources */,
 				FA3F0EFA2BDD46600034C6D4 /* TravelScheduleTableViewCell.swift in Sources */,
 				FAF1C10B2BD3FBD400E56291 /* PostCollectionViewCell.swift in Sources */,
 				FA3F0EF82BDD45AD0034C6D4 /* TravelScheduleViewModel.swift in Sources */,
 				FAB272FC2BE50A480011A500 /* UIViewController+Extension.swift in Sources */,
 				FADC9CA22BD25EF400973357 /* ProfileQuery.swift in Sources */,
 				FA25AEED2BC8A3E900B08AF4 /* ViewModelType.swift in Sources */,
+				FAB273152BE65F9A0011A500 /* Encodable+Extension.swift in Sources */,
 				FAF1C1092BD3F8C000E56291 /* OverviewViewModel.swift in Sources */,
 				FA0816112BDC01E900F69CBF /* AddNewTravelScheduleViewController.swift in Sources */,
 				FA90C21F2BD93B56002EDDEC /* TravelScheduleModel.swift in Sources */,
 				FA0D4F622BD138F000400D74 /* EditProfileViewModel.swift in Sources */,
 				FA9032E52BDD74D9002008D9 /* UIColor+Extension.swift in Sources */,
 				FA25AF002BC8A80200B08AF4 /* FilledButton.swift in Sources */,
-				FAB273022BE52CAA0011A500 /* PlannerCollectionViewCell.swift in Sources */,
+				FAB273172BE65FAC0011A500 /* Decodable+Extension.swift in Sources */,
 				FAB272FE2BE516960011A500 /* UIView+Extension.swift in Sources */,
-				FA25AF382BCDD0BA00B08AF4 /* OverviewViewController.swift in Sources */,
+				FA25AF382BCDD0BA00B08AF4 /* SearchResultViewController.swift in Sources */,
 				FAB272D32BE1470F0011A500 /* PostDetailViewModel.swift in Sources */,
 				FA3F0F032BDD580A0034C6D4 /* BaseTableViewCell.swift in Sources */,
 				FA25AEF62BC8A4A100B08AF4 /* LoginView.swift in Sources */,
@@ -851,6 +899,7 @@
 				FA25AEAF2BC6D43700B08AF4 /* AppDelegate.swift in Sources */,
 				FA0D4F602BD1370B00400D74 /* EditProfileViewController.swift in Sources */,
 				FA25AEE42BC8A32700B08AF4 /* Router.swift in Sources */,
+				FAB2731C2BE78E160011A500 /* SearchResultViewModel.swift in Sources */,
 				FA1F68CA2BD5699E00644C5A /* ContentTextView.swift in Sources */,
 				FAB272E52BE26B2D0011A500 /* CommentQuery.swift in Sources */,
 				FA90C2152BD7BEA7002EDDEC /* LaunchViewModel.swift in Sources */,
@@ -1149,14 +1198,6 @@
 				minimumVersion = 3.2.0;
 			};
 		};
-		FA3F0EEF2BDD39BE0034C6D4 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/realm-swift.git";
-			requirement = {
-				kind = exactVersion;
-				version = 10.49.2;
-			};
-		};
 		FA9032F12BDE8197002008D9 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
@@ -1179,6 +1220,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.6.3;
+			};
+		};
+		FAB273112BE6518D0011A500 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 10.50.0;
 			};
 		};
 		FADC9C9E2BD2511E00973357 /* XCRemoteSwiftPackageReference "RxGesture" */ = {
@@ -1227,16 +1276,6 @@
 			package = FA3F0EE52BDD25CA0034C6D4 /* XCRemoteSwiftPackageReference "Tabman" */;
 			productName = Tabman;
 		};
-		FA3F0EF02BDD39BE0034C6D4 /* Realm */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FA3F0EEF2BDD39BE0034C6D4 /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = Realm;
-		};
-		FA3F0EF22BDD39BE0034C6D4 /* RealmSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FA3F0EEF2BDD39BE0034C6D4 /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = RealmSwift;
-		};
 		FA9032F22BDE8197002008D9 /* FSCalendar */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FA9032F12BDE8197002008D9 /* XCRemoteSwiftPackageReference "FSCalendar" */;
@@ -1251,6 +1290,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FAB273032BE54D960011A500 /* XCRemoteSwiftPackageReference "Hero" */;
 			productName = Hero;
+		};
+		FAB273122BE6518D0011A500 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FAB273112BE6518D0011A500 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 		FADC9C9F2BD2511E00973357 /* RxGesture */ = {
 			isa = XCSwiftPackageProductDependency;

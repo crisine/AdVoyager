@@ -13,13 +13,19 @@ final class AddPostViewModel: ViewModelType {
     
     var disposeBag = DisposeBag()
     var dataSource: [UIImage] = []
+    private var travelPlan: TravelPlan?
+    private var travelSchedules: [TravelSchedule] = []
+    
+    private let repository = Repository()
     
     struct Input {
         let titleText: Observable<String>
         let contentText: Observable<String>
         let addPostButtonTapTrigger: Observable<Void>
+        let addTravelPlanButtonTapTrigger: Observable<Void>
         let cancelPostButtonTapTrigger: Observable<Void>
         let imageStream: Observable<UIImage>
+        let travelPlan: Observable<TravelPlan>
         let finishedAddingImageTrigger: Observable<Void>
     }
     
@@ -28,6 +34,7 @@ final class AddPostViewModel: ViewModelType {
         let postValidation: Driver<Bool>
         let canelPostUploadTrigger: Driver<Void>
         let dataSource: Driver<[UIImage]>
+        let storedTravelPlan: Driver<TravelPlan?>
     }
     
     func transform(input: Input) -> Output {
@@ -37,13 +44,20 @@ final class AddPostViewModel: ViewModelType {
         let cancelPostUploadTrigger = PublishRelay<Void>()
         let dataSource = PublishSubject<[UIImage]>()
         let uploadedImages = PublishSubject<[String]>()
+        let storedTravelPlan = PublishSubject<TravelPlan?>()
         
         let postObservable = Observable.combineLatest(
             input.titleText,
             input.contentText,
             uploadedImages
         ).map { title, content, files in
-            return UploadPostQuery(title: title, content: content, files: files)
+            let encodedTravelPlan = self.travelPlan?.convertToCodableModel().encodeToString()
+            
+            let encodedTravelSchedule = self.travelSchedules.map {
+                return $0.convertToCodableModel().encodeToString()
+            }.joined(separator: "`")
+            
+            return UploadPostQuery(title: title, content: content, content1: encodedTravelPlan, content2: encodedTravelSchedule, files: files)
         }
         
         postObservable
@@ -70,6 +84,12 @@ final class AddPostViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
+        input.addTravelPlanButtonTapTrigger
+            .subscribe(with: self) { owner, _ in
+                print("여행계획 갖다붙여~~")
+            }
+            .disposed(by: disposeBag)
+        
         input.cancelPostButtonTapTrigger
             .subscribe(with: self) { owner, _ in
                 cancelPostUploadTrigger.accept(())
@@ -81,6 +101,14 @@ final class AddPostViewModel: ViewModelType {
                 print("이미지 추가중")
                 owner.dataSource.append(selectedImage)
                 dataSource.onNext(owner.dataSource)
+            }
+            .disposed(by: disposeBag)
+        
+        input.travelPlan
+            .subscribe(with: self) { owner, travelPlan in
+                owner.travelPlan = travelPlan
+                owner.travelSchedules = Array(owner.repository.fetchSchedule(planId: travelPlan.id))
+                storedTravelPlan.onNext(travelPlan)
             }
             .disposed(by: disposeBag)
         
@@ -98,7 +126,8 @@ final class AddPostViewModel: ViewModelType {
         return Output(postUploadSuccessTrigger: postUploadSuccessTrigger.asDriver(onErrorJustReturn: ()),
                       postValidation: postValid.asDriver(),
                       canelPostUploadTrigger: cancelPostUploadTrigger.asDriver(onErrorJustReturn: ()),
-                      dataSource: dataSource.asDriver(onErrorJustReturn: []))
+                      dataSource: dataSource.asDriver(onErrorJustReturn: []),
+                      storedTravelPlan: storedTravelPlan.asDriver(onErrorJustReturn: nil))
     }
     
     func compressImages(dataSource: [UIImage]) -> [Data] {

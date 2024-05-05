@@ -8,7 +8,7 @@
 import RealmSwift
 import Foundation
 
-final class TravelPlanModel: Object, Identifiable {
+final class TravelPlan: Object, Identifiable {
     
     @Persisted(primaryKey: true) var id: ObjectId
     @Persisted var planTitle: String
@@ -21,4 +21,15 @@ final class TravelPlanModel: Object, Identifiable {
         self.firstDate = firstDate
         self.lastDate = lastDate
     }
+    
+    func convertToCodableModel() -> TravelPlanModel {
+        return TravelPlanModel(id: "", planTitle: self.planTitle, firstDate: self.firstDate, lastDate: self.lastDate)
+    }
+}
+
+struct TravelPlanModel: Codable {
+    var id: String
+    var planTitle: String
+    var firstDate: Date
+    var lastDate: Date
 }

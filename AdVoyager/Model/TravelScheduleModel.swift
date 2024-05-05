@@ -34,11 +34,22 @@ final class TravelSchedule: Object, Identifiable {
         self.latitude = latitude
         self.longitude = longitude
     }
+    
+    func convertToCodableModel() -> TravelScheduleModel {
+        return TravelScheduleModel(planId: "",
+                                   id: "",
+                                   order: self.order,
+                                   date: self.date,
+                                   scheduleTitle: self.scheduleTitle,
+                                   scheduleDescription: self.scheduleDescription ?? "",
+                                   latitude: self.latitude,
+                                   longitude: self.longitude)
+    }
 }
 
 struct TravelScheduleModel: Codable {
-    let planId: ObjectId
-    let id: ObjectId
+    let planId: String
+    let id: String
     let order: Int
     let date: Date
     let scheduleTitle: String

@@ -16,7 +16,8 @@ final class ProfileViewController: BaseViewController {
         view.layer.cornerRadius = 64
         view.layer.borderColor = UIColor.lightpurple.cgColor
         view.layer.borderWidth = 1
-        view.contentMode = .scaleAspectFill
+        view.tintColor = .lightpurple
+        view.contentMode = .scaleAspectFit
         return view
     }()
     private let nickNameLabel: UILabel = {
@@ -59,7 +60,7 @@ final class ProfileViewController: BaseViewController {
             .drive(with: self) { owner, profile in
                 guard let profile else { return }
                 
-                let imageURL = APIKey.baseURL.rawValue + "/" + profile.profileImage!
+                let imageURL = APIKey.baseURL.rawValue + "/" + (profile.profileImage ?? "")
                 
                 owner.profileImageView.kf.setImage(with: URL(string: imageURL), placeholder: UIImage(systemName: "person"), options: [.requestModifier(NetworkManager.kingfisherImageRequest)])
                 owner.nickNameLabel.text = profile.nick

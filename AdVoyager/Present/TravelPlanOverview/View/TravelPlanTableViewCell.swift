@@ -74,7 +74,7 @@ final class TravelPlanTableViewCell: BaseTableViewCell {
         thumbnailImageView.image = nil
     }
     
-    func updateCell(data: TravelPlanModel) {
+    func updateCell(data: TravelPlan) {
         planTitleLabel.text = data.planTitle
         planDateLabel.text = "\(data.firstDate.toString(format: "yy.MM.dd")) ~ \(data.lastDate.toString(format: "yy.MM.dd"))"
         thumbnailImageView.image = UIImage(systemName: "airplane.departure")

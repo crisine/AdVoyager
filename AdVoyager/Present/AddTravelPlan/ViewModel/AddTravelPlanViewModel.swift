@@ -79,7 +79,7 @@ final class AddTravelPlanViewModel: ViewModelType {
                                     )
                                     .map { planTitle, firstDate, lastDate in
                                         if let firstDate, let lastDate {
-                                            return TravelPlanModel(planTitle: planTitle, firstDate: firstDate, lastDate: lastDate)
+                                            return TravelPlan(planTitle: planTitle, firstDate: firstDate, lastDate: lastDate)
                                         } else {
                                             return nil
                                         }

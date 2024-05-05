@@ -16,6 +16,7 @@ final class EditProfileViewModel: ViewModelType {
     var profileInfo: ProfileModel!
     
     struct Input {
+        let viewDidLoadTrigger: Observable<Void>
         let profileImage: Observable<UIImage?>
         let nick: Observable<String>
         let phoneNum: Observable<String>
@@ -34,8 +35,7 @@ final class EditProfileViewModel: ViewModelType {
     
     func transform(input: Input) -> Output {
         
-        let profileModel = NetworkManager.fetchProfile()
-        let profileInfo = PublishRelay<ProfileModel?>()
+        let profileInfo = PublishSubject<ProfileModel?>()
         let editProfileImageTrigger = PublishRelay<Void>()
         let editProfileSuccessTrigger = PublishRelay<Void>()
         
@@ -57,10 +57,12 @@ final class EditProfileViewModel: ViewModelType {
                                     profile: self.profileImage)
         }
         
-        profileModel.asObservable()
+        input.viewDidLoadTrigger
+            .flatMap {
+                return NetworkManager.fetchProfile()
+            }
             .subscribe(with: self) { owner, profile in
-                print("profileinfo accepted")
-                profileInfo.accept(profile)
+                profileInfo.onNext(profile)
             }
             .disposed(by: disposeBag)
         

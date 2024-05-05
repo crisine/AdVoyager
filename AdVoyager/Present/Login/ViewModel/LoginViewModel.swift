@@ -24,6 +24,7 @@ final class LoginViewModel: ViewModelType {
         let loginValidation: Driver<Bool>
         let loginSuccessTrigger: Driver<Void>
         let signUpTrigger: Driver<Void>
+        let errorMessage: Driver<String>
     }
     
     func transform(input: Input) -> Output {
@@ -31,6 +32,7 @@ final class LoginViewModel: ViewModelType {
         let loginValid = BehaviorRelay(value: false)
         let loginSuccessTrigger = PublishRelay<Void>()
         let signUpTrigger = PublishRelay<Void>()
+        let errorMessage = PublishRelay<String>()
         
         let loginObservable = Observable.combineLatest(
             input.emailText,
@@ -56,13 +58,27 @@ final class LoginViewModel: ViewModelType {
             .withLatestFrom(loginObservable)
             .flatMap { loginQuery in
                 return NetworkManager.createLogin(query: loginQuery)
+                    .catch { error in 
+                        print("로그인 오류 발생: \(error.localizedDescription)")
+                        switch error.asAFError?.responseCode {
+                        case 400:
+                            errorMessage.accept("필수 로그인 필드를 채워주세요.")
+                        case 401:
+                            errorMessage.accept("미가입 된 계정이거나, 비밀번호가 불일치합니다.")
+                        default:
+                            errorMessage.accept("알 수 없는 오류가 발생했습니다.")
+                        }
+                        return Single.never()
+                    }
             }
+            .debug()
             .subscribe(with: self) { owner, loginModel in
+                guard loginModel.accessToken != "",
+                      loginModel.refreshToken != "" else { return }
+                
                 UserDefaults.standard.set(loginModel.accessToken, forKey: "accessToken")
                 UserDefaults.standard.set(loginModel.refreshToken, forKey: "refreshToken")
                 loginSuccessTrigger.accept(())
-            } onError: { owner, error in
-                print("로그인 오류 발생: \(error.localizedDescription)")
             }
             .disposed(by: disposeBag)
         
@@ -76,6 +92,7 @@ final class LoginViewModel: ViewModelType {
         return Output(
             loginValidation: loginValid.asDriver(),
             loginSuccessTrigger: loginSuccessTrigger.asDriver(onErrorJustReturn: ()),
-            signUpTrigger: signUpTrigger.asDriver(onErrorJustReturn: ()))
+            signUpTrigger: signUpTrigger.asDriver(onErrorJustReturn: ()),
+            errorMessage: errorMessage.asDriver(onErrorJustReturn: ""))
     }
 }

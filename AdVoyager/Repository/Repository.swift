@@ -12,9 +12,9 @@ final class Repository {
     
     private let realm = try! Realm()
     
-    func fetchTravelPlan() -> Results<TravelPlanModel> {
+    func fetchTravelPlan() -> Results<TravelPlan> {
         print(realm.configuration.fileURL)
-        return realm.objects(TravelPlanModel.self)
+        return realm.objects(TravelPlan.self)
     }
     
     func fetchSchedule(planId: ObjectId) -> Results<TravelSchedule> {
@@ -23,7 +23,7 @@ final class Repository {
         }
     }
     
-    func addTravelPlan(_ travelPlan: TravelPlanModel) {
+    func addTravelPlan(_ travelPlan: TravelPlan) {
         do {
             try realm.write {
                 realm.add(travelPlan)

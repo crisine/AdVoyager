@@ -74,6 +74,12 @@ final class LoginViewController: BaseViewController {
                 owner.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: disposeBag)
+        
+        output.errorMessage
+            .drive(with: self) { owner, errorMessage in
+                owner.showToast(message: errorMessage)
+            }
+            .disposed(by: disposeBag)
     }
     
     override func configureHierarchy() {

@@ -21,10 +21,9 @@ final class AddPostViewController: BaseViewController {
     private lazy var photoCollectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         view.register(AddPhotoCollectionViewCell.self, forCellWithReuseIdentifier: AddPhotoCollectionViewCell.identifier)
-        view.layer.borderColor = UIColor.lightGray.cgColor
-        view.layer.borderWidth = 1
         view.clipsToBounds = true
         view.layer.cornerRadius = 16
+        view.backgroundColor = .systemGray6
         return view
     }()
     private lazy var postTitleTextField: SignTextField = {
@@ -41,6 +40,7 @@ final class AddPostViewController: BaseViewController {
     
     private lazy var cancelPostBarButtonItem: UIBarButtonItem = {
         let item = UIBarButtonItem(title: "취소", style: .plain, target: self, action: nil)
+        item.tintColor = .red
         return item
     }()
     private lazy var addPostBarButtonItem: UIBarButtonItem = {
@@ -48,8 +48,26 @@ final class AddPostViewController: BaseViewController {
         return item
     }()
     
+    private let addTravelPlanButton: FilledButton = {
+        let view = FilledButton(image: UIImage(systemName: "checklist.unchecked"))
+        return view
+    }()
+    private let addedTravelPlanTitleLabel: UILabel = {
+        let view = UILabel()
+        view.font = .boldSystemFont(ofSize: 24)
+        return view
+    }()
+    private let travelPlanBackView: UIView = {
+        let view = UIView()
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 16
+        view.backgroundColor = .systemGray6
+        return view
+    }()
+    
     private let viewModel = AddPostViewModel()
     private let imageStream = PublishSubject<UIImage>()
+    private let travelPlan = PublishSubject<TravelPlan>()
     private let finishedAddingImageTrigger = PublishSubject<Void>()
     let postUploadSuccessTrigger = PublishRelay<Void>()
     
@@ -63,8 +81,10 @@ final class AddPostViewController: BaseViewController {
         let input = AddPostViewModel.Input(titleText: postTitleTextField.rx.text.orEmpty.asObservable(),
                                            contentText: contentTextView.rx.text.orEmpty.asObservable(),
                                            addPostButtonTapTrigger: addPostBarButtonItem.rx.tap.asObservable(),
+                                           addTravelPlanButtonTapTrigger: addTravelPlanButton.rx.tap.asObservable(),
                                            cancelPostButtonTapTrigger: cancelPostBarButtonItem.rx.tap.asObservable(),
                                            imageStream: imageStream.asObservable(),
+                                           travelPlan: travelPlan.asObservable(),
                                            finishedAddingImageTrigger: finishedAddingImageTrigger.asObservable())
         
         let output = viewModel.transform(input: input)
@@ -98,6 +118,13 @@ final class AddPostViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
+        output.storedTravelPlan
+            .drive(with: self) { owner, travelPlan in
+                guard let travelPlan else { return }
+                owner.addedTravelPlanTitleLabel.text = travelPlan.planTitle
+            }
+            .disposed(by: disposeBag)
+        
         addPhotoButton.rx.tap
             .asObservable()
             .subscribe(with: self) { owner, _ in
@@ -114,12 +141,34 @@ final class AddPostViewController: BaseViewController {
                 owner.present(picker, animated: true)
             }
             .disposed(by: disposeBag)
+        
+        addTravelPlanButton.rx.tap
+            .asObservable()
+            .subscribe(with: self) { owner, _ in
+                let vc = TravelPlanOverviewViewController()
+                vc.addPostMode = true
+                owner.present(vc, animated: true)
+                
+                vc.planSelectObservable
+                    .subscribe(with: self) { owner, travelPlan in
+                        owner.travelPlan.onNext(travelPlan)
+                    }
+                    .disposed(by: vc.disposeBag)
+            }
+            .disposed(by: disposeBag)
     }
     
     override func configureHierarchy() {
-        [addPhotoButton, photoCollectionView, postTitleTextField, contentTextView].forEach {
+        [addPhotoButton, 
+         photoCollectionView,
+         postTitleTextField,
+         contentTextView,
+         addTravelPlanButton,
+         travelPlanBackView].forEach {
             view.addSubview($0)
         }
+        
+        travelPlanBackView.addSubview(addedTravelPlanTitleLabel)
     }
     
     override func configureConstraints() {
@@ -137,8 +186,26 @@ final class AddPostViewController: BaseViewController {
             make.height.equalTo(addPhotoButton)
         }
         
-        postTitleTextField.snp.makeConstraints { make in
+        travelPlanBackView.snp.makeConstraints { make in
+            make.centerY.equalTo(addTravelPlanButton)
+            make.leading.equalTo(addTravelPlanButton.snp.trailing).offset(8)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-16)
+            make.height.equalTo(addTravelPlanButton)
+        }
+        
+        addedTravelPlanTitleLabel.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(16)
+        }
+        
+        addTravelPlanButton.snp.makeConstraints { make in
             make.top.equalTo(addPhotoButton.snp.bottom).offset(8)
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(16)
+            make.size.equalTo(64)
+        }
+        
+        postTitleTextField.snp.makeConstraints { make in
+            make.top.equalTo(addTravelPlanButton.snp.bottom).offset(8)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
             make.height.equalTo(48)
         }

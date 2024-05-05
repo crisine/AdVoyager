@@ -19,12 +19,18 @@ final class FilledButton: UIButton {
         setImage(image, for: .normal)
         tintColor = .white
         contentMode = .scaleAspectFill
-        backgroundColor = fillColor
+        
         clipsToBounds = true
         layer.cornerRadius = 16
         
+        if isEnabled {
+            backgroundColor = fillColor
+        } else {
+            backgroundColor = .gray
+        }
+        
         addTarget(self, action: #selector(touchDown(_:)), for: .touchDown)
-            addTarget(self, action: #selector(touchUpInside(_:)), for: .touchUpInside)
+        addTarget(self, action: #selector(touchUpInside(_:)), for: .touchUpInside)
     }
     
     @objc private func touchDown(_ sender: UIButton) {

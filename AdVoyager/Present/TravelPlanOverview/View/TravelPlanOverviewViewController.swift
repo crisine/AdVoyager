@@ -27,6 +27,9 @@ final class TravelPlanOverviewViewController: BaseViewController {
     
     private let viewModel = TravelPlanOverviewViewModel()
     private let dataReloadTrigger = PublishRelay<Void>()
+    lazy var planSelectObservable = travelPlanTableView.rx.modelSelected(TravelPlan.self)
+        .asObservable()
+    var addPostMode = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +39,7 @@ final class TravelPlanOverviewViewController: BaseViewController {
     override func bind() {
         let input =
         TravelPlanOverviewViewModel.Input(
-            travelPlan: travelPlanTableView.rx.modelSelected(TravelPlanModel.self).asObservable(),
+            travelPlan: travelPlanTableView.rx.modelSelected(TravelPlan.self).asObservable(),
             tableViewIndexPath: travelPlanTableView.rx.itemSelected.asObservable(),
             addTravelPlanButtonTap: addTravelPlanButton.rx.tap.asObservable(),
             dataReloadTrigger: dataReloadTrigger.asObservable())
@@ -46,6 +49,14 @@ final class TravelPlanOverviewViewController: BaseViewController {
         output.dataSource
             .drive(travelPlanTableView.rx.items(cellIdentifier: TravelPlanTableViewCell.identifier, cellType: TravelPlanTableViewCell.self)) { row, element, cell in
                 cell.updateCell(data: element)
+            }
+            .disposed(by: disposeBag)
+        
+        planSelectObservable
+            .subscribe(with: self) { owner, travelPlanModel in
+                if owner.addPostMode {
+                    owner.dismiss(animated: true)
+                }
             }
             .disposed(by: disposeBag)
         

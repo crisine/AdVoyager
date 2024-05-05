@@ -41,6 +41,19 @@ final class EditProfileViewController: BaseViewController {
         
         return view
     }()
+    
+    private let birthDayBackView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemGray6
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 16
+        return view
+    }()
+    private let birthDayPlaceholderLabel: UILabel = {
+        let view = UILabel()
+        view.text = "생년월일 선택"
+        return view
+    }()
     private let birthDayPicker: BirthdayDatePicker = {
         let view = BirthdayDatePicker()
         return view
@@ -51,23 +64,27 @@ final class EditProfileViewController: BaseViewController {
         return view
     }()
     
+    private let viewDidLoadTrigger = PublishSubject<Void>()
+    
     private let viewModel = EditProfileViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(#function)
+        viewDidLoadTrigger.onNext(())
     }
     
     override func bind() {
-        print(#function)
 
-        let input = EditProfileViewModel.Input(profileImage: profileImageView.rx.observe(UIImage.self, "image"),
-                                               nick: nickTextField.rx.text
-            .orEmpty.asObservable(), 
-                                               phoneNum: phoneNumTextField.rx.text.orEmpty.asObservable(), birthDay: birthDayPicker.rx.date.asObservable(),
-                                               profileImageViewTap: profileImageView.rx.tapGesture().asObservable(),
-                                               editProfileButtonTap: editProfileButton.rx.tap.asObservable())
+        let input = EditProfileViewModel.Input(
+            viewDidLoadTrigger: viewDidLoadTrigger.asObservable(),
+            profileImage: profileImageView.rx.observe(UIImage.self, "image"),
+            nick: nickTextField.rx.text
+            .orEmpty.asObservable(),
+            phoneNum: phoneNumTextField.rx.text.orEmpty.asObservable(), birthDay: birthDayPicker.rx.date.asObservable(),
+            profileImageViewTap: profileImageView.rx.tapGesture().asObservable(),
+            editProfileButtonTap: editProfileButton.rx.tap.asObservable()
+        )
         
         let output = viewModel.transform(input: input)
         
@@ -80,9 +97,9 @@ final class EditProfileViewController: BaseViewController {
                 let imageURL = APIKey.baseURL.rawValue + "/" + (profileInfo.profileImage ?? "")
                 
                 owner.profileImageView.kf.setImage(with: URL(string: imageURL), options: [.requestModifier(NetworkManager.kingfisherImageRequest)])
-                owner.emailTextField.rx.text.onNext(profileInfo.email)
-                owner.nickTextField.rx.text.onNext(profileInfo.nick)
-                owner.phoneNumTextField.rx.text.onNext(profileInfo.phoneNum)
+                owner.emailTextField.text = profileInfo.email
+                owner.nickTextField.text = profileInfo.nick
+                owner.phoneNumTextField.text = profileInfo.phoneNum
                 
                 guard let birthDay = profileInfo.birthDay else {
                     return
@@ -91,7 +108,7 @@ final class EditProfileViewController: BaseViewController {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyyMMdd"
                 
-                owner.birthDayPicker.rx.date.onNext(dateFormatter.date(from: birthDay)!)
+                owner.birthDayPicker.date = dateFormatter.date(from: birthDay)!
             }
             .disposed(by: disposeBag)
         
@@ -110,8 +127,17 @@ final class EditProfileViewController: BaseViewController {
     }
     
     override func configureHierarchy() {
-        [profileImageView, emailTextField, nickTextField, phoneNumTextField, birthDayPicker, editProfileButton].forEach {
+        [profileImageView,
+         emailTextField,
+         nickTextField,
+         phoneNumTextField,
+         birthDayBackView,
+         editProfileButton].forEach {
             view.addSubview($0)
+        }
+        
+        [birthDayPlaceholderLabel, birthDayPicker].forEach {
+            birthDayBackView.addSubview($0)
         }
     }
     
@@ -140,10 +166,21 @@ final class EditProfileViewController: BaseViewController {
             make.height.equalTo(emailTextField)
         }
         
-        birthDayPicker.snp.makeConstraints { make in
+        birthDayBackView.snp.makeConstraints { make in
             make.top.equalTo(phoneNumTextField.snp.bottom).offset(16)
             make.horizontalEdges.equalTo(emailTextField)
             make.height.equalTo(emailTextField)
+        }
+        
+        birthDayPlaceholderLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(birthDayBackView)
+            make.leading.equalTo(birthDayBackView.snp.leading).offset(16)
+            make.trailing.equalTo(birthDayPicker).offset(-8)
+        }
+        
+        birthDayPicker.snp.makeConstraints { make in
+            make.centerY.equalTo(birthDayBackView)
+            make.trailing.equalTo(birthDayBackView.snp.trailing).offset(-16)
         }
         
         editProfileButton.snp.makeConstraints { make in
