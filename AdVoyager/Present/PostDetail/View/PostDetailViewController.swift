@@ -72,6 +72,12 @@ final class PostDetailViewController: BaseViewController {
         view.isScrollEnabled = false
         return view
     }()
+    private let createdAtLabel: UILabel = {
+        let view = UILabel()
+        view.font = .systemFont(ofSize: 13)
+        view.textColor = .systemGray
+        return view
+    }()
     
     private let postSeparatorLineView: UIView = {
         let view = UIView()
@@ -212,6 +218,7 @@ final class PostDetailViewController: BaseViewController {
          imageCollectionView,
          postTitleLabel,
          postDescriptionTextView,
+         createdAtLabel,
          postSeparatorLineView,
          downloadTravelPlanButton,
          commentSeparatorLineView,
@@ -265,12 +272,18 @@ final class PostDetailViewController: BaseViewController {
         
         postDescriptionTextView.snp.makeConstraints { make in
             make.top.equalTo(postTitleLabel.snp.bottom).offset(8)
-            make.leading.equalTo(postContentView.snp.leading).offset(16)
-            make.trailing.equalTo(postContentView.snp.trailing).inset(16)
+            make.horizontalEdges.equalTo(postContentView).inset(16)
+//            make.leading.equalTo(postContentView.snp.leading).offset(16)
+//            make.trailing.equalTo(postContentView.snp.trailing).inset(16)
+        }
+        
+        createdAtLabel.snp.makeConstraints { make in
+            make.top.equalTo(postDescriptionTextView.snp.bottom).offset(8)
+            make.horizontalEdges.equalTo(postContentView).inset(16)
         }
         
         postSeparatorLineView.snp.makeConstraints { make in
-            make.top.equalTo(postDescriptionTextView.snp.bottom).offset(16)
+            make.top.equalTo(createdAtLabel.snp.bottom).offset(16)
             make.horizontalEdges.equalTo(postContentView).inset(16)
             make.height.equalTo(2)
         }
@@ -302,10 +315,11 @@ final class PostDetailViewController: BaseViewController {
     }
     
     override func configureView() {
-        postTitleLabel.text = post?.title
-        postDescriptionTextView.text = post?.content
+        postTitleLabel.text = post?.title?.isEmpty == true ? "제목 없음" : post!.title
+        postDescriptionTextView.text = post?.content?.isEmpty == true ? "내용 없음" : post!.content
         creatorNicknameLabel.text = post?.creator.nick
         showCommentButton.setTitle("\(post?.comments.count ?? 0)개의 댓글", for: .normal)
+        createdAtLabel.text = post?.createdAt.toDate()?.toString(format: "yyyy-MM-dd HH:mm:ss")
         
         let baseUrl = APIKey.baseURL.rawValue + "/"
         

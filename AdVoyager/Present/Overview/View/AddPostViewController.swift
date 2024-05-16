@@ -247,25 +247,30 @@ extension AddPostViewController: PHPickerViewControllerDelegate {
             if itemProvider.canLoadObject(ofClass: UIImage.self) {
                 group.enter()
                 itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
-                    defer { group.leave() }
+                    defer { print("\(index)번째 이미지 추가 leave"); group.leave() }
                     
                     if let image = image as? UIImage {
-                        DispatchQueue.main.async {
+                        DispatchQueue.global().async {
+                            print("이미지 스트림으로 이미지 전송")
                             self?.imageStream.onNext(image)
                         }
                     }
                     
                     if let error = error {
-                        print("이미지를 불러오는데 문제가 발생했습니다.")
+                        print("이미지를 불러오는데 문제가 발생했습니다. \(error)")
                     }
                 }
+            } else {
+                showToast(message: "불러올 수 없는 이미지가 포함되어 있습니다.")
+                break
             }
         }
         
-        group.notify(queue: .main) {
+        group.notify(queue: .global()) {
             group.wait()
             self.finishedAddingImageTrigger.onNext(())
-            picker.dismiss(animated: true)
         }
+        
+        picker.dismiss(animated: true)
     }
 }

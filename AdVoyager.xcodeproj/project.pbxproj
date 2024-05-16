@@ -1070,6 +1070,7 @@
 				DEVELOPMENT_TEAM = JJS82CC46U;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AdVoyager/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "성민호";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1103,6 +1104,7 @@
 				DEVELOPMENT_TEAM = JJS82CC46U;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AdVoyager/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "성민호";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

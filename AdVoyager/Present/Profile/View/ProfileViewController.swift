@@ -17,7 +17,7 @@ final class ProfileViewController: BaseViewController {
         view.layer.borderColor = UIColor.lightpurple.cgColor
         view.layer.borderWidth = 1
         view.tintColor = .lightpurple
-        view.contentMode = .scaleAspectFit
+        view.contentMode = .scaleAspectFill
         return view
     }()
     private let nickNameLabel: UILabel = {

@@ -14,7 +14,7 @@ final class OverviewViewModel: ViewModelType {
     var disposeBag = DisposeBag()
     private var normalDataSource: [Post] = []
     private var hashtagDataSource: [Post] = []
-    private var productId = "advoyager"
+    private var productId = ""
     private var limit = 10
     
     private var planNextCursor = ""
